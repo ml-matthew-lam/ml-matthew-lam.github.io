@@ -51,7 +51,42 @@
           <table style="width:100%;border:0px;border-spacing:0px 10px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
 
 
+<tr onmouseout="fashion_stop()" onmouseover="fashion_start()">
+  <td style="padding:16px;width:20%;vertical-align:middle">
+    <div class="one">
+      <div class="two" id='fashion_image'><video  width=100% muted autoplay loop>
+      <source src="images/fashion.png" type="video/mp4">
+      Your browser does not support the video tag.
+      </video></div>
+      <img src='images/fashion.png' width=100%>
+    </div>
+    <script type="text/javascript">
+      function fashion_start() {
+        document.getElementById('fashion_image').style.opacity = "1";
+      }
 
+      function fashion_stop() {
+        document.getElementById('fashion_image').style.opacity = "0";
+      }
+      fashion_stop()
+    </script>
+  </td>
+  <td style="padding:8px;width:80%;vertical-align:middle">
+    <a href="https://github.com/ml-matthew-lam/fashion_classification.git">
+      <span class="papertitle">Convolutional Neural Network for Fashion-MNIST Classification
+</span>
+    </a>
+    <br>
+    Personal project
+    <br>
+    Jun. 2025
+    <br>
+    <a href="https://github.com/ml-matthew-lam/fashion_classification.git">GitHub</a>
+    <p></p>
+    This is was my first computer vision project as well as my first ML project. It consists of a convolutional neural network that classifies images of clothing items. It is trained on the Fashion-MNIST dataset.
+    <p>  
+  </td>
+</tr>    
 
 
 <tr onmouseout="bridge_stop()" onmouseover="bridge_start()">
