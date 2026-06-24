@@ -57,44 +57,79 @@
 
 
 
-            
+<tr onmouseout="interpolation_stop()" onmouseover="interpolation_start()">
+  <td style="padding:16px;width:20%;vertical-align:middle">
+    <div class="one">
+      <div class="two" id='interpolation_image'><video  width=100% muted autoplay loop>
+      <source src="images/interpolation.png" type="video/mp4">
+      Your browser does not support the video tag.
+      </video></div>
+      <img src='images/interpolation.png' width=100%>
+    </div>
+    <script type="text/javascript">
+      function interpolation_start() {
+        document.getElementById('interpolation_image').style.opacity = "1";
+      }
 
-    <tr onmouseout="dissonance_stop()" onmouseover="dissonance_start()">
-      <td style="padding:16px;width:20%;vertical-align:middle">
-        <div class="one">
-          <div class="two" id='dissonance_image'><video  width=100% muted autoplay loop>
-          <source src="images/dissonance.png" type="video/mp4">
-          Your browser does not support the video tag.
-          </video></div>
-          <img src='images/dissonance.png' width=100%>
-        </div>
-        <script type="text/javascript">
-          function dissonance_start() {
-            document.getElementById('dissonance_image').style.opacity = "1";
-          }
-
-          function dissonance_stop() {
-            document.getElementById('dissonance_image').style.opacity = "0";
-          }
-          dissonance_stop()
-        </script>
-      </td>
-      <td style="padding:8px;width:80%;vertical-align:middle">
-        <a href="https://github.com/ml-matthew-lam/dissonance_of_musical_intervals/blob/main/detailed_overview.pdf">
-          <span class="papertitle">Modeling Sensory Dissonance of Musical Intervals
+      function interpolation_stop() {
+        document.getElementById('interpolation_image').style.opacity = "0";
+      }
+      interpolation_stop()
+    </script>
+  </td>
+  <td style="padding:8px;width:80%;vertical-align:middle">
+    <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">
+      <span class="papertitle">Comparison of Interpolation Methods for Image Resizing
 </span>
-        </a>
-        <br>
-				Personal project
-        <br>
-        Feb. 2024 - Sep. 2024
-        <br>
-        <a href="https://github.com/ml-matthew-lam/dissonance_of_musical_intervals/blob/main/detailed_overview.pdf">Detailed project overview</a>
-        <p></p>
-        Exploration of models of musical consonance based on frequency ratio, beating & roughness, including William Sethares’s model from Tuning, Timbre, Spectrum, Scale (1999). Illustration of a model using FFT in MATLAB to compute frequency spectra of my own recording.
-        </p>
-      </td>
-    </tr>
+    </a>
+    <br>
+    Personal project / International Baccalaureate Mathematics Exploration
+    <br>
+    Sep. 2024 - Jan. 2025
+    <br>
+    <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">Full project report</a>
+    <p></p>
+    Comparison of nearest-neighbor, bilinear, bicubic and bicubic spline interpolation methods for image resizing. I applied these interpolation methods to an image in MATLAB & compared results visually & with mean squared error. Note: this report was originally written in French, then translated to English. 
+    </p>
+  </td>
+</tr>            
+
+<tr onmouseout="dissonance_stop()" onmouseover="dissonance_start()">
+  <td style="padding:16px;width:20%;vertical-align:middle">
+    <div class="one">
+      <div class="two" id='dissonance_image'><video  width=100% muted autoplay loop>
+      <source src="images/dissonance.png" type="video/mp4">
+      Your browser does not support the video tag.
+      </video></div>
+      <img src='images/dissonance.png' width=100%>
+    </div>
+    <script type="text/javascript">
+      function dissonance_start() {
+        document.getElementById('dissonance_image').style.opacity = "1";
+      }
+
+      function dissonance_stop() {
+        document.getElementById('dissonance_image').style.opacity = "0";
+      }
+      dissonance_stop()
+    </script>
+  </td>
+  <td style="padding:8px;width:80%;vertical-align:middle">
+    <a href="https://github.com/ml-matthew-lam/dissonance_of_musical_intervals/blob/main/detailed_overview.pdf">
+      <span class="papertitle">Modeling Sensory Dissonance of Musical Intervals
+</span>
+    </a>
+    <br>
+    Personal project / International Baccalaureate (IB) Extened Essay
+    <br>
+    Feb. 2024 - Sep. 2024
+    <br>
+    <a href="https://github.com/ml-matthew-lam/dissonance_of_musical_intervals/blob/main/detailed_overview.pdf">Detailed project overview</a>
+    <p></p>
+    Exploration of models of musical consonance based on frequency ratio, beating & roughness, including William Sethares’s model from Tuning, Timbre, Spectrum, Scale (1999). Illustration of a model using FFT in MATLAB to compute frequency spectra of my own recording. This project was adapted from my International Baacalaureate (IB) Extended Essay.
+    </p>
+  </td>
+</tr>
 
 
 
