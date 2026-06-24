@@ -54,7 +54,42 @@
 
 
 
+<tr onmouseout="bridge_stop()" onmouseover="bridge_start()">
+  <td style="padding:16px;width:20%;vertical-align:middle">
+    <div class="one">
+      <div class="two" id='bridge_image'><video  width=100% muted autoplay loop>
+      <source src="images/bridge.png" type="video/mp4">
+      Your browser does not support the video tag.
+      </video></div>
+      <img src='images/bridge.png' width=100%>
+    </div>
+    <script type="text/javascript">
+      function bridge_start() {
+        document.getElementById('bridge_image').style.opacity = "1";
+      }
 
+      function bridge_stop() {
+        document.getElementById('bridge_image').style.opacity = "0";
+      }
+      bridge_stop()
+    </script>
+  </td>
+  <td style="padding:8px;width:80%;vertical-align:middle">
+    <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">
+      <span class="papertitle">Matboard Beam Bridge Design Project
+</span>
+    </a>
+    <br>
+    Team project with Jeffrey Zhu and Riley Ellison / CIV102 Course Project
+    <br>
+    Nov. 2025
+    <br>
+    <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">Project overview</a> / <a href="https://github.com/jeffrey500/CivBridge.git">GitHub</a>
+    <p></p>
+    Matboard beam bridge spanning 1200 mm and withstanding a 580 N load from a rolling toy train. We wrote a Python script to calculate factors of safety of our design, and predict how well our bridge would perform during testing.
+    </p>
+  </td>
+</tr>    
 
 <tr onmouseout="electrolysis_stop()" onmouseover="electrolysis_start()">
   <td style="padding:16px;width:20%;vertical-align:middle">
