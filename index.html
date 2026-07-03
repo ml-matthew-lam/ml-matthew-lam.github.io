@@ -128,7 +128,10 @@
         }
         
         .profile-photo {
-          max-width: 200px;
+          max-width: 100%; /* Overrides the 250px limit, allowing it to expand */
+          width: 100%;     /* Forces it to fill the column exactly like the text */
+          margin-left: 0;  /* Resets any negative margins from the previous step */
+          border-radius: 10%; /* Keeps the curved edges from your desktop view */
         }
 
         /* MOBILE IMAGE FIX: Keep the static image visible to maintain the shape, 
