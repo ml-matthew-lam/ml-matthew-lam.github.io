@@ -107,7 +107,7 @@ h2 {
 }
 
 .name {
-  padding-top: 0px;
+  padding-top: -10px;
   margin: 0;
   font-family: 'DM Serif Display', Georgia, serif;
   font-size: 48px;
