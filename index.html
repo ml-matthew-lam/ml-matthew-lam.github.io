@@ -13,7 +13,6 @@
       body {
         margin: 0;
         padding: 0;
-        /* Removed font-family: inherit; so it uses your stylesheet.css */
       }
 
       .container {
@@ -36,11 +35,12 @@
         display: flex;
         flex-wrap: wrap;
         align-items: center;
-        padding: 20px 0;
+        /* REDUCED PADDING: Changed from 20px 0 to 10px 0 */
+        padding: 10px 0; 
         border-bottom: 1px solid lightgrey;
       }
 
-      /* Columns - ensuring they inherit typography that used to be on <td> */
+      /* Columns */
       .col-profile-img {
         flex: 0 0 35%;
         padding: 10px;
@@ -63,7 +63,8 @@
 
       .col-project-text {
         flex: 0 0 75%;
-        padding: 10px 20px;
+        /* REDUCED PADDING: Changed top/bottom to 5px */
+        padding: 5px 20px; 
         box-sizing: border-box;
         font-size: inherit;
         line-height: inherit;
@@ -130,12 +131,10 @@
           max-width: 200px;
         }
 
+        /* MOBILE IMAGE FIX: Keep the static image visible to maintain the shape, 
+           and let the video sit transparently on top (or visible if it plays). */
         .project-media video {
           opacity: 1; 
-          position: relative;
-        }
-        .project-media img {
-          display: none; 
         }
       }
     </style>
@@ -228,7 +227,7 @@
         </div>
         <div class="col-project-text">
           <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing">
-            <span class="papertitle">Effect of Increasing Ionic Concentration on the Rate of Water Electrolysis</span>
+            <span class="papertitle">Rate of Water Electrolysis versus Ionic Concentration Experiment</span>
           </a>
           <br>
           Personal project / International Baccalaureate (IB) Chemistry Exploration
