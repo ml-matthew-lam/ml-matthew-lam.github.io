@@ -82,25 +82,25 @@ th,
 tr,
 p,
 a {
-  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
   line-height: 1.6;
 }
 
 strong {
-  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 14px;
 }
 
 h2 {
   margin: 0;
   font-weight: bold;
-  font-family: 'PT Serif', Georgia, serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 22px;
 }
 
 .papertitle {
-  font-family: 'PT Serif', Georgia, serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   font-size: 18px;
   font-weight: 700;
 }
