@@ -13,7 +13,7 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: inherit; /* Inherits from your stylesheet.css */
+        /* Removed font-family: inherit; so it uses your stylesheet.css */
       }
 
       .container {
@@ -40,7 +40,7 @@
         border-bottom: 1px solid lightgrey;
       }
 
-      /* Columns */
+      /* Columns - ensuring they inherit typography that used to be on <td> */
       .col-profile-img {
         flex: 0 0 35%;
         padding: 10px;
@@ -51,6 +51,7 @@
         flex: 0 0 65%;
         padding: 10px 20px;
         box-sizing: border-box;
+        font-size: inherit; 
       }
 
       .col-project-img {
@@ -64,6 +65,8 @@
         flex: 0 0 75%;
         padding: 10px 20px;
         box-sizing: border-box;
+        font-size: inherit;
+        line-height: inherit;
       }
 
       /* Images & Video */
@@ -89,7 +92,7 @@
         border-radius: 12px;
       }
 
-      /* CSS-based Hover Effect (Replaces Javascript) */
+      /* CSS-based Hover Effect */
       .project-media video {
         position: absolute;
         top: 0;
@@ -114,26 +117,25 @@
         .col-profile-text, 
         .col-project-img, 
         .col-project-text {
-          flex: 0 0 100%; /* Forces columns to stack vertically on small screens */
+          flex: 0 0 100%; 
           text-align: center;
           padding: 10px 0;
         }
 
         .col-profile-text, .col-project-text {
-          text-align: left; /* Keeps reading text aligned left for readability */
+          text-align: left; 
         }
         
         .profile-photo {
           max-width: 200px;
         }
 
-        /* On mobile, touch doesn't "hover". We make videos partially visible or rely on the user tapping */
         .project-media video {
-          opacity: 1; /* Automatically show the video on mobile devices since hover is tricky */
+          opacity: 1; 
           position: relative;
         }
         .project-media img {
-          display: none; /* Hide static image on mobile to save space/confusion */
+          display: none; 
         }
       }
     </style>
