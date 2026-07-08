@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Matthew Lam</title>
+    <meta name="author" content="Matthew Lam">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    
+    <style>
+      /* --- MODERN RESPONSIVE LAYOUT --- */
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      /* Flexbox Rows */
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .project-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        /* REDUCED PADDING: Changed from 20px 0 to 10px 0 */
+        padding: 10px 0; 
+        border-bottom: 1px solid lightgrey;
+      }
+
+      /* Columns */
+      .col-profile-img {
+        flex: 0 0 35%;
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      .col-profile-text {
+        flex: 0 0 65%;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        font-size: inherit; 
+      }
+
+      .col-project-img {
+        flex: 0 0 25%;
+        padding: 10px;
+        box-sizing: border-box;
+        position: relative;
+      }
+
+      .col-project-text {
+        flex: 0 0 75%;
+        /* REDUCED PADDING: Changed top/bottom to 5px */
+        padding: 5px 20px; 
+        box-sizing: border-box;
+        font-size: inherit;
+        line-height: inherit;
+      }
+
+      /* Images & Video */
+      .profile-photo {
+        width: 100%;
+        max-width: 250px;
+        object-fit: cover;
+        border-radius: 10%;
+        display: block;
+        margin: 0 auto;
+      }
+
+      .project-media {
+        position: relative;
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .project-media img, .project-media video {
+        width: 100%;
+        display: block;
+        border-radius: 12px;
+      }
+
+      /* CSS-based Hover Effect */
+      .project-media video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      .project-media:hover video {
+        opacity: 1;
+      }
+
+      h2 {
+        border-bottom: 2px solid black;
+        padding-bottom: 10px;
+        margin-top: 40px;
+      }
+
+      /* --- MOBILE ADJUSTMENTS --- */
+      @media (max-width: 600px) {
+        .col-profile-img, 
+        .col-profile-text, 
+        .col-project-img, 
+        .col-project-text {
+          flex: 0 0 100%; 
+          text-align: center;
+          padding: 10px 0;
+        }
+
+        
+        .col-profile-text, .col-project-text {
+          text-align: left; 
+        }
+        
+        .profile-photo {
+          max-width: 100%; /* Overrides the 250px limit, allowing it to expand */
+          width: 100%;     /* Forces it to fill the column exactly like the text */
+          margin-left: 0;  /* Resets any negative margins from the previous step */
+          border-radius: 10%; /* Keeps the curved edges from your desktop view */
+        }
+
+        /* MOBILE IMAGE FIX: Keep the static image visible to maintain the shape, 
+           and let the video sit transparently on top (or visible if it plays). */
+        .project-media video {
+          opacity: 1; 
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      
+      <div class="row">
+        <div class="col-profile-img">
+          <a href="matthew_lam.jpg">
+            <img class="profile-photo" alt="profile photo" src="matthew_lam.jpg">
+          </a>
+        </div>
+        <div class="col-profile-text">
+          <p class="name" style="text-align: left; margin-top: 0px; margin-bottom: 10px; border-bottom: 2px solid black; padding-bottom: 5px;">
+            <b><i>Matthew Lam</i></b>
+          </p>
+          <p style="margin-top: 0px;">
+            I'm a second-year <a href="https://engsci.utoronto.ca/program/what-is-engsci/">Engineering Science</a> student at the University of Toronto. 
+            I'm interested in <strong>hardware/software co-design</strong> for <strong>computer vision</strong>, <strong>imaging</strong> and <strong>communication systems</strong>. 
+            I'm equally interested in <strong>electrochemistry</strong> and <strong>clean energy</strong>.
+            I'm also a member of the RF Communications subteam at the <a href="https://www.utat.ca/space-systems">University of Toronto Aerospace Team - Space Systems</a>.
+          </p>
+          <p>
+            <a href="mailto:ma.lam@mail.utoronto.ca">Email</a> &nbsp;/&nbsp;
+            <a href="https://drive.google.com/file/d/1SXAs52rXhSYmBC0NqRWkNdx8EkJWNu3U/view?usp=sharing">CV</a> &nbsp;/&nbsp;
+            <a href="https://www.linkedin.com/in/ml-matthew-lam">LinkedIn</a> &nbsp;/&nbsp;
+            <a href="https://github.com/ml-matthew-lam/">GitHub</a>
+          </p>
+        </div>
+      </div>
+
+      <h2>Projects</h2>
+
+      <div class="project-row">
+        <div class="col-project-img">
+          <div class="project-media">
+            <img src="images/fashion.png" alt="Fashion MNIST">
+            <video muted autoplay loop playsinline>
+              <source src="images/fashion.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="col-project-text">
+          <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md">
+            <span class="papertitle">Convolutional Neural Network for Image Classification</span>
+          </a>
+          <br>
+          Personal project
+          <br>
+          Jun. 2026
+          <br>
+          <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md">GitHub</a>
+          <p>This was my first computer vision project as well as my first ML project. It consists of a convolutional neural network that classifies images of clothing items. It is trained on the Fashion-MNIST dataset.</p>
+        </div>
+      </div>    
+
+      <div class="project-row">
+        <div class="col-project-img">
+          <div class="project-media">
+            <img src="images/bridge.png" alt="Matboard Bridge">
+            <video muted autoplay loop playsinline>
+              <source src="images/bridge.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="col-project-text">
+          <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">
+            <span class="papertitle">Matboard Beam Bridge Design Project</span>
+          </a>
+          <br>
+          Team project with Jeffrey Zhu and Riley Ellison / CIV102 Course Project
+          <br>
+          Nov. 2025
+          <br>
+          <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">Project overview</a> / <a href="https://github.com/jeffrey500/CivBridge.git">GitHub</a>
+          <p>Matboard beam bridge spanning 1200 mm and withstanding a 580 N load from a rolling toy train. We wrote a Python script to calculate factors of safety of our design, and predict how well our bridge would perform during testing.</p>
+        </div>
+      </div>    
+
+      <div class="project-row">
+        <div class="col-project-img">
+          <div class="project-media">
+            <img src="images/electrolysis.png" alt="Electrolysis">
+            <video muted autoplay loop playsinline>
+              <source src="images/electrolysis.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="col-project-text">
+          <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing">
+            <span class="papertitle">Rate of Water Electrolysis versus Ionic Concentration</span>
+          </a>
+          <br>
+          Personal project / International Baccalaureate (IB) Chemistry Exploration
+          <br>
+          Nov. 2024 - Feb. 2025
+          <br>
+          <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing">Full project report</a>
+          <p>I designed and ran a water electrolysis experiment to determine the effect of varying NaOH concentration on rate of water electrolysis. I measured rate using electrical current and rate of H<sub>2</sub> production.</p>
+        </div>
+      </div>    
+
+      <div class="project-row">
+        <div class="col-project-img">
+          <div class="project-media">
+            <img src="images/interpolation.png" alt="Interpolation">
+            <video muted autoplay loop playsinline>
+              <source src="images/interpolation.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="col-project-text">
+          <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">
+            <span class="papertitle">Comparison of Interpolation Methods for Image Resizing</span>
+          </a>
+          <br>
+          Personal project / International Baccalaureate (IB) Mathematics Exploration
+          <br>
+          Sep. 2024 - Jan. 2025
+          <br>
+          <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">Full project report</a>
+          <p>Comparison of nearest-neighbor, bilinear, bicubic and bicubic spline interpolation methods for image resizing. I applied these methods to an image in MATLAB, then compared results visually and with mean squared error.</p>
+        </div>
+      </div>            
+
+      <div class="project-row">
+        <div class="col-project-img">
+          <div class="project-media">
+            <img src="images/dissonance.png" alt="Dissonance">
+            <video muted autoplay loop playsinline>
+              <source src="images/dissonance.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="col-project-text">
+          <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing">
+            <span class="papertitle">Modeling Sensory Dissonance of Musical Intervals</span>
+          </a>
+          <br>
+          Personal project / International Baccalaureate (IB) Extened Essay
+          <br>
+          Feb. 2024 - Sep. 2024
+          <br>
+          <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing">Detailed project overview</a>
+          <p>Exploration of models of musical consonance based on frequency ratio, beating and roughness, including <a href="https://link.springer.com/book/10.1007/b138848">William Sethares's model (1999)</a>. Illustration of the model using FFT in MATLAB to compute frequency spectra.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div style="width: 100%; text-align: center; font-size: small; margin-top: 40px;">
+          <p>This website is adapted from <a href="https://jonbarron.info/">Jon Barron</a>'s website (<a href="https://github.com/jonbarron/jonbarron_website">source code here</a>).</p>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
