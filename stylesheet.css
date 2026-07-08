@@ -94,6 +94,13 @@ strong {
   font-size: 14px;
 }
 
+h1 {
+  margin: 0;
+  font-weight: bold;
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 36px;
+}
+
 h2 {
   margin: 0;
   font-weight: bold;
