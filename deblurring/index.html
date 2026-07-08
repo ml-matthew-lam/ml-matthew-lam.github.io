@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deblurring Ablation Study | Project Showcase</title>
     <link rel="stylesheet" href="../stylesheet.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 
@@ -24,57 +26,24 @@
         </section>
 
         <section>
+            <h2>Background</h2>
+            <p>
+                $$ \mathrm{SCA}(\mathbf x) = \mathbf x * W\,\text{GAP}(\mathbf x) $$
+                $$ \mathrm {SimpleGate} (\mathbf x) = \mathbf x_1 \odot \mathbf x_2$$
+                $$\mathrm{GELU}(x) = x\Phi(x), \quad \text{where} \quad \Phi(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$$
+                $$ \mathrm{SSIM} = \frac {(2\mu_x \mu_y+c_1)(2\sigma_{xy}+c_2)} {(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)} $$
+
+            </p>
+        </section>
+
+        <section>
+            <h2>Design choices</h2>
+            <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
+        </section>
+
+        <section>
             <h2>Quantitative Results</h2>
             <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
-            
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Configuration</th>
-                            <th>Attention Mod.</th>
-                            <th>Residual Connections</th>
-                            <th>PSNR (dB) &uarr;</th>
-                            <th>SSIM &uarr;</th>
-                            <th>Params (M)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1. Baseline (UNet)</td>
-                            <td>&times;</td>
-                            <td>&times;</td>
-                            <td>28.42</td>
-                            <td>0.852</td>
-                            <td>11.4</td>
-                        </tr>
-                        <tr>
-                            <td>2. Baseline + ResBlocks</td>
-                            <td>&times;</td>
-                            <td>&checkmark;</td>
-                            <td>30.15</td>
-                            <td>0.914</td>
-                            <td>14.2</td>
-                        </tr>
-                        <tr>
-                            <td>3. Baseline + Attention</td>
-                            <td>&checkmark;</td>
-                            <td>&times;</td>
-                            <td>29.80</td>
-                            <td>0.899</td>
-                            <td>12.1</td>
-                        </tr>
-                        <tr>
-                            <td><strong>4. Full Proposed Model</strong></td>
-                            <td>&checkmark;</td>
-                            <td>&checkmark;</td>
-                            <td class="best-metric">31.64</td>
-                            <td class="best-metric">0.948</td>
-                            <td>15.5</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </section>
 
         <section>
