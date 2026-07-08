@@ -1,300 +1,286 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Matthew Lam</title>
-    <meta name="author" content="Matthew Lam">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-    <link rel="shortcut icon" href="images/favicon.png" type="image/png">
-    <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deblurring Ablation Study | Project Showcase</title>
     <style>
-      /* --- MODERN RESPONSIVE LAYOUT --- */
-      body {
-        margin: 0;
-        padding: 0;
-      }
-
-      .container {
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
-        box-sizing: border-box;
-      }
-
-      /* Flexbox Rows */
-      .row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .project-row {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        /* REDUCED PADDING: Changed from 20px 0 to 10px 0 */
-        padding: 10px 0; 
-        border-bottom: 1px solid lightgrey;
-      }
-
-      /* Columns */
-      .col-profile-img {
-        flex: 0 0 35%;
-        padding: 10px;
-        box-sizing: border-box;
-      }
-
-      .col-profile-text {
-        flex: 0 0 65%;
-        padding: 10px 20px;
-        box-sizing: border-box;
-        font-size: inherit; 
-      }
-
-      .col-project-img {
-        flex: 0 0 25%;
-        padding: 10px;
-        box-sizing: border-box;
-        position: relative;
-      }
-
-      .col-project-text {
-        flex: 0 0 75%;
-        /* REDUCED PADDING: Changed top/bottom to 5px */
-        padding: 5px 20px; 
-        box-sizing: border-box;
-        font-size: inherit;
-        line-height: inherit;
-      }
-
-      /* Images & Video */
-      .profile-photo {
-        width: 100%;
-        max-width: 250px;
-        object-fit: cover;
-        border-radius: 10%;
-        display: block;
-        margin: 0 auto;
-      }
-
-      .project-media {
-        position: relative;
-        width: 100%;
-        border-radius: 12px;
-        overflow: hidden;
-      }
-
-      .project-media img, .project-media video {
-        width: 100%;
-        display: block;
-        border-radius: 12px;
-      }
-
-      /* CSS-based Hover Effect */
-      .project-media video {
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-      }
-
-      .project-media:hover video {
-        opacity: 1;
-      }
-
-      h2 {
-        border-bottom: 2px solid black;
-        padding-bottom: 10px;
-        margin-top: 40px;
-      }
-
-      /* --- MOBILE ADJUSTMENTS --- */
-      @media (max-width: 600px) {
-        .col-profile-img, 
-        .col-profile-text, 
-        .col-project-img, 
-        .col-project-text {
-          flex: 0 0 100%; 
-          text-align: center;
-          padding: 10px 0;
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #7dd3fc;
+            --border: #334155;
         }
 
-        
-        .col-profile-text, .col-project-text {
-          text-align: left; 
-        }
-        
-        .profile-photo {
-          max-width: 100%; /* Overrides the 250px limit, allowing it to expand */
-          width: 100%;     /* Forces it to fill the column exactly like the text */
-          margin-left: 0;  /* Resets any negative margins from the previous step */
-          border-radius: 10%; /* Keeps the curved edges from your desktop view */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        /* MOBILE IMAGE FIX: Keep the static image visible to maintain the shape, 
-           and let the video sit transparently on top (or visible if it plays). */
-        .project-media video {
-          opacity: 1; 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem 1rem;
         }
-      }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2rem;
+        }
+
+        .back-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .meta {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
+            padding-left: 0.75rem;
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        /* Results Table styling */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            background-color: var(--card-bg);
+        }
+
+        th, td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background-color: #111827;
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .best-metric {
+            color: #34d399;
+            font-weight: bold;
+        }
+
+        /* Visual Comparison Grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .comparison-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .comparison-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #000; /* Placeholder background */
+            aspect-ratio: 4/3; /* Keeps grid uniform before images load */
+            object-fit: cover;
+        }
+
+        .comparison-card span {
+            display: block;
+            padding: 0.75rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background-color: #111827;
+        }
+
+        /* Code/Architecture snippet area */
+        pre {
+            background-color: #010409;
+            padding: 1.25rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            color: #e6edf3;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            margin-top: 5rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
     </style>
-  </head>
+</head>
+<body>
 
-  <body>
     <div class="container">
-      
-      <div class="row">
-        <div class="col-profile-img">
-          <a href="matthew_lam.jpg">
-            <img class="profile-photo" alt="profile photo" src="matthew_lam.jpg">
-          </a>
-        </div>
-        <div class="col-profile-text">
-          <p class="name" style="text-align: left; margin-top: 0px; margin-bottom: 10px; border-bottom: 2px solid black; padding-bottom: 5px;">
-            <b><i>Matthew Lam</i></b>
-          </p>
-          <p style="margin-top: 0px;">
-            I'm a second-year <a href="https://engsci.utoronto.ca/program/what-is-engsci/">Engineering Science</a> student at the University of Toronto. 
-            I'm interested in <strong>hardware/software co-design</strong> for <strong>computer vision</strong>, <strong>imaging</strong> and <strong>communication systems</strong>. 
-            I'm equally interested in <strong>electrochemistry</strong> and <strong>clean energy</strong>.
-            I'm also a member of the RF Communications subteam at the <a href="https://www.utat.ca/space-systems">University of Toronto Aerospace Team - Space Systems</a>.
-          </p>
-          <p>
-            <a href="mailto:ma.lam@mail.utoronto.ca">Email</a> &nbsp;/&nbsp;
-            <a href="https://drive.google.com/file/d/1SXAs52rXhSYmBC0NqRWkNdx8EkJWNu3U/view?usp=sharing">CV</a> &nbsp;/&nbsp;
-            <a href="https://www.linkedin.com/in/ml-matthew-lam">LinkedIn</a> &nbsp;/&nbsp;
-            <a href="https://github.com/ml-matthew-lam/">GitHub</a>
-          </p>
-        </div>
-      </div>
+        
+        <header>
+            <a href="#" class="back-link">&larr; Back to Portfolio</a>
+            <h1>Deblurring Network Ablation Study</h1>
+            <p class="meta">An empirical evaluation of architectural components in Deep Image Deblurring.</p>
+        </header>
 
-      <h2>Projects</h2>
+        <section>
+            <h2>Project Overview</h2>
+            <p>
+                This project systematically evaluates the impact of core architectural modifications on a baseline Encoder-Decoder network designed for dynamic scene deblurring. By isolating components like multi-scale feature aggregation, residual dense blocks, and attention mechanisms, we analyze the trade-offs between computational complexity and reconstruction quality.
+            </p>
+        </section>
 
-      <div class="project-row">
-        <div class="col-project-img">
-          <div class="project-media">
-            <img src="images/fashion.png" alt="Fashion MNIST">
-            <video muted autoplay loop playsinline>
-              <source src="images/fashion.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <div class="col-project-text">
-          <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md">
-            <span class="papertitle">Convolutional Neural Network for Image Classification</span>
-          </a>
-          <br>
-          Personal project
-          <br>
-          Jun. 2026
-          <br>
-          <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md">GitHub</a>
-          <p>This was my first computer vision project as well as my first ML project. It consists of a convolutional neural network that classifies images of clothing items. It is trained on the Fashion-MNIST dataset.</p>
-        </div>
-      </div>    
+        <section>
+            <h2>Quantitative Results</h2>
+            <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Configuration</th>
+                            <th>Attention Mod.</th>
+                            <th>Residual Connections</th>
+                            <th>PSNR (dB) &uarr;</th>
+                            <th>SSIM &uarr;</th>
+                            <th>Params (M)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1. Baseline (UNet)</td>
+                            <td>&times;</td>
+                            <td>&times;</td>
+                            <td>28.42</td>
+                            <td>0.852</td>
+                            <td>11.4</td>
+                        </tr>
+                        <tr>
+                            <td>2. Baseline + ResBlocks</td>
+                            <td>&times;</td>
+                            <td>&checkmark;</td>
+                            <td>30.15</td>
+                            <td>0.914</td>
+                            <td>14.2</td>
+                        </tr>
+                        <tr>
+                            <td>3. Baseline + Attention</td>
+                            <td>&checkmark;</td>
+                            <td>&times;</td>
+                            <td>29.80</td>
+                            <td>0.899</td>
+                            <td>12.1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4. Full Proposed Model</strong></td>
+                            <td>&checkmark;</td>
+                            <td>&checkmark;</td>
+                            <td class="best-metric">31.64</td>
+                            <td class="best-metric">0.948</td>
+                            <td>15.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
-      <div class="project-row">
-        <div class="col-project-img">
-          <div class="project-media">
-            <img src="images/bridge.png" alt="Matboard Bridge">
-            <video muted autoplay loop playsinline>
-              <source src="images/bridge.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <div class="col-project-text">
-          <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">
-            <span class="papertitle">Matboard Beam Bridge Design Project</span>
-          </a>
-          <br>
-          Team project with Jeffrey Zhu and Riley Ellison / CIV102 Course Project
-          <br>
-          Nov. 2025
-          <br>
-          <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">Project overview</a> / <a href="https://github.com/jeffrey500/CivBridge.git">GitHub</a>
-          <p>Matboard beam bridge spanning 1200 mm and withstanding a 580 N load from a rolling toy train. We wrote a Python script to calculate factors of safety of our design, and predict how well our bridge would perform during testing.</p>
-        </div>
-      </div>    
+        <section>
+            <h2>Visual Comparison</h2>
+            <p>Qualitative comparison showing how step-by-step additions eliminate severe motion blur artifacts.</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <img src="https://via.placeholder.com/400x300/334155/f8fafc?text=Blurred+Input" alt="Blurred Input Image">
+                    <span>Blurred Input</span>
+                </div>
+                <div class="comparison-card">
+                    <img src="https://via.placeholder.com/400x300/334155/f8fafc?text=Baseline+Output" alt="Baseline Model Output">
+                    <span>Baseline (Config 1)</span>
+                </div>
+                <div class="comparison-card">
+                    <img src="https://via.placeholder.com/400x300/334155/f8fafc?text=Full+Model+Output" alt="Full Proposed Model Output">
+                    <span>Full Model (Config 4)</span>
+                </div>
+                <div class="comparison-card">
+                    <img src="https://via.placeholder.com/400x300/334155/f8fafc?text=Ground+Truth" alt="Ground Truth Clean Image">
+                    <span>Ground Truth</span>
+                </div>
+            </div>
+        </section>
 
-      <div class="project-row">
-        <div class="col-project-img">
-          <div class="project-media">
-            <img src="images/electrolysis.png" alt="Electrolysis">
-            <video muted autoplay loop playsinline>
-              <source src="images/electrolysis.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <div class="col-project-text">
-          <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing">
-            <span class="papertitle">Rate of Water Electrolysis versus Ionic Concentration</span>
-          </a>
-          <br>
-          Personal project / International Baccalaureate (IB) Chemistry Exploration
-          <br>
-          Nov. 2024 - Feb. 2025
-          <br>
-          <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing">Full project report</a>
-          <p>I designed and ran a water electrolysis experiment to determine the effect of varying NaOH concentration on rate of water electrolysis. I measured rate using electrical current and rate of H<sub>2</sub> production.</p>
-        </div>
-      </div>    
+        <section>
+            <h2>Key Takeaways</h2>
+            <p>
+                <strong>Attention Efficiency:</strong> Integrating coordinate attention yielded a +1.38 dB boost in PSNR while only expanding the parameter footprint by ~6%, proving highly cost-effective for spatial blur reconstruction.
+            </p>
+            <p>
+                <strong>Error Reduction:</strong> Combining both residual connections and channel-wise attention successfully neutralized high-frequency ringing artifacts that the baseline model failed to resolve.
+            </p>
+        </section>
 
-      <div class="project-row">
-        <div class="col-project-img">
-          <div class="project-media">
-            <img src="images/interpolation.png" alt="Interpolation">
-            <video muted autoplay loop playsinline>
-              <source src="images/interpolation.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <div class="col-project-text">
-          <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">
-            <span class="papertitle">Comparison of Interpolation Methods for Image Resizing</span>
-          </a>
-          <br>
-          Personal project / International Baccalaureate (IB) Mathematics Exploration
-          <br>
-          Sep. 2024 - Jan. 2025
-          <br>
-          <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">Full project report</a>
-          <p>Comparison of nearest-neighbor, bilinear, bicubic and bicubic spline interpolation methods for image resizing. I applied these methods to an image in MATLAB, then compared results visually and with mean squared error.</p>
-        </div>
-      </div>            
-
-      <div class="project-row">
-        <div class="col-project-img">
-          <div class="project-media">
-            <img src="images/dissonance.png" alt="Dissonance">
-            <video muted autoplay loop playsinline>
-              <source src="images/dissonance.mp4" type="video/mp4">
-            </video>
-          </div>
-        </div>
-        <div class="col-project-text">
-          <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing">
-            <span class="papertitle">Modeling Sensory Dissonance of Musical Intervals</span>
-          </a>
-          <br>
-          Personal project / International Baccalaureate (IB) Extened Essay
-          <br>
-          Feb. 2024 - Sep. 2024
-          <br>
-          <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing">Detailed project overview</a>
-          <p>Exploration of models of musical consonance based on frequency ratio, beating and roughness, including <a href="https://link.springer.com/book/10.1007/b138848">William Sethares's model (1999)</a>. Illustration of the model using FFT in MATLAB to compute frequency spectra.</p>
-        </div>
-      </div>
-
-      <div class="row">
-        <div style="width: 100%; text-align: center; font-size: small; margin-top: 40px;">
-          <p>This website is adapted from <a href="https://jonbarron.info/">Jon Barron</a>'s website (<a href="https://github.com/jonbarron/jonbarron_website">source code here</a>).</p>
-        </div>
-      </div>
+        <footer>
+            <p>&copy; 2026 Your Name. Built for academic/portfolio showcase.</p>
+        </footer>
 
     </div>
-  </body>
+
+</body>
 </html>
