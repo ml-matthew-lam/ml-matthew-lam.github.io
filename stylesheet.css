@@ -323,3 +323,43 @@ and let the video sit transparently on top (or visible if it plays). */
 opacity: 1;
 }
 }
+
+
+/* -----------------------------------------
+   FEATURED PROJECTS (Desktop Default)
+   ----------------------------------------- */
+.featured-projects-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 4%;
+  padding: 25px 15px 0 15px;
+}
+
+.featured-project-item {
+  flex: 0 0 48%;
+  text-align: left;
+}
+
+/* -----------------------------------------
+   FEATURED PROJECTS (Mobile Override)
+   ----------------------------------------- */
+@media (max-width: 768px) {
+  .featured-projects-row {
+    flex-direction: column; /* Stack vertically */
+    gap: 0; /* Remove the 4% desktop gap */
+  }
+
+  .featured-project-item {
+    flex: 1 1 100%; /* Take up the full width */
+    border-bottom: 1px solid #d3d3d3; /* Light grey horizontal line */
+    padding-bottom: 25px; 
+    margin-bottom: 25px; 
+  }
+
+  /* Removes the line from the last project so it doesn't float emptily at the bottom */
+  .featured-project-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+}
