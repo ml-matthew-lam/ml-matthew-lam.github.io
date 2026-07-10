@@ -346,6 +346,7 @@ opacity: 1;
   .featured-projects-row {
     flex-direction: column; /* Stack vertically */
     gap: 0; /* Remove the 4% desktop gap */
+    padding: 25px 0 0 0;
   }
 
   .featured-project-item {
