@@ -15,7 +15,7 @@
         <header>
             <a href="../" class="back-link">&larr; Back Home</a>
             <h1>Deblurring U-Net + Ablation Study</h1>
-            <p class="meta">In this project, I designed a nonlinear-activation-free U-Net architecture ("Mini-NAFNet") motion deblurring. I then trained the network, achieving an average 27.2 PSNR and 0.832 SSIM on the GoPro_Large test set. I also tested the effect of replacing the SimpleGate operations with GELU over shorter training durations. The Mini-NAFNet outperformed the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), consistent with existing literature.</p>
+            <p class="meta">In this project, I designed a nonlinear-activation-free U-Net architecture ("Mini-NAFNet") for motion deblurring. I then trained the network, achieving an average 27.2 PSNR and 0.832 SSIM on the GoPro_Large test set. I also tested the effect of replacing the SimpleGate operations with GELU over shorter training durations. The Mini-NAFNet outperformed the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), consistent with literature.</p>
         </header>
 
         <section>
@@ -23,25 +23,27 @@
             <p>
                 $$ \mathrm {SimpleGate} (\mathbf x) = \mathbf x_1 \odot \mathbf x_2$$
                 $$\mathrm{GELU}(x) = x\Phi(x)$$
-                $$\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE}) $$
-                $$ \mathrm{SSIM} = \frac {(2\mu_x \mu_y+c_1)(2\sigma_{xy}+c_2)} {(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)} $$
+             
 
             </p>
         </section>
 
         <section>
             <h2>Achitecture Design</h2>
-            <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
+            <p>Put the updated diagram here, plus design choices.</p>
         </section>
 
         <section>
             <h2>Training</h2>
             <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
+            <p>$$ \mathrm{SSIM} = \frac {(2\mu_x \mu_y+c_1)(2\sigma_{xy}+c_2)} {(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)} $$</p>
+            <p>I used the loss function $$ \mathcal L = \alpha \mathcal L_1 + (1-alpha) \mathcal L_\mathrm{SSIM}</p>
         </section>
 
         <section>
             <h2>Results</h2>
-            <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
+            <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset.    $$\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE}) $$ Baseline represents a standard UNet architecture.</p>
+            
         </section>
 
         <section>
