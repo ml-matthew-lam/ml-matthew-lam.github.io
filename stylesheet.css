@@ -356,13 +356,6 @@ opacity: 1;
     margin-bottom: 25px; 
   }
 
-    /* Forces all featured project images to be the exact same size and nicely cropped */
-  .featured-project-item img {
-  width: 100% !important;
-  aspect-ratio: 4 / 3 !important; /* Forces a uniform rectangular shape */
-  object-fit: cover !important;   /* Crops the image to fit the box cleanly */
-  border-radius: 8px !important;  /* Brings back the rounded corners for both */
-}
   /* Removes the line from the last project so it doesn't float emptily at the bottom */
   .featured-project-item:last-child {
     border-bottom: none;
