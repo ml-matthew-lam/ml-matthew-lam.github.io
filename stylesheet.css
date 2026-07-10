@@ -358,12 +358,11 @@ opacity: 1;
 
     /* Forces all featured project images to be the exact same size and nicely cropped */
   .featured-project-item img {
-    width: 100%;
-    aspect-ratio: 16 / 9; /* Adjust these numbers if you want it taller or wider */
-    object-fit: cover;    /* This is the magic property that crops instead of stretching */
-    border-radius: 8px;
-  }
-
+  width: 100% !important;
+  aspect-ratio: 4 / 3 !important; /* Forces a uniform rectangular shape */
+  object-fit: cover !important;   /* Crops the image to fit the box cleanly */
+  border-radius: 8px !important;  /* Brings back the rounded corners for both */
+}
   /* Removes the line from the last project so it doesn't float emptily at the bottom */
   .featured-project-item:last-child {
     border-bottom: none;
