@@ -14,69 +14,40 @@
         
         <header>
             <a href="../" class="back-link">&larr; Back Home</a>
-            <h1>Deblurring Network Ablation Study</h1>
-            <p class="meta">An empirical evaluation of architectural components in Deep Image Deblurring.</p>
+            <h1>Deblurring U-Net + Ablation Study</h1>
+            <p class="meta">In this project, I designed a nonlinear-activation-free U-Net architecture ("Mini-NAFNet") motion deblurring. I then trained the network, achieving an average 27.2 PSNR and 0.832 SSIM on the GoPro_Large test set. I also tested the effect of replacing the SimpleGate operations with GELU over shorter training durations. The Mini-NAFNet outperformed the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), consistent with existing literature.</p>
         </header>
-
-        <section>
-            <h2>Project Overview</h2>
-            <p>
-                This project systematically evaluates the impact of core architectural modifications on a baseline Encoder-Decoder network designed for dynamic scene deblurring. By isolating components like multi-scale feature aggregation, residual dense blocks, and attention mechanisms, we analyze the trade-offs between computational complexity and reconstruction quality.
-            </p>
-        </section>
 
         <section>
             <h2>Background</h2>
             <p>
-                $$ \mathrm{SCA}(\mathbf x) = \mathbf x * W\,\text{GAP}(\mathbf x) $$
                 $$ \mathrm {SimpleGate} (\mathbf x) = \mathbf x_1 \odot \mathbf x_2$$
-                $$\mathrm{GELU}(x) = x\Phi(x), \quad \text{where} \quad \Phi(x) = \int_{-\infty}^x \frac{1}{\sqrt{2\pi}} e^{-x^2/2}$$
+                $$\mathrm{GELU}(x) = x\Phi(x)$$
+                $$\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE}) $$
                 $$ \mathrm{SSIM} = \frac {(2\mu_x \mu_y+c_1)(2\sigma_{xy}+c_2)} {(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)} $$
 
             </p>
         </section>
 
         <section>
-            <h2>Design choices</h2>
+            <h2>Achitecture Design</h2>
             <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
         </section>
 
         <section>
-            <h2>Quantitative Results</h2>
+            <h2>Training</h2>
             <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
         </section>
 
         <section>
-            <h2>Visual Comparison</h2>
-            <p>Qualitative comparison showing how step-by-step additions eliminate severe motion blur artifacts.</p>
-            
-            <div class="comparison-grid">
-                <div class="comparison-card">
-                    <img src="https://via.placeholder.com/400x300/334155/f8fafc?text=Blurred+Input" alt="Blurred Input Image">
-                    <span>Blurred Input</span>
-                </div>
-                <div class="comparison-card">
-                    <img src="https://via.placeholder.com/400x300/334155/f8fafc?text=Baseline+Output" alt="Baseline Model Output">
-                    <span>Baseline (Config 1)</span>
-                </div>
-                <div class="comparison-card">
-                    <img src="https://via.placeholder.com/400x300/334155/f8fafc?text=Full+Model+Output" alt="Full Proposed Model Output">
-                    <span>Full Model (Config 4)</span>
-                </div>
-                <div class="comparison-card">
-                    <img src="https://via.placeholder.com/400x300/334155/f8fafc?text=Ground+Truth" alt="Ground Truth Clean Image">
-                    <span>Ground Truth</span>
-                </div>
-            </div>
+            <h2>Results</h2>
+            <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
         </section>
 
         <section>
-            <h2>Key Takeaways</h2>
+            <h2>Takeaways</h2>
             <p>
                 <strong>Attention Efficiency:</strong> Integrating coordinate attention yielded a +1.38 dB boost in PSNR while only expanding the parameter footprint by ~6%, proving highly cost-effective for spatial blur reconstruction.
-            </p>
-            <p>
-                <strong>Error Reduction:</strong> Combining both residual connections and channel-wise attention successfully neutralized high-frequency ringing artifacts that the baseline model failed to resolve.
             </p>
         </section>
 
