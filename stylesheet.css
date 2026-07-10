@@ -115,7 +115,7 @@ h2 {
 }
 
 .name {
-  padding-top: -10px;
+  padding-top: 0px;
   margin: 0;
   font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 48px;
