@@ -331,8 +331,8 @@ opacity: 1;
 .featured-projects-row {
   display: flex;
   justify-content: space-between;
-  gap: 4%;
-  padding: 25px 15px 0 15px;
+  gap: 4%; /* This keeps the space between the two projects */
+  padding: 25px 0 0 0; /* Changed the left and right padding to 0 */
 }
 
 .featured-project-item {
