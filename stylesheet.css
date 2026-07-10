@@ -169,7 +169,7 @@ padding: 0;
 width: 100%;
 max-width: 800px;
 margin: 0 auto;
-padding: 20px;
+padding: 20px 0;
 box-sizing: border-box;
 }
 
@@ -189,7 +189,6 @@ margin-bottom: 20px;
 display: flex;
 flex-wrap: wrap;
 align-items: center;
-/* REDUCED PADDING: Changed from 20px 0 to 10px 0 */
 padding: 10px 0;
 border-bottom: 1px solid lightgrey;
 }
