@@ -169,7 +169,7 @@ padding: 0;
 width: 100%;
 max-width: 800px;
 margin: 0 auto;
-padding: 20px 0;
+padding: 20px;
 box-sizing: border-box;
 }
 
@@ -331,7 +331,7 @@ opacity: 1;
   display: flex;
   justify-content: space-between;
   gap: 4%; /* This keeps the space between the two projects */
-  padding: 25px 0 0 0; /* Changed the left and right padding to 0 */
+  padding: 25px 5px 0 5px; /* Changed the left and right padding to 0 */
 }
 
 .featured-project-item {
