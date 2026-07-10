@@ -117,7 +117,7 @@ h2 {
 .name {
   padding-top: -10px;
   margin: 0;
-  font-family: 'DM Serif Display', Georgia, serif;
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 48px;
   line-height: 1.0;
 }
