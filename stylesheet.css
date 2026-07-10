@@ -1,6 +1,9 @@
+/* ==========================================================================
+   Fonts & External Assets
+   ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Public+Sans:wght@300;400;600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap');
 
-/* latin-ext */
+/* Lato - latin-ext */
 @font-face {
   font-family: 'Lato';
   font-style: italic;
@@ -8,7 +11,8 @@
   src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAUi-qNiXg7eU0.woff2) format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
+
+/* Lato - latin */
 @font-face {
   font-family: 'Lato';
   font-style: italic;
@@ -16,7 +20,8 @@
   src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAXC-qNiXg7Q.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* latin-ext */
+
+/* Lato Bold Italic - latin-ext */
 @font-face {
   font-family: 'Lato';
   font-style: italic;
@@ -24,7 +29,8 @@
   src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_FQftx9897sxZ.woff2) format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
+
+/* Lato Bold Italic - latin */
 @font-face {
   font-family: 'Lato';
   font-style: italic;
@@ -32,7 +38,8 @@
   src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_Gwftx9897g.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* latin-ext */
+
+/* Lato Regular - latin-ext */
 @font-face {
   font-family: 'Lato';
   font-style: normal;
@@ -40,7 +47,8 @@
   src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjxAwXiWtFCfQ7A.woff2) format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
+
+/* Lato Regular - latin */
 @font-face {
   font-family: 'Lato';
   font-style: normal;
@@ -48,7 +56,8 @@
   src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjx4wXiWtFCc.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-/* latin-ext */
+
+/* Lato Bold - latin-ext */
 @font-face {
   font-family: 'Lato';
   font-style: normal;
@@ -56,13 +65,34 @@
   src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwaPGQ3q5d0N7w.woff2) format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-/* latin */
+
+/* Lato Bold - latin */
 @font-face {
   font-family: 'Lato';
   font-style: normal;
   font-weight: 700;
   src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
+   Global Typography & Base Styles
+   ========================================================================== */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Consolidate shared font-family declarations */
+body, td, th, tr, p, a, strong, h1, h2, 
+.col-project-text, .col-profile-text, .papertitle, .name {
+  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Consolidate base font sizes */
+body, td, th, tr, p, a, .col-project-text, .col-profile-text, strong {
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 a {
@@ -76,52 +106,142 @@ a:hover {
   text-decoration: none;
 }
 
-body,
-td,
-.col-project-text, 
-.col-profile-text,
-th,
-tr,
-p,
-a {
-  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-}
-
-strong {
-  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: 14px;
-}
-
 h1 {
   margin: 0;
   font-weight: bold;
-  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 36px;
 }
 
 h2 {
   margin: 0;
+  margin-top: 40px;
+  padding-bottom: 10px;
   font-weight: bold;
-  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 28px;
+  border-bottom: 2px solid black;
 }
 
+/* ==========================================================================
+   Typography Classes
+   ========================================================================== */
 .papertitle {
-  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 18px;
   font-weight: 700;
 }
 
 .name {
-  padding-top: 0px;
   margin: 0;
-  font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  padding-top: 0;
   font-size: 48px;
   line-height: 1.0;
 }
 
+span.highlight {
+  background-color: #ffffd0;
+}
+
+.colored-box {
+  color: black;
+  padding: 20px;
+  display: inline-block;
+  border-radius: 10px;
+}
+
+/* ==========================================================================
+   Modern Responsive Layout
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Flexbox Rows */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.project-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border-bottom: 1px solid lightgrey;
+}
+
+/* Columns */
+.col-profile-img {
+  flex: 0 0 35%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.col-profile-text {
+  flex: 0 0 65%;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-size: inherit;
+}
+
+.col-project-img {
+  flex: 0 0 25%;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.col-project-text {
+  flex: 0 0 75%;
+  padding: 5px 20px;
+  box-sizing: border-box;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* ==========================================================================
+   Images & Media
+   ========================================================================== */
+.profile-photo {
+  width: 100%;
+  max-width: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+.project-media {
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.project-media img,
+.project-media video {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+}
+
+/* CSS-based Hover Effect for Videos */
+.project-media video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.project-media:hover video {
+  opacity: 1;
+}
+
+/* Legacy Effect Classes */
 .one {
   width: 160px;
   height: 160px;
@@ -143,194 +263,14 @@ h2 {
   -webkit-transition: opacity .2s ease-in-out;
 }
 
-span.highlight {
-  background-color: #ffffd0;
-}
-
-.colored-box {
-    color: black;
-    padding: 20px;
-    display: inline-block;
-    border-radius: 10px;
-}
-
-
-
-/* --- MODERN RESPONSIVE LAYOUT --- */
-
-body {
-margin: 0;
-padding: 0;
-}
-
-
-
-.container {
-width: 100%;
-max-width: 800px;
-margin: 0 auto;
-padding: 20px;
-box-sizing: border-box;
-}
-
-
-
-/* Flexbox Rows */
-.row {
-display: flex;
-flex-wrap: wrap;
-align-items: center;
-margin-bottom: 20px;
-}
-
-
-
-.project-row {
-display: flex;
-flex-wrap: wrap;
-align-items: center;
-border-bottom: 1px solid lightgrey;
-}
-
-
-
-/* Columns */
-.col-profile-img {
-flex: 0 0 35%;
-padding: 10px;
-box-sizing: border-box;
-}
-
-
-
-.col-profile-text {
-flex: 0 0 65%;
-padding: 10px 20px;
-box-sizing: border-box;
-font-size: inherit;
-}
-
-
-
-.col-project-img {
-flex: 0 0 25%;
-padding: 10px;
-box-sizing: border-box;
-position: relative;
-}
-
-
-
-.col-project-text {
-flex: 0 0 75%;
-/* REDUCED PADDING: Changed top/bottom to 5px */
-padding: 5px 20px;
-box-sizing: border-box;
-font-size: inherit;
-line-height: inherit;
-}
-
-
-
-/* Images & Video */
-.profile-photo {
-width: 100%;
-max-width: 250px;
-object-fit: cover;
-border-radius: 10px;
-display: block;
-margin: 0 auto;
-}
-
-
-
-.project-media {
-position: relative;
-width: 100%;
-border-radius: 10px;
-overflow: hidden;
-}
-
-
-
-.project-media img, .project-media video {
-width: 100%;
-display: block;
-border-radius: 10px;
-}
-
-
-
-/* CSS-based Hover Effect */
-.project-media video {
-position: absolute;
-top: 0;
-left: 0;
-opacity: 0;
-transition: opacity 0.3s ease-in-out;
-}
-
-
-
-.project-media:hover video {
-opacity: 1;
-}
-
-
-
-h2 {
-border-bottom: 2px solid black;
-padding-bottom: 10px;
-margin-top: 40px;
-}
-
-
-
-/* --- MOBILE ADJUSTMENTS --- */
-
-@media (max-width: 600px) {
-.col-profile-img,
-.col-profile-text,
-.col-project-img,
-.col-project-text {
-flex: 0 0 100%;
-text-align: center;
-padding: 10px 0;
-}
-
-
-
-
-.col-profile-text, .col-project-text {
-text-align: left;
-}
-
-
-.profile-photo {
-max-width: 100%; /* Overrides the 250px limit, allowing it to expand */
-width: 100%; /* Forces it to fill the column exactly like the text */
-margin-left: 0; /* Resets any negative margins from the previous step */
-border-radius: 10px; /* Keeps the curved edges from your desktop view */
-}
-
-
-
-/* MOBILE IMAGE FIX: Keep the static image visible to maintain the shape,
-and let the video sit transparently on top (or visible if it plays). */
-.project-media video {
-opacity: 1;
-}
-}
-
-
-/* -----------------------------------------
-   FEATURED PROJECTS (Desktop Default)
-   ----------------------------------------- */
+/* ==========================================================================
+   Featured Projects Section
+   ========================================================================== */
 .featured-projects-row {
   display: flex;
   justify-content: space-between;
-  gap: 4%; /* This keeps the space between the two projects */
-  padding: 25px 5px 0 5px; /* Changed the left and right padding to 0 */
+  gap: 4%;
+  padding: 25px 0 0 0;
 }
 
 .featured-project-item {
@@ -338,27 +278,53 @@ opacity: 1;
   text-align: left;
 }
 
-/* -----------------------------------------
-   FEATURED PROJECTS (Mobile Override)
-   ----------------------------------------- */
+/* ==========================================================================
+   Mobile Adjustments & Media Queries
+   ========================================================================== */
 @media (max-width: 768px) {
   .featured-projects-row {
-    flex-direction: column; /* Stack vertically */
-    gap: 0; /* Remove the 4% desktop gap */
+    flex-direction: column;
+    gap: 0;
     padding: 25px 0 0 0;
   }
 
   .featured-project-item {
-    flex: 1 1 100%; /* Take up the full width */
-    border-bottom: 1px solid #d3d3d3; /* Light grey horizontal line */
-    padding-bottom: 25px; 
-    margin-bottom: 25px; 
+    flex: 1 1 100%;
+    border-bottom: 1px solid #d3d3d3;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
   }
 
-  /* Removes the line from the last project so it doesn't float emptily at the bottom */
   .featured-project-item:last-child {
     border-bottom: none;
     padding-bottom: 0;
     margin-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .col-profile-img,
+  .col-profile-text,
+  .col-project-img,
+  .col-project-text {
+    flex: 0 0 100%;
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .col-profile-text,
+  .col-project-text {
+    text-align: left;
+  }
+
+  .profile-photo {
+    max-width: 100%;
+    width: 100%;
+    margin-left: 0;
+    border-radius: 10px;
+  }
+
+  .project-media video {
+    opacity: 1;
   }
 }
