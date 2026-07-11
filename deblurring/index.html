@@ -50,7 +50,7 @@
             
             <p>
                 In this project, I designed a nonlinear-activation-free U-Net architecture ("Mini-NAFNet") for motion deblurring. 
-                I then trained the network, achieving an average 27.2 PSNR and 0.832 SSIM on the GoPro_Large test set. I also tested 
+                I then trained the network, achieving an average 27.2 PSNR and 0.832 SSIM on the <a href="https://seungjunnah.github.io/Datasets/gopro">GoPro_Large test set</a>. I also tested 
                 the effect of replacing the SimpleGate operations with GELU over shorter training durations. The Mini-NAFNet outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), consistent with literature.
             </p>
@@ -80,6 +80,10 @@
         <section>
             <h2>Architecture Design</h2>
             <p>Put the updated diagram here, plus design choices.</p>
+            <ul>
+                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts</li>
+                <li>A global residual connection was added connecting the input directly to the output so that </li>
+            </ul>
         </section>
 
         <section>
