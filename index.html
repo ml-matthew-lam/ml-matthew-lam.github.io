@@ -15,13 +15,31 @@
       <div class="nav-logo">
         <a href="#about">Matthew Lam</a>
       </div>
+      
+      <div class="hamburger" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+
       <div class="nav-links">
-        <a href="#about">About</a>
-        <a href="#featured-projects">Featured Projects</a>
-        <a href="#projects">Projects</a>
+        <a href="#about" onclick="toggleMenu()">About</a>
+        <a href="#featured-projects" onclick="toggleMenu()">Featured Projects</a>
+        <a href="#projects" onclick="toggleMenu()">Projects</a>
       </div>
     </div>
   </nav>
+
+  <script>
+    function toggleMenu() {
+      const navLinks = document.querySelector('.nav-links');
+      const hamburger = document.querySelector('.hamburger');
+      if (window.innerWidth <= 768) {
+        navLinks.classList.toggle('active');
+        hamburger.classList.toggle('active');
+      }
+    }
+  </script>
 
   <div class="container">
     
@@ -37,7 +55,7 @@
           I'm a second-year <a href="https://engsci.utoronto.ca/program/what-is-engsci/">Engineering Science</a> student at the University of Toronto. 
           I'm interested in <strong>hardware/software co-design</strong> for <strong>computer vision</strong>, <strong>imaging</strong> and <strong>communication systems</strong>. 
           I'm equally interested in <strong>electrochemistry</strong> and <strong>clean energy</strong>.
-          I'm also in the RF Communications subteam at the <a href="https://www.utat.ca/space-systems">University of Toronto Aerospace Team - Space Systems</a>.
+          I'm also a member of the RF Communications subteam at the <a href="https://www.utat.ca/space-systems">University of Toronto Aerospace Team - Space Systems</a>.
         </p>
         <p>
           <a href="mailto:ma.lam@mail.utoronto.ca">Email</a> &nbsp;/&nbsp;
@@ -195,7 +213,7 @@
     </div>
 
     <div class="footer">
-      <p>This website is adapted from <a href="https://jonbarron.info/">Jon Barron</a>'s website (<a href="https://github.com/jonbarron/jonbarron_website">source code here</a>).</p>
+      <p>This website is adapted from <a href="https://jonbarron.info/">Jon Barron</a>'s website.</p>
     </div>
 
   </div>

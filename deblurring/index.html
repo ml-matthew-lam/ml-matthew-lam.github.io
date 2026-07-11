@@ -15,18 +15,36 @@
             <div class="nav-logo">
                 <a href="../index.html#about">Matthew Lam</a>
             </div>
+            
+            <div class="hamburger" onclick="toggleMenu()">
+              <span class="bar"></span>
+              <span class="bar"></span>
+              <span class="bar"></span>
+            </div>
+
             <div class="nav-links">
-                <a href="../index.html#about">About</a>
-                <a href="../index.html#featured-projects">Featured Projects</a>
-                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#about" onclick="toggleMenu()">About</a>
+                <a href="../index.html#featured-projects" onclick="toggleMenu()">Featured Projects</a>
+                <a href="../index.html#projects" onclick="toggleMenu()">Projects</a>
             </div>
         </div>
     </nav>
+    
+    <script>
+      function toggleMenu() {
+        const navLinks = document.querySelector('.nav-links');
+        const hamburger = document.querySelector('.hamburger');
+        if (window.innerWidth <= 768) {
+          navLinks.classList.toggle('active');
+          hamburger.classList.toggle('active');
+        }
+      }
+    </script>
 
     <div class="container">
         
         <header>
-            <a href="../#featured-projects" class="back-link">&larr; Back</a>
+            <a href="../#featured-projects" class="back-link">&larr; Back to Featured Projects</a>
             
             <h1>Deblurring U-Net + Ablation Study</h1>
             

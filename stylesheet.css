@@ -108,6 +108,22 @@ a:hover {
   color: #1772d0;
 }
 
+/* Hamburger Icon (Hidden on Desktop) */
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #222;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
 /* ==========================================================================
    Headings & Specific Text Styling
    ========================================================================== */
@@ -285,20 +301,51 @@ h2 {
    Mobile Adjustments & Media Queries
    ========================================================================== */
 @media (max-width: 768px) {
-  .nav-container {
-    flex-direction: column;
-    gap: 12px;
-    padding: 16px;
-  }
-  
-  .nav-links {
-    justify-content: center;
-    gap: 16px;
-    flex-wrap: wrap;
+  /* Mobile Navigation Dropdown */
+  .hamburger {
+    display: block; /* Show hamburger on mobile */
   }
 
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.98);
+    flex-direction: column;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    
+    /* Smooth sliding animation */
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-out;
+    gap: 0;
+  }
+  
+  .nav-links.active {
+    max-height: 250px; /* Opens the menu */
+  }
+
+  .nav-links a {
+    padding: 16px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  /* Animate hamburger to an 'X' */
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  /* Body adjustments */
   .container {
-    margin-top: 140px; /* Accounts for stacked navbar height */
+    margin-top: 100px;
   }
 
   .row {
