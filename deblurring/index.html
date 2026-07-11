@@ -59,8 +59,21 @@
         <section>
             <h2>Background</h2>
             <p>
-                $$ \mathrm{SimpleGate} (\mathbf x) = \mathbf x_1 \odot \mathbf x_2 $$
-                $$ \mathrm{GELU}(x) = x\Phi(x) $$
+                The goal of a deblurring model is to take in a blurred image as input, and output a sharp version. Convolutional neural networks (CNNs), such as U-Net architectures, are often used 
+                for deblurring.
+            </p>
+            <p>
+                Traditional "vanilla" CNNs use nonlinear activation functions like ReLU or GELU. Many image restoration models also use channel attention, which involves the sigmoid function. 
+                However, image restoration U-Net architectures that removed or replaced these activation functions have been found to work well (even better than conventional architectures).
+                One such architecture is the NAFNet (nonlinear-activation-free network) introduced by Chen et al., and my model, which I'll refer to as a mini-NAFNet, is based on that one.
+            </p>
+            <p>
+                In addition to designing and training my mini-NAFNet, I also wanted to experiment with replacing a key element from the NAFNet architecture to see for myself how this would impact performance.
+                NAFNet uses SimpleGate in place of nonlinear activation functions. Instead of passing a tensor \(x\) through an activation function, SimpleGate slices \(x\) into two chunks \(x_1\) and \(x_2\),
+                then multiplies the chunks elementwise:
+                $$ \mathrm{SimpleGate} (\mathbf x) =  x_1 \odot  x_2. $$
+                In my experiment, I tested the effect of putting nonlinear activations back into my mini-NAFNet, i.e., putting GELU back in the place of SimpleGate, to obtain what I'll call model-G, for "GELU."
+                This is essentially the same ablation carried out by Esaulov and Esfahani, which found that the NAFNet outperformed the model with GELU.
             </p>
         </section>
 
