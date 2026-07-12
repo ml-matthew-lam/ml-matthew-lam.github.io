@@ -50,7 +50,7 @@
             
             <p>
                 In this project, I designed a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. 
-                I then trained the model, achieving an average 27.2 PSNR and 0.832 SSIM on the <a href="https://seungjunnah.github.io/Datasets/gopro">GoPro_Large test set</a>. I also tested 
+                I then trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro">GOPRO_Large</a> dataset, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
                 the effect of replacing the SimpleGate operations with GELU over shorter training durations. The NAF model outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), consistent with literature.
             </p>
@@ -79,17 +79,32 @@
 
         <section>
             <h2>Architecture Design</h2>
-            <p>Put the updated diagram here, plus design choices.</p>
+            <p>Below is the U-Net architecture that I designed. It is based on the U-net architectures from Chen et al. and Ronneberger et al. </p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="u_net_architecture.png" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
-                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
-                    <em>Independent U-Net configuration.</em>
-                </p>
             </div>
+            <p>
+                My architecture uses blocks (NAF blocks or GELU blocks) throughout. This is so that I could easily run my ablation study by switching the type of block used, 
+                while keeping the overall U-Net architecture identical. The architectures of the blocks and the following diagrams are adapted from Chen et al.
+            </p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="blocks.png" alt="block architectures diagram " style="max-width: 30%; height: auto; border-radius: 8px;" />
+            </div>
+            <p>
+                My choices of dimensions are as follows:
+            </p>
             <ul>
-                <li>The architecture was made relatively lightweight in terms of the channel depth, the number of levels, and the number of blocks per level. This is so that training would not take too long, and so if a bug were to be found during training, it would not cause too much of a delay.</li>
+                <li>\(C=32\) in order to keep the model lightweight (faster training, less expensive compute-wise)</li>
+                <li>I cropped images to \(H=W=256\) so that the memory capacity of the hardware would not be exceeded while also allowing a reasonable number of items per batch. 
+                    Moreover, I set \(H=W\) so I could randomly flip crops of images during training as to increase diversity of training data.</li>
+            </ul>
+            <p>
+                Some more design choices:
+            </p>
+            <ul>
+                <li>I made the architecture relatively lightweight in terms of the channel depth, the number of levels, and the number of blocks per level. This is so that training would not take too long, and so if a bug were to be found during training, it would not cause too much of a delay.</li>
                 <li>A global residual connection was added connecting the input directly to the output so that the U-Net would only have to learn the difference between the blurred and sharp images, not the entire images themselves.</li>
-                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts.</li>
+                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts described by <a href="https://distill.pub/2016/deconv-checkerboard/">Odena et al.</a>.</li>
             </ul>
         </section>
 
@@ -104,7 +119,7 @@
             <p>
                 Specifically, I used the loss function 
                 $$ \mathcal L = \alpha \mathcal L_1 + (1-\alpha) \mathcal L_\mathrm{SSIM} $$
-                where \(L_\mathrm{SSIM}=1-\mathrm{SSIM}\) and \(\alpha = 0.16\) as suggested by Zhao et al..
+                where \(L_\mathrm{SSIM}=1-\mathrm{SSIM}\) and \(\alpha = 0.16\) as suggested by Zhao et al.
             </p>
         </section>
 
