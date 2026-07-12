@@ -91,7 +91,7 @@
                 <img src="blocks.png" alt="block architectures diagram " style="max-width: 30%; height: auto; border-radius: 8px;" />
             </div>
             <p>
-                My choices of dimensions are as follows:
+                My choices of dimensions \(C, H, W\) are as follows:
             </p>
             <ul>
                 <li>\(C=32\) in order to keep the model lightweight (faster training, less expensive compute-wise)</li>
@@ -120,7 +120,11 @@
             <p>
                 The specific loss function I implemented is the following:
                 $$ \mathcal L = \alpha \mathcal L_1 + (1-\alpha) \mathcal L_\mathrm{SSIM} $$
-                where \(\alpha = 0.16\) as suggested by <a href="https://arxiv.org/abs/1511.08861">Zhao et al</a>.
+                where \(\alpha = 0.16\). This value was suggested by <a href="https://arxiv.org/abs/1511.08861">Zhao et al</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
+            </p>
+            <p>
+                I tested a few combinations of different batch sizes and learning rates (\(lr\)). I ended up using a batch size of 64 with the following learning rate schedule: a linearly increasing "warm-up" for the first 10 epochs, 
+                peaking at \(lr=0.0002\), then a slow linear decrease, then a cosine annealing for the last 100 epochs. 
             </p>
         </section>
 
@@ -130,6 +134,12 @@
                 I tested the trained models on the test split of GoPro_Large, and measured average SSIM and PSNR of the outputs. PSNR is calculated as \(\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE})\), 
                 since the expected range for the values in the image tensors is \([0,1]\).
             </p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="validation_ssim.png" alt="validation ssim graph " style="max-width: 30%; height: auto; border-radius: 8px;" />
+            </div>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="validation_psnr.png" alt="validation psnr graph " style="max-width: 30%; height: auto; border-radius: 8px;" />
+            </div>
         </section>
 
         <section>
