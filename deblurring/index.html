@@ -80,6 +80,12 @@
         <section>
             <h2>Architecture Design</h2>
             <p>Put the updated diagram here, plus design choices.</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="u_net_architecture.png" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
+                <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                    <em>Independent U-Net configuration.</em>
+                </p>
+            </div>
             <ul>
                 <li>The architecture was made relatively lightweight in terms of the channel depth, the number of levels, and the number of blocks per level. This is so that training would not take too long, and so if a bug were to be found during training, it would not cause too much of a delay.</li>
                 <li>A global residual connection was added connecting the input directly to the output so that the U-Net would only have to learn the difference between the blurred and sharp images, not the entire images themselves.</li>
