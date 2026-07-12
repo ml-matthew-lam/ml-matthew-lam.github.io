@@ -49,9 +49,9 @@
             <h1>Deblurring U-Net + Ablation Study</h1>
             
             <p>
-                In this project, I designed a nonlinear-activation-free U-Net architecture ("Mini-NAFNet") for motion deblurring. 
-                I then trained the network, achieving an average 27.2 PSNR and 0.832 SSIM on the <a href="https://seungjunnah.github.io/Datasets/gopro">GoPro_Large test set</a>. I also tested 
-                the effect of replacing the SimpleGate operations with GELU over shorter training durations. The Mini-NAFNet outperformed 
+                In this project, I designed a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. 
+                I then trained the model, achieving an average 27.2 PSNR and 0.832 SSIM on the <a href="https://seungjunnah.github.io/Datasets/gopro">GoPro_Large test set</a>. I also tested 
+                the effect of replacing the SimpleGate operations with GELU over shorter training durations. The NAF model outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), consistent with literature.
             </p>
         </header>
@@ -65,14 +65,14 @@
             <p>
                 Traditional "vanilla" CNNs use nonlinear activation functions like ReLU or GELU. Many image restoration models also use channel attention, which involves the sigmoid function. 
                 However, image restoration U-Net architectures that removed or replaced these activation functions have been found to work well (even better than conventional architectures).
-                One such architecture is the NAFNet (nonlinear-activation-free network) introduced by Chen et al., and my model, which I'll refer to as a mini-NAFNet, is based on that one.
+                One such architecture is the NAFNet (nonlinear-activation-free network) introduced by Chen et al., and my model, which I'll refer to as my 'NAF model,' is based on that one.
             </p>
             <p>
-                In addition to designing and training my mini-NAFNet, I also wanted to experiment with replacing a key element from the NAFNet architecture to see for myself how this would impact performance.
+                In addition to designing and training my NAF model, I also wanted to experiment with replacing a key element from the NAFNet architecture to see for myself how this would impact performance.
                 NAFNet uses SimpleGate in place of nonlinear activation functions. Instead of passing a tensor \(x\) through an activation function, SimpleGate slices \(x\) into two chunks \(x_1\) and \(x_2\),
                 then multiplies the chunks elementwise:
                 $$ \mathrm{SimpleGate} (x) =  x_1 \odot  x_2. $$
-                In my experiment, I tested the effect of putting nonlinear activations back into my mini-NAFNet, i.e., putting GELU back in the place of SimpleGate, to obtain what I'll call model-G, for "GELU."
+                In my experiment, I tested the effect of putting nonlinear activations back into my NAF model, i.e., putting GELU back in the place of SimpleGate, to obtain what I'll call GELU model, for "GELU."
                 This is essentially the same ablation carried out by Esaulov and Esfahani, which found that the NAFNet outperformed the model with GELU.
             </p>
         </section>
@@ -81,7 +81,7 @@
             <h2>Architecture Design</h2>
             <p>Put the updated diagram here, plus design choices.</p>
             <div style="text-align: center; margin: 20px 0;">
-                <img src="u_net_architecture.png" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
+                <img src="u_net_architecture.svg" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
                 <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
                     <em>Independent U-Net configuration.</em>
                 </p>
@@ -119,7 +119,7 @@
         <section>
             <h2>Takeaways + Discussion</h2>
             <p>
-                My mini-NAFNet was quite effective at deblurring images, given its relatively small size.
+                My NAF model was quite effective at deblurring images, given its relatively small size.
             </p>
             <p>
                 For image restoation, NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU.
