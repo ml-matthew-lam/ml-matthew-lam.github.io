@@ -49,8 +49,8 @@
             <h1>Deblurring U-Net + Ablation Study</h1>
             
             <p>
-                In this project, I designed a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. 
-                I then trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro">GOPRO_Large</a> dataset, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
+                In this project, I designed a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. I then implemented a combined L1 and SSIM loss function 
+                and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro">GOPRO_Large</a> dataset, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
                 the effect of replacing the SimpleGate operations with GELU over shorter training durations. The NAF model outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), consistent with literature.
             </p>
@@ -65,7 +65,7 @@
             <p>
                 Traditional "vanilla" CNNs use nonlinear activation functions like ReLU or GELU. Many image restoration models also use channel attention, which involves the sigmoid function. 
                 However, image restoration U-Net architectures that removed or replaced these activation functions have been found to work well (even better than conventional architectures).
-                One such architecture is the NAFNet (nonlinear-activation-free network) introduced by Chen et al., and my model, which I'll refer to as my 'NAF model,' is based on that one.
+                One such architecture is the NAFNet (nonlinear-activation-free network) introduced in <a href="https://arxiv.org/abs/2204.04676">"Simple Baselines for Image Restoration" by Chen et al.</a>, and my model, which I'll refer to as my 'NAF model,' is based on that one.
             </p>
             <p>
                 In addition to designing and training my NAF model, I also wanted to experiment with replacing a key element from the NAFNet architecture to see for myself how this would impact performance.
@@ -73,13 +73,13 @@
                 then multiplies the chunks elementwise:
                 $$ \mathrm{SimpleGate} (x) =  x_1 \odot  x_2. $$
                 In my experiment, I tested the effect of putting nonlinear activations back into my NAF model, i.e., putting GELU back in the place of SimpleGate, to obtain what I'll call GELU model, for "GELU."
-                This is essentially the same ablation carried out by Esaulov and Esfahani, which found that the NAFNet outperformed the model with GELU.
+                This is essentially the same ablation carried out by <a href="https://arxiv.org/abs/2506.19845">Esaulov and Esfahani</a>, which found that the NAFNet outperformed the model with GELU.
             </p>
         </section>
 
         <section>
             <h2>Architecture Design</h2>
-            <p>Below is the U-Net architecture that I designed. It is based on the U-net architectures from Chen et al. and Ronneberger et al. </p>
+            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-net architectures from Chen et al. and Ronneberger et al. </p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="u_net_architecture.png" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
@@ -112,14 +112,15 @@
             <h2>Training</h2>
             <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
             <p>
-                For training, I used a combination of \(\mathcal L_1\) loss and SSIM loss. SSIM is defined as
+                For training, I used a combination of \(\mathcal L_1\) loss and SSIM loss. This involved me implementing the SSIM calculations with PyTorch, using the following formula:
                 $$ \mathrm{SSIM} = \frac {(2\mu_x \mu_y+c_1)(2\sigma_{xy}+c_2)} {(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)} $$
-                where \(\mu_x, \mu_y, \sigma_x^2, \sigma_y^2\) and \(\sigma_{xy}\) are the averages, variances and covariance for patches of images \(x\) and \(y\).
+                where \(c_1=0.0001\) and \(c_2=0.0009\) are constants, and \(\mu_x, \mu_y, \sigma_x^2, \sigma_y^2\) and \(\sigma_{xy}\) are the averages, variances and covariance for patches of images \(x\) and \(y\).
+                From there, SSIM loss is defined as \(\mathcal L_\mathrm{SSIM}=1-\mathrm{SSIM}\).
             </p>
             <p>
-                Specifically, I used the loss function 
+                The specific loss function I implemented is the following:
                 $$ \mathcal L = \alpha \mathcal L_1 + (1-\alpha) \mathcal L_\mathrm{SSIM} $$
-                where \(L_\mathrm{SSIM}=1-\mathrm{SSIM}\) and \(\alpha = 0.16\) as suggested by Zhao et al.
+                where \(\alpha = 0.16\) as suggested by <a href="https://arxiv.org/abs/1511.08861">Zhao et al</a>.
             </p>
         </section>
 
