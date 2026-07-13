@@ -104,15 +104,17 @@
             <ul>
                 <li>I made the architecture relatively lightweight in terms of the channel depth, the number of levels, and the number of blocks per level. This is so that training would not take too long, and so if a bug were to be found during training, it would not cause too much of a delay.</li>
                 <li>A global residual connection was added connecting the input directly to the output so that the U-Net would only have to learn the difference between the blurred and sharp images, not the entire images themselves.</li>
-                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts described by <a href="https://distill.pub/2016/deconv-checkerboard/">Odena et al.</a>.</li>
+                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts described by <a href="https://distill.pub/2016/deconv-checkerboard/">Odena et al.</a></li>
             </ul>
         </section>
 
         <section>
             <h2>Training</h2>
-            <p>The table below tracks the performance metrics across different configurations evaluated on the GoPro dataset. Baseline represents a standard UNet architecture.</p>
-            <p>
-                For training, I used a combination of \(\mathcal L_1\) loss and SSIM loss. This involved me implementing the SSIM calculations with PyTorch, using the following formula:
+            <p> 
+                I split the training set of GOPRO_Large into two parts: using 10% as a validation set and the remaining 90% to actually train the models.
+            </p>
+            <p>    
+                For optimization, I used a combination of \(\mathcal L_1\) loss and SSIM loss. This involved me implementing the SSIM calculations with PyTorch, using the following formula:
                 $$ \mathrm{SSIM} = \frac {(2\mu_x \mu_y+c_1)(2\sigma_{xy}+c_2)} {(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)} $$
                 where \(c_1=0.0001\) and \(c_2=0.0009\) are constants, and \(\mu_x, \mu_y, \sigma_x^2, \sigma_y^2\) and \(\sigma_{xy}\) are the averages, variances and covariance for patches of images \(x\) and \(y\).
                 From there, SSIM loss is defined as \(\mathcal L_\mathrm{SSIM}=1-\mathrm{SSIM}\).
@@ -131,14 +133,19 @@
         <section>
             <h2>Results</h2>
             <p>
-                I tested the trained models on the test split of GoPro_Large, and measured average SSIM and PSNR of the outputs. PSNR is calculated as \(\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE})\), 
+                I tested the trained models on the test split of GOPRO_Large, and measured average SSIM and PSNR of the outputs. PSNR is calculated as \(\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE})\), 
                 since the expected range for the values in the image tensors is \([0,1]\).
             </p>
+            <p>
+                I also logged the SSIM and PSNR achieved on the validation set at the end of each epoch. As shown by the graphs below, the NAF model was generally able to learn faster than the GELU model throughout training. 
+                (Note: both models experienced a very large increase SSIM and PSNR in the first epoch, 
+                so the first epoch is omitted in the graphs to make the comparison between models easier.)
+            </p>
             <div style="text-align: center; margin: 20px 0;">
-                <img src="validation_ssim.svg" alt="validation ssim graph " style="max-width: 30%; height: auto; border-radius: 8px;" />
+                <img src="validation_ssim.svg" alt="validation ssim graph " style="max-width: 80%; height: auto; border-radius: 8px;" />
             </div>
             <div style="text-align: center; margin: 20px 0;">
-                <img src="validation_psnr.svg" alt="validation psnr graph " style="max-width: 30%; height: auto; border-radius: 8px;" />
+                <img src="validation_psnr.svg" alt="validation psnr graph " style="max-width: 80%; height: auto; border-radius: 8px;" />
             </div>
         </section>
 
