@@ -111,9 +111,15 @@
         <section>
             <h2>Training</h2>
             <p> 
-                I split the training set of GOPRO_Large into two parts: using 10% as a validation set and the remaining 90% to actually train the models.
+                In total, I trained three versions of deblurring models:
             </p>
+            <ol>
+                <li>A NAF model trained over 500 epochs </li>
+                <li>A NAF model trained over 200 epochs</li>
+                <li>A GELU model trained over 200 epochs</li>
+            </ol>
             <p>    
+                I split the training set of GOPRO_Large into two parts: using 10% as a validation set and the remaining 90% to actually train the models.
                 For optimization, I used a combination of \(\mathcal L_1\) loss and SSIM loss. This involved me implementing the SSIM calculations with PyTorch, using the following formula:
                 $$ \mathrm{SSIM} = \frac {(2\mu_x \mu_y+c_1)(2\sigma_{xy}+c_2)} {(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)} $$
                 where \(c_1=0.0001\) and \(c_2=0.0009\) are constants, and \(\mu_x, \mu_y, \sigma_x^2, \sigma_y^2\) and \(\sigma_{xy}\) are the averages, variances and covariance for patches of images \(x\) and \(y\).
@@ -182,9 +188,9 @@
         </section>
 
         <section>
-            <h2>Takeaways + Discussion</h2>
+            <h2>Takeaways</h2>
             <p>
-                My NAF model was quite effective at deblurring images, given its relatively small size.
+                My 500-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by the +x increase in SSIM and +y increase in . 
             </p>
             <p>
                 For image restoation, NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU.
