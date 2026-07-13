@@ -134,8 +134,36 @@
             <h2>Results</h2>
             <p>
                 I tested the trained models on the test split of GOPRO_Large, and measured average SSIM and PSNR of the outputs. PSNR is calculated as \(\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE})\), 
-                since the expected range for the values in the image tensors is \([0,1]\).
+                since the expected range for the values in the image tensors is \([0,1]\). The table below shows the final metrics achieved by each of the models.
             </p>
+            <table>
+                <tr>
+                    <th> </th>
+                    <th>Average SSIM</th>
+                    <th>Average PSNR</th>
+                </tr>
+                
+                <tr>
+                    <td>NAF model (500 epochs)</td>
+                    <td>???</td>
+                    <td>???</td>
+                </tr>
+                <tr>
+                    <td>NAF model (200 epochs)</td>
+                    <td>0.8318</td>
+                    <td>27.18</td>
+                </tr>
+                               <tr>
+                    <td>GELU model (200 epochs)</td>
+                    <td>0.8088</td>
+                    <td>26.43</td>
+                <tr>
+                    <td>Unprocessed inputs</td>
+                    <td>0.7733</td>
+                    <td>25.61</td>
+                </tr>
+                </tr>
+            </table>
             <p>
                 I also logged the SSIM and PSNR achieved on the validation set at the end of each epoch. As shown by the graphs below, the NAF model was generally able to learn faster than the GELU model throughout training. 
                 (Note: both models experienced a very large increase SSIM and PSNR in the first epoch, 
@@ -147,6 +175,10 @@
             <div style="text-align: center; margin: 20px 0;">
                 <img src="validation_psnr.svg" alt="validation psnr graph " style="max-width: 80%; height: auto; border-radius: 8px;" />
             </div>
+            <p>
+                Here are samples of the outputs of each model for visual inspection:
+            </p>
+
         </section>
 
         <section>
