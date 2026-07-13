@@ -129,12 +129,12 @@
             <p>
                 The specific loss function I implemented is the following:
                 $$ \mathcal L = \alpha \mathcal L_1 + (1-\alpha) \mathcal L_\mathrm{SSIM} $$
-                where \(\alpha = 0.16\). This value was suggested by <a href="https://arxiv.org/abs/1511.08861">Zhao et al</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
+                where \(\alpha = 0.16\). This value was suggested by <a href="https://arxiv.org/abs/1511.08861">Zhao et al.</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
             </p>
             <p>
-                I tested a few combinations of different batch sizes and learning rates (\(\mathrm{lr}\)). After some short trial runs, I chose a batch size of 64. For the 500-epoch NAF model, I used the following learning rate schedule: 
-                a linearly increasing "warm-up" for the first 10 epochs, peaking at \(\mathrm{lr}=0.0002\), then a slow linear decrease, then a cosine annealing for the last 100 epochs. For the 200-epoch NAF model and the 200-epoch GELU model, 
-                I used the following schedule: the same 10-epoch increasing linear "warm-up" peaking at \(\mathrm{lr}=0.0002\), immediately followed by cosine annealing over the remaining 190 epochs.
+                I tested a few combinations of different batch sizes and learning rates (<code>lr</code>). After some short trial runs, I chose a batch size of 64. For the 500-epoch NAF model, I used the following learning rate schedule: 
+                a linearly increasing "warm-up" for the first 10 epochs, peaking at <code>lr=0.0002</code>, then a slow linear decrease, then a cosine annealing for the last 100 epochs. For the 200-epoch NAF model and the 200-epoch GELU model, 
+                I used the following schedule: the same 10-epoch increasing linear "warm-up" peaking at <code>lr=0.0002</code>, immediately followed by cosine annealing over the remaining 190 epochs.
             </p>
         </section>
 
