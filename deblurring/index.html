@@ -204,7 +204,7 @@
             <p>
                 For image restoation, my results suggest that NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>.
                 However, it's important to note that my NAF model also involves more parameters and more compute compared to my GELU model. Namely, my NAF model has 1.73 million parameters and 1.28 &times; 10 <sup>11</sup> MACs (multiply-accumulate operations)
-                compared to 1.41 million parameters and 1.03 &times; 10 <sup>11</sup> MACs. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
+                compared to 1.41 million parameters and 1.03 &times; 10 <sup>11</sup> MACs for my GELU model. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
                 This would be an important consideration for models used in edge devices, for example, where memory, compute, and/or energy are limited. Thus, an interesting experiment in the future would be to adjust my two architectures
                 so that they either have the same number of parameters, or the same number of MACs, then train them and test their performance.
             </p>
