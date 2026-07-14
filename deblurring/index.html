@@ -49,7 +49,7 @@
             <h1>Deblurring U-Net + Ablation Study</h1>
             
             <p>
-                In this project, I designed a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. I then implemented a combined L1 and SSIM loss function 
+                In this project, I built a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. I then implemented a combined L1 and SSIM loss function 
                 and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank">GOPRO_Large</a> dataset, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
                 the effect of replacing the SimpleGate operations with GELU over shorter training durations. The NAF model outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), which is consistent with literature.
@@ -66,14 +66,14 @@
                 Traditional 'vanilla' CNNs use nonlinear activation functions like ReLU or GELU. Many image restoration models also use channel attention, which involves the sigmoid function. 
                 However, image restoration U-Net architectures that removed or replaced these activation functions have been found to work well (even better than conventional architectures).
                 One such architecture is the NAFNet (nonlinear-activation-free network) introduced in <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen et al.</a>, 
-                and my model, which I'll refer to as my 'NAF model', is based on that one.
+                and my main model, which I'll refer to as my <strong>NAF model</strong>, is based on that one.
             </p>
             <p>
                 In addition to designing and training my NAF model, I also wanted to experiment with replacing a key element from the NAFNet architecture to see for myself how this would impact performance.
                 NAFNet uses SimpleGate in place of nonlinear activation functions. Instead of passing a tensor \(x\) through an activation function, SimpleGate slices \(x\) into two chunks \(x_1\) and \(x_2\),
                 then multiplies the chunks elementwise:
                 $$ \mathrm{SimpleGate} (x) =  x_1 \odot  x_2. $$
-                In my experiment, I tested the effect of putting nonlinear activations back into my NAF model, i.e., putting GELU back in the place of SimpleGate, to obtain what I'll call my 'GELU model'.
+                In my experiment, I tested the effect of putting nonlinear activations back into my NAF model, i.e., putting GELU back in the place of SimpleGate, to obtain what I'll call my <strong>GELU model</strong>.
                 This is essentially the same ablation carried out by <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>, which found that the NAFNet outperformed the model with GELU.
             </p>
         </section>
@@ -197,9 +197,10 @@
         <section>
             <h2>Main Takeaways</h2>
             <p>
-                My 500-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by the +x increase in SSIM and +y increase in PSNR, compared to the unprocessed inputs. 
-                However, other models presented in literature, such as ==== achieve much better performance, likely because they contain many times more parameters. For reference, ===== has ===== parameters, compared to only for my 500-epoch NAF model.
-                Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels (\(C\)) or adding more NAF blocks at each level. This would require more computation to train, however.
+                My 500-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by the +0.0585 increase in SSIM and +1.57 increase in PSNR, compared to the unprocessed inputs. 
+                However, other models presented in literature, such as ==== achieve much better performance, likely because they contain many times more parameters. For reference, ===== has ===== parameters, 
+                compared to only 1.73 million for my 500-epoch NAF model. Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels (\(C\)) 
+                or adding more NAF blocks at each level. This would require more computation to train, however.
             </p>
             <p>
                 For image restoation, my results suggest that NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>.
