@@ -50,7 +50,7 @@
             
             <p>
                 In this project, I designed a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. I then implemented a combined L1 and SSIM loss function 
-                and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro">GOPRO_Large</a> dataset, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
+                and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank">GOPRO_Large</a> dataset, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
                 the effect of replacing the SimpleGate operations with GELU over shorter training durations. The NAF model outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), which is consistent with literature.
             </p>
@@ -65,7 +65,7 @@
             <p>
                 Traditional 'vanilla' CNNs use nonlinear activation functions like ReLU or GELU. Many image restoration models also use channel attention, which involves the sigmoid function. 
                 However, image restoration U-Net architectures that removed or replaced these activation functions have been found to work well (even better than conventional architectures).
-                One such architecture is the NAFNet (nonlinear-activation-free network) introduced in <a href="https://arxiv.org/abs/2204.04676">"Simple Baselines for Image Restoration" by Chen et al.</a>, 
+                One such architecture is the NAFNet (nonlinear-activation-free network) introduced in <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen et al.</a>, 
                 and my model, which I'll refer to as my 'NAF model', is based on that one.
             </p>
             <p>
@@ -74,20 +74,20 @@
                 then multiplies the chunks elementwise:
                 $$ \mathrm{SimpleGate} (x) =  x_1 \odot  x_2. $$
                 In my experiment, I tested the effect of putting nonlinear activations back into my NAF model, i.e., putting GELU back in the place of SimpleGate, to obtain what I'll call my 'GELU model'.
-                This is essentially the same ablation carried out by <a href="https://arxiv.org/abs/2506.19845">Esaulov and Esfahani</a>, which found that the NAFNet outperformed the model with GELU.
+                This is essentially the same ablation carried out by <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>, which found that the NAFNet outperformed the model with GELU.
             </p>
         </section>
 
         <section>
             <h2>Architecture Design</h2>
-            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-net architectures from <a href="https://arxiv.org/abs/2204.04676">"Simple Baselines for Image Restoration" by Chen et al.</a> 
-                and <a href="https://arxiv.org/abs/1505.04597">Ronneberger et al</a>.</p>
+            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-net architectures from <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen et al.</a> 
+                and <a href="https://arxiv.org/abs/1505.04597" target="_blank">Ronneberger et al</a>.</p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="u_net_architecture.png" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
             <p>
                 My architecture uses blocks (NAF blocks or GELU blocks) throughout. This is so that I could easily run my ablation study by switching the type of block used, 
-                while keeping the overall U-Net architecture identical. The architectures of the blocks and the following diagrams are adapted from <a href="https://arxiv.org/abs/2204.04676">"Simple Baselines for Image Restoration" by Chen et al.</a>.
+                while keeping the overall U-Net architecture identical. The architectures of the blocks and the following diagrams are adapted from <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen et al.</a>.
             </p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="blocks.png" alt="block architectures diagram " style="max-width: 30%; height: auto; border-radius: 8px;" />
@@ -106,7 +106,7 @@
             <ul>
                 <li>I made the architecture relatively lightweight in terms of the channel depth, the number of levels, and the number of blocks per level. This is so that training would not take too long, and so if a bug were to be found during training, it would not cause too much of a delay.</li>
                 <li>A global residual connection was added connecting the input directly to the output so that the U-Net would only have to learn the difference between the blurred and sharp images, not the entire images themselves.</li>
-                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts described by <a href="https://distill.pub/2016/deconv-checkerboard/">Odena et al.</a></li>
+                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts described by <a href="https://distill.pub/2016/deconv-checkerboard/" target="_blank">Odena et al.</a></li>
             </ul>
         </section>
 
@@ -130,7 +130,7 @@
             <p>
                 The specific loss function I implemented is the following:
                 $$ \mathcal L = \alpha \mathcal L_1 + (1-\alpha) \mathcal L_\mathrm{SSIM} $$
-                where \(\alpha = 0.16\). This value follows a suggestion by <a href="https://arxiv.org/abs/1511.08861">Zhao et al.</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
+                where \(\alpha = 0.16\). This value follows a suggestion by <a href="https://arxiv.org/abs/1511.08861" target="_blank">Zhao et al.</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
             </p>
             <p>
                 I tested a few combinations of different batch sizes and learning rates (<code>lr</code>). After some short trial runs, I chose a batch size of 64. For the 500-epoch NAF model, I used the following learning rate schedule: 
@@ -202,7 +202,7 @@
                 Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels (\(C\)) or adding more NAF blocks at each level. This would require more computation to train, however.
             </p>
             <p>
-                For image restoation, my results suggest that NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by <a href="https://arxiv.org/abs/2506.19845">Esaulov and Esfahani</a>.
+                For image restoation, my results suggest that NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>.
                 However, it's important to note that my NAF model also involves more parameters and more compute compared to my GELU model. Namely, my NAF model has 1.73 million parameters and 1.28 &times; 10 <sup>11</sup> MACs (multiply-accumulate operations)
                 compared to 1.41 million parameters and 1.03 &times; 10 <sup>11</sup> MACs. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
                 This would be an important consideration for models used in edge devices, for example, where memory, compute, and/or energy are limited. Thus, an interesting experiment in the future would be to adjust my two architectures
