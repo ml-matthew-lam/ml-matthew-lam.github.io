@@ -80,13 +80,14 @@
 
         <section>
             <h2>Architecture Design</h2>
-            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-net architectures from Chen et al. and <a href="https://arxiv.org/abs/1505.04597">Ronneberger et al</a>.</p>
+            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-net architectures from <a href="https://arxiv.org/abs/2204.04676">"Simple Baselines for Image Restoration" by Chen et al.</a> 
+                and <a href="https://arxiv.org/abs/1505.04597">Ronneberger et al</a>.</p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="u_net_architecture.png" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
             <p>
                 My architecture uses blocks (NAF blocks or GELU blocks) throughout. This is so that I could easily run my ablation study by switching the type of block used, 
-                while keeping the overall U-Net architecture identical. The architectures of the blocks and the following diagrams are adapted from Chen et al.
+                while keeping the overall U-Net architecture identical. The architectures of the blocks and the following diagrams are adapted from <a href="https://arxiv.org/abs/2204.04676">"Simple Baselines for Image Restoration" by Chen et al.</a>.
             </p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="blocks.png" alt="block architectures diagram " style="max-width: 30%; height: auto; border-radius: 8px;" />
