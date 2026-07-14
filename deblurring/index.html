@@ -135,9 +135,9 @@
                 where \(\alpha = 0.16\). This value follows a suggestion by <a href="https://arxiv.org/abs/1511.08861" target="_blank">Zhao et al.</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
             </p>
             <p>
-                I tested a few combinations of different batch sizes and learning rates (<code>lr</code>). After some short trial runs, I chose a batch size of 64. For the 500-epoch NAF model, I used the following learning rate schedule: 
-                a linearly increasing "warm-up" for the first 10 epochs, peaking at <code>lr=0.0002</code>, then a slow linear decrease, then a cosine annealing for the last 100 epochs. For the 200-epoch NAF model and the 200-epoch GELU model, 
-                I used the following schedule: the same 10-epoch increasing linear "warm-up" peaking at <code>lr=0.0002</code>, immediately followed by cosine annealing over the remaining 190 epochs.
+                I tested a few combinations of different batch sizes and learning rates. After some short trial runs, I chose a batch size of 64. For the 500-epoch NAF model, I used the following learning rate schedule: 
+                a linearly increasing "warm-up" for the first 10 epochs, peaking at learning rate 0.0002, then a slow linear decrease, then a cosine annealing for the last 100 epochs. For the 200-epoch NAF model and the 200-epoch GELU model, 
+                I used the following schedule: the same 10-epoch increasing linear "warm-up" peaking at learning rate 0.0002, immediately followed by cosine annealing over the remaining 190 epochs.
             </p>
         </section>
 
@@ -187,11 +187,16 @@
                 <img src="validation_psnr.svg" alt="validation psnr graph " style="max-width: 80%; height: auto; border-radius: 8px;" />
             </div>
             <p>
-                Below are samples of the outputs of each model for visual inspection:
+                Below are samples of the outputs of each model for visual inspection. Samples A and B are \(256 \times 256\) test images that were fed into the models. 
+                Samples B and C are zoomed in and cropped patches of test images.
             </p>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="visual_results.svg" alt="visual results " style="max-width: 100%; height: auto; border-radius: 8px;" />
+            </div>
              <p>
-                Overall, the improvement in image quality is definitely visible, though the output quality is still not the best. In addition, the models' outputs have much lower SSIM and PSNR when the initial blue is extreme,
-                such as with image ====== above, which seems reasonable.
+                Overall, the improvement in image quality compared to the inputs is definitely visible for all models, but is the most pronounced for the 500-epoch NAF model. 
+                The difference between the 200-epoch NAF model and the 200-epoch GELU model does not seem very obvious visually.
+                However, the output quality is still not the best, as outputs still appear noticeably blurred/distorted compared to the ground truth images. 
             </p>
 
         </section>
