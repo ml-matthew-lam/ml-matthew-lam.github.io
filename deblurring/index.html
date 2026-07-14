@@ -129,7 +129,7 @@
             <p>
                 The specific loss function I implemented is the following:
                 $$ \mathcal L = \alpha \mathcal L_1 + (1-\alpha) \mathcal L_\mathrm{SSIM} $$
-                where \(\alpha = 0.16\). This value was suggested by <a href="https://arxiv.org/abs/1511.08861">Zhao et al.</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
+                where \(\alpha = 0.16\). This value follows a suggestion by <a href="https://arxiv.org/abs/1511.08861">Zhao et al.</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
             </p>
             <p>
                 I tested a few combinations of different batch sizes and learning rates (<code>lr</code>). After some short trial runs, I chose a batch size of 64. For the 500-epoch NAF model, I used the following learning rate schedule: 
@@ -142,7 +142,8 @@
             <h2>Results</h2>
             <p>
                 I tested the trained models on the test split of GOPRO_Large, and measured average SSIM and PSNR of the outputs. PSNR is calculated as \(\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE})\), 
-                since the expected range for the values in the image tensors is \([0,1]\). The table below shows the final metrics achieved by each of the models.
+                since the expected range for the values in the image tensors is \([0,1]\). The table below shows the final metrics achieved by each of the models. As you can see, the 500-epoch NAF model performed the best, 
+                followed by the 200-epoch NAF model, then the 200-epoch GELU model.
             </p>
             <table class="custom-table">
                 <tr>
@@ -173,9 +174,8 @@
                 </tr>
             </table>
             <p>
-                I also logged the SSIM and PSNR achieved on the validation set at the end of each epoch. As shown by the graphs below, the NAF model was generally able to learn faster than the GELU model throughout training. 
-                (Note: both models experienced a very large increase SSIM and PSNR in the first epoch, 
-                so the first epoch is omitted in the graphs to make the comparison between models easier.)
+                I also logged the SSIM and PSNR achieved on the validation set at the end of each epoch. As shown by the graphs below, the 200-epoch NAF model was generally able to learn faster than the 200-epoch GELU model throughout training. 
+                (Note: both models experienced a very large increase SSIM and PSNR in the first epoch, so the first epoch is omitted in the graphs to make the comparison between models easier.)
             </p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="validation_ssim.svg" alt="validation ssim graph " style="max-width: 80%; height: auto; border-radius: 8px;" />
@@ -184,7 +184,11 @@
                 <img src="validation_psnr.svg" alt="validation psnr graph " style="max-width: 80%; height: auto; border-radius: 8px;" />
             </div>
             <p>
-                Here are samples of the outputs of each model for visual inspection:
+                Below are samples of the outputs of each model for visual inspection:
+            </p>
+             <p>
+                Overall, the improvement in image quality is definitely visible, though the output quality is still not the best. In addition, the models' outputs have much lower SSIM and PSNR when the initial blue is extreme,
+                such as with image ====== above, which seems reasonable.
             </p>
 
         </section>
@@ -192,10 +196,16 @@
         <section>
             <h2>Takeaways</h2>
             <p>
-                My 500-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by the +x increase in SSIM and +y increase in . 
+                My 500-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by the +x increase in SSIM and +y increase in PSNR, compared to the unprocessed inputs. 
+                However, other models presented in literature, such as ==== achieve much better performance, likely because they contain many times more parameters. For reference, ===== has ===== parameters, compared to only for my 500-epoch NAF model.
+                Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels (\(C\)) or adding more NAF blocks at each level. This would require more computation to train, however.
             </p>
             <p>
-                For image restoation, NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU.
+                For image restoation, my results suggest that NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by <a href="https://arxiv.org/abs/2506.19845">Esaulov and Esfahani</a>.
+                However, it's important to note that my NAF model also involves more parameters and more compute compared to my GELU model. Namely, my NAF model has 1.73 million parameters and 1.28 &times; 10 <sup>11</sup> MACs (multiply-accumulate operations)
+                compared to 1.41 million parameters and 1.03 &times; 10 <sup>11</sup> MACs. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
+                This would be an important consideration for models used in edge devices, for example, where memory, compute, and/or energy are limited. Thus, an interesting experiment in the future would be to adjust my two architectures
+                so that they either have the same number of parameters, or the same number of MACs, then train them and test their performance.
             </p>
         </section>
 
