@@ -57,7 +57,7 @@
         </header>
 
         <section>
-            <h2>About Deblurring, U-Nets, NAFNet and my Experiment</h2>
+            <h2>About Deblurring, U-Nets, NAFNet and my Project</h2>
             <p>
                 The goal of a deblurring model is to take in a blurred image as input, and output a sharp version. Convolutional neural networks (CNNs), such as U-Net architectures, are often used 
                 for deblurring.
@@ -65,17 +65,25 @@
             <p>
                 Traditional 'vanilla' CNNs use nonlinear activation functions like ReLU or GELU. Many image restoration models also use channel attention, which involves the sigmoid function. 
                 However, image restoration U-Net architectures that removed or replaced these activation functions have been found to work well (even better than conventional architectures).
-                One such architecture is the NAFNet (nonlinear-activation-free network) introduced in <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen et al.</a>, 
-                and my main model, which I'll refer to as my <strong>NAF model</strong>, is based on that one.
+                One such architecture is the NAFNet (nonlinear-activation-free network) introduced in <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen et al.</a>.
             </p>
             <p>
-                In addition to designing and training my NAF model, I also wanted to experiment with replacing a key element from the NAFNet architecture to see for myself how this would impact performance.
+                I also wanted to experiment with replacing a key element from the NAFNet architecture to see for myself how this would impact performance.
                 NAFNet uses SimpleGate in place of nonlinear activation functions. Instead of passing a tensor \(x\) through an activation function, SimpleGate slices \(x\) into two chunks \(x_1\) and \(x_2\),
                 then multiplies the chunks elementwise:
                 $$ \mathrm{SimpleGate} (x) =  x_1 \odot  x_2. $$
-                In my experiment, I tested the effect of putting nonlinear activations back into my NAF model, i.e., putting GELU back in the place of SimpleGate, to obtain what I'll call my <strong>GELU model</strong>.
-                This is essentially the same ablation carried out by <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>, which found that the NAFNet outperformed the model with GELU.
+                In my experiment, I wanted to test the effect of putting nonlinear activations back into the model, i.e., putting GELU back in the place of SimpleGate. This has been tested in the past by
+                <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>, who found that the NAFNet outperformed the model with GELU, but I was curious to run a similar experiment myself.
             </p>
+            <p>
+                Thus, I built two versions of U-Net architectures, and trained them as described below :
+            </p>
+            <ol>
+                <li>One of my models has a non-linear-activation-free architecture, and is trained over 500 epochs. I'll call this my <strong>500-epoch NAF model</strong>.</li>
+                <li>I also trained a model with the same architecture as the <strong>500-epoch NAF model.</strong>, but over only 200 epochs instead. I'll call this my <strong>200-epoch NAF model</strong>.</li>
+                <li>My final model, which I'll call my <strong>200-epoch GELU model</strong>, is identical to the others, except that all SimpleGate are replaced with GELU activation functions. 
+                    I trained this model over 200 epochs so it could be compared to the 200-epoch NAF model.</li>
+            </ol>
         </section>
 
         <section>
@@ -112,16 +120,10 @@
 
         <section>
             <h2>Training the Models</h2>
-            <p> 
-                In all, I trained three deblurring models:
-            </p>
-            <ol>
-                <li>A NAF model trained over 500 epochs </li>
-                <li>A NAF model trained over 200 epochs</li>
-                <li>A GELU model trained over 200 epochs</li>
-            </ol>
-            <p>    
+            <p>
                 I split the training set of GOPRO_Large into two parts: using 10% as a validation set and the remaining 90% to actually train the models.
+            </p>
+            <p>    
                 For optimization, I used a combination of \(\mathcal L_1\) loss and SSIM loss. This involved me implementing the SSIM calculations with PyTorch, using the following formula:
                 $$ \mathrm{SSIM} = \frac {(2\mu_x \mu_y+c_1)(2\sigma_{xy}+c_2)} {(\mu_x^2+\mu_y^2+c_1)(\sigma_x^2+\sigma_y^2+c_2)} $$
                 where \(c_1=0.0001\) and \(c_2=0.0009\) are constants, and \(\mu_x, \mu_y, \sigma_x^2, \sigma_y^2\) and \(\sigma_{xy}\) are the averages, variances and covariance for patches of images \(x\) and \(y\).
