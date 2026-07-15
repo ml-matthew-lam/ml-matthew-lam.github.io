@@ -30,7 +30,7 @@
         </div>
     </nav> -->
     
-    <script>
+    <!-- <script>
       function toggleMenu() {
         const navLinks = document.querySelector('.nav-links');
         const hamburger = document.querySelector('.hamburger');
@@ -39,7 +39,7 @@
           hamburger.classList.toggle('active');
         }
       }
-    </script>
+    </script> -->
 
     <div class="container">
         
@@ -47,9 +47,14 @@
             <!-- <a href="../#deblurring" class="back-link">&larr; Back</a> -->
             
             <h1>Deblurring U-Net + Ablation Study</h1>
+            <p>
+                <a href="https://github.com/ml-matthew-lam/deblurring_ablation.git" terget="_blank">Code in GitHub Repository</a>
+            </p>
 
-            <img src="../images/deblurring_animation.webp" 
-             alt="Motion Deblurring preview" >
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="../images/deblurring_animation.webp" alt="Motion Deblurring preview " style="max-width: 50%; height: auto; border-radius: 8px;" />
+            </div>
+
             <p>
                 In this project, I built a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. I then implemented a combined L1 and SSIM loss function 
                 and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank">GOPRO_Large</a> dataset, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
@@ -208,14 +213,16 @@
             <h2>Main Takeaways</h2>
             <p>
                 My 500-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by the +0.0585 increase in SSIM and +1.57 increase in PSNR, compared to the unprocessed inputs. 
-                However, other models presented in literature, such as ==== achieve much better performance, likely because they contain many times more parameters. For reference, ===== has ===== parameters, 
-                compared to only 1.73 million for my 500-epoch NAF model. Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels (\(C\)) 
+                However, other models presented in literature achieve much better performance. For example, the state-of-the-art NAFNet achieved 0.967 SSIM and 33.69 PSNR on GOPRO_Large (<a href=https://link.springer.com/chapter/10.1007/978-3-031-20071-7_2/tables/7#ref-CR25, target="_blank">Chen et al.</a>),
+                better than any of my models. This is likely because these models involve many times more parameters and compute (often measured in MACs - multiply-accumulate operations). For reference, Chen et al.'s NAFNet has 67.8 M parameters (<a href="https://openreview.net/forum?id=cAyLnMxiTl" target="_blank">Chen, S. et al.</a>) 
+                and 65 G MACs (<a href=https://link.springer.com/chapter/10.1007/978-3-031-20071-7_2/tables/7#ref-CR25 target="_blank">Chen, L et al.</a>),
+                compared to only 1.73 M parameters and 3.99 G MACs for my 500-epoch NAF model. Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels \(C\)
                 or adding more NAF blocks at each level. This would require more computation to train, however.
             </p>
             <p>
                 For image restoation, my results suggest that NAFNet-like models can be more effective than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>.
-                However, it's important to note that my NAF model also involves more parameters and more compute compared to my GELU model. Namely, my NAF model has 1.73 million parameters and 1.28 &times; 10 <sup>11</sup> MACs (multiply-accumulate operations)
-                compared to 1.41 million parameters and 1.03 &times; 10 <sup>11</sup> MACs for my GELU model. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
+                However, it's important to note that my NAF model also involves more parameters and more compute compared to my GELU model. Namely, my NAF model has 1.73 M parameters and 3.99 G MACs
+                compared to 1.41 M parameters and 3.23 G MACs for my GELU model. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
                 This would be an important consideration for models used in edge devices, for example, where memory, compute, and/or energy are limited. Thus, an interesting experiment in the future would be to adjust my two architectures
                 so that they either have the same number of parameters, or the same number of MACs, then train them and test their performance.
             </p>
