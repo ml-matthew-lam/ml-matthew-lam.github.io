@@ -7,6 +7,20 @@
     <link rel="stylesheet" href="../stylesheet.css">
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        .references-list {
+            list-style-type: none; 
+            padding-left: 0;
+        }
+        .references-list li {
+            margin-bottom: 12px;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+        .references-list a {
+            color: inherit;
+        }
+    </style>
 </head>
 <body>
 
@@ -66,7 +80,7 @@
 
             <p>
                 In this project, I built a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. I then implemented a combined L1 and SSIM loss function 
-                and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank">GOPRO_Large</a> dataset from <a href=https://seungjunnah.github.io/Datasets/gopro target="_blank">Nah. et al.</a>, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
+                and trained the model on the GOPRO_Large dataset from Nah et al. <a href="#ref1">[1]</a>, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
                 the effect of replacing the SimpleGate operations with GELU over shorter training durations. The NAF model outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), which is consistent with literature.
             </p>
@@ -81,7 +95,7 @@
             <p>
                 Traditional 'vanilla' CNNs use nonlinear activation functions like ReLU or GELU. Many image restoration models also use channel attention, which involves the sigmoid function. 
                 However, image restoration U-Net architectures that removed or replaced these activation functions have been found to work well (even better than conventional architectures).
-                One such architecture is the NAFNet (nonlinear-activation-free network) introduced in <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen, L et al.</a>.
+                One such architecture is the NAFNet (nonlinear-activation-free network) introduced in "Simple Baselines for Image Restoration" by L. Chen et al. <a href="#ref2">[2]</a>.
             </p>
             <p>
                 I also wanted to experiment with replacing a key element from the NAFNet architecture to see for myself how this would impact performance.
@@ -89,7 +103,7 @@
                 then multiplies the chunks elementwise:
                 $$ \mathrm{SimpleGate} (x) =  x_1 \odot  x_2. $$
                 In my experiment, I wanted to test the effect of putting nonlinear activations back into the model, i.e., putting GELU back in the place of SimpleGate. This has been tested in the past by
-                <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>, who found that the NAFNet outperformed the model with GELU, but I was curious to run a similar experiment myself.
+                Esaulov and Esfahani <a href="#ref3">[3]</a>, who found that the NAFNet outperformed the model with GELU, but I was curious to run a similar experiment myself.
             </p>
             <p>
                 Thus, I built two versions of U-Net architectures, and trained them as described below :
@@ -104,14 +118,14 @@
 
         <section>
             <h2>Architecture Design</h2>
-            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-net architectures from <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen, L et al.</a> 
-                and <a href="https://arxiv.org/abs/1505.04597" target="_blank">Ronneberger et al</a>.</p>
+            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-net architectures from L. Chen et al. <a href="#ref2">[2]</a> 
+                and Ronneberger et al. <a href="#ref4">[4]</a>.</p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="u_net_architecture.png" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
             <p>
                 My architecture uses blocks (NAF blocks or GELU blocks) throughout. This is so that I could easily run my ablation study by switching the type of block used, 
-                while keeping the overall U-Net architecture identical. The architectures of the blocks and the following diagrams are adapted from <a href="https://arxiv.org/abs/2204.04676" target="_blank">"Simple Baselines for Image Restoration" by Chen, L et al.</a>.
+                while keeping the overall U-Net architecture identical. The architectures of the blocks and the following diagrams are adapted from L. Chen et al. <a href="#ref2">[2]</a>.
             </p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="blocks.png" alt="block architectures diagram " style="max-width: 30%; height: auto; border-radius: 8px;" />
@@ -130,7 +144,7 @@
             <ul>
                 <li>I made the architecture relatively lightweight in terms of the channel depth, the number of levels, and the number of blocks per level. This is so that training would not take too long, and so if a bug were to be found during training, it would not cause too much of a delay.</li>
                 <li>A global residual connection was added connecting the input directly to the output so that the U-Net would only have to learn the difference between the blurred and sharp images, not the entire images themselves.</li>
-                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts described by <a href="https://distill.pub/2016/deconv-checkerboard/" target="_blank">Odena et al.</a></li>
+                <li>Bilinear upsampling was used instead of up-convolutions to avoid checkerboard artifacts described by Odena et al. <a href="#ref5">[5]</a>.</li>
             </ul>
         </section>
 
@@ -148,7 +162,7 @@
             <p>
                 The specific loss function I implemented is the following:
                 $$ \mathcal L = \alpha \mathcal L_1 + (1-\alpha) \mathcal L_\mathrm{SSIM} $$
-                where \(\alpha = 0.16\). This value follows a suggestion by <a href="https://arxiv.org/abs/1511.08861" target="_blank">Zhao et al.</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
+                where \(\alpha = 0.16\). This value follows a suggestion by Zhao et al. <a href="#ref6">[6]</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
             </p>
             <p>
                 I tested a few combinations of different batch sizes and learning rates. After some short trial runs, I chose a batch size of 64. For the 500-epoch NAF model, I used the following learning rate schedule: 
@@ -222,19 +236,32 @@
             <h2>Main Takeaways</h2>
             <p>
                 My 500-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by the +0.0585 increase in SSIM and +1.57 increase in PSNR, compared to the unprocessed inputs. 
-                However, other models presented in literature achieve much better performance. For example, the state-of-the-art NAFNet achieved 0.967 SSIM and 33.69 PSNR on GOPRO_Large (<a href=https://link.springer.com/chapter/10.1007/978-3-031-20071-7_2/tables/7#ref-CR25, target="_blank">Chen, L et al.</a>),
-                better than any of my models. This is likely because these models involve many times more parameters and compute (often measured in MACs - multiply-accumulate operations). For reference, the official original NAFNet has 67.8 M parameters (<a href="https://openreview.net/forum?id=cAyLnMxiTl" target="_blank">Chen, S. et al.</a>) 
-                and 65 G MACs (<a href=https://link.springer.com/chapter/10.1007/978-3-031-20071-7_2/tables/7#ref-CR25 target="_blank">Chen, L et al.</a>),
+                However, other models presented in literature achieve much better performance. For example, the state-of-the-art NAFNet achieved 0.967 SSIM and 33.69 PSNR on GOPRO_Large <a href="#ref2">[2]</a>,
+                better than any of my models. This is likely because these models involve many times more parameters and compute (often measured in MACs - multiply-accumulate operations). For reference, the official original NAFNet has 67.8 M parameters <a href="#ref7">[7]</a> 
+                and 65 G MACs <a href="#ref2">[2]</a>,
                 compared to only 1.73 M parameters and 3.99 G MACs for my 500-epoch NAF model. Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels \(C\)
                 or adding more NAF blocks at each level. This would require more computation to train, however.
             </p>
             <p>
-                My results suggest that NAFNet-like models can be more effective at image restoration than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by <a href="https://arxiv.org/abs/2506.19845" target="_blank">Esaulov and Esfahani</a>.
+                My results suggest that NAFNet-like models can be more effective at image restoration than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by Esaulov and Esfahani <a href="#ref3">[3]</a>.
                 However, it's important to note that my NAF model also involves more parameters and more compute compared to my GELU model. Namely, my NAF model has 1.73 M parameters and 3.99 G MACs
                 compared to 1.41 M parameters and 3.23 G MACs for my GELU model. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
                 This would be an important consideration for models used in edge devices, for example, where memory, compute, and/or energy are limited. Thus, an interesting experiment in the future would be to adjust my two architectures
                 so that they either have the same number of parameters, or the same number of MACs, then train them and test their performance.
             </p>
+        </section>
+
+        <section>
+            <h2>References</h2>
+            <ol class="references-list">
+                <li id="ref1">[1] S. Nah, T. H. Kim, and K. M. Lee, "Deep multi-scale convolutional neural network for dynamic scene deblurring," in <i>CVPR</i>, 2017. [Online]. Available: <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank">https://seungjunnah.github.io/Datasets/gopro</a></li>
+                <li id="ref2">[2] L. Chen, X. Chu, X. Zhang, and J. Sun, "Simple Baselines for Image Restoration," in <i>ECCV</i>, 2022. [Online]. Available: <a href="https://arxiv.org/abs/2204.04676" target="_blank">https://arxiv.org/abs/2204.04676</a></li>
+                <li id="ref3">[3] V. Esaulov and A. Esfahani, "Architecture Search for Image Restoration," arXiv preprint arXiv:2506.19845. [Online]. Available: <a href="https://arxiv.org/abs/2506.19845" target="_blank">https://arxiv.org/abs/2506.19845</a></li>
+                <li id="ref4">[4] O. Ronneberger, P. Fischer, and T. Brox, "U-Net: Convolutional Networks for Biomedical Image Segmentation," in <i>MICCAI</i>, 2015. [Online]. Available: <a href="https://arxiv.org/abs/1505.04597" target="_blank">https://arxiv.org/abs/1505.04597</a></li>
+                <li id="ref5">[5] A. Odena, V. Dumoulin, and C. Olah, "Deconvolution and Checkerboard Artifacts," <i>Distill</i>, 2016. [Online]. Available: <a href="https://distill.pub/2016/deconv-checkerboard/" target="_blank">https://distill.pub/2016/deconv-checkerboard/</a></li>
+                <li id="ref6">[6] H. Zhao, O. Gallo, I. Frosio, and J. Kautz, "Loss Functions for Image Restoration with Neural Networks," <i>IEEE Transactions on Computational Imaging</i>, 2016. [Online]. Available: <a href="https://arxiv.org/abs/1511.08861" target="_blank">https://arxiv.org/abs/1511.08861</a></li>
+                <li id="ref7">[7] S. Chen et al., OpenReview discussion forum. [Online]. Available: <a href="https://openreview.net/forum?id=cAyLnMxiTl" target="_blank">https://openreview.net/forum?id=cAyLnMxiTl</a></li>
+            </ol>
         </section>
 
         <div class="footer">
