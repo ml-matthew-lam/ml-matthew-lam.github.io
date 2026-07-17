@@ -24,7 +24,7 @@
 
       <div class="nav-links">
         <a href="#about" onclick="toggleMenu()">About</a>
-        <a href="#featured-projects" onclick="toggleMenu()">Featured Projects</a>
+        <!-- <a href="#featured-projects" onclick="toggleMenu()">Featured Projects</a> -->
         <a href="#projects" onclick="toggleMenu()">Projects</a>
       </div>
     </div>
@@ -66,10 +66,10 @@
       </div>
     </div>
 
-    <h2 id="featured-projects">Featured Projects</h2>
+    <!-- <h2 id="featured-projects">Featured Projects</h2>
     <div class="featured-projects-row">
 
-      <!-- <div class="featured-project-item">
+      <div class="featured-project-item">
         <a href="#">
           <img src="images/favicon.png" 
                alt="Motion Deblurring preview" 
@@ -86,7 +86,7 @@
         <p>
           3D Gaussian Splatting inverse rendering pipeline modified to infer material properties (albedo, surface normals, roughness).
         </p>
-      </div> -->
+      </div>
 
       <div id="deblurring" class="featured-project-item">
         <a href="deblurring">
@@ -107,9 +107,32 @@
         </p>
       </div>
       
-    </div>
+    </div> -->
 
     <h2 id="projects">Projects</h2>
+
+    <div class="project-row">
+      <div class="col-project-img">
+        <a href="deblurring">
+          <div class="project-media">
+            <img src="images/deblurring.png" 
+              alt="Motion Deblurring preview" 
+              onmouseover="this.src='images/deblurring_animation.webp'"
+              onmouseout="this.src='images/deblurring.png'">
+          </div>
+        </a>
+      </div>
+      <div class="col-project-text">
+        <a href="deblurring">
+          <span class="papertitle">Deblurring U-Net and Ablation Study</span>
+        </a>
+        <p class="project-meta">Jun. 2026 - Jul. 2026 / Personal project</p>
+        <p class="project-links">
+          <a href="deblurring">Project Page</a> &nbsp;/&nbsp; <a href="https://github.com/ml-matthew-lam/deblurring_ablation.git">GitHub</a>
+        </p>
+        <p>Custom-designed U-Net for motion deblurring, trained on the GoPro dataset. I also ran an ablation comparing NAF blocks with SimpleGate activations to modified blocks with GELU activations.</p>
+      </div>
+    </div>    
 
     <div class="project-row">
       <div class="col-project-img">
