@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deblurring Project - Matthew Lam</title>
+    <meta name="description" content="Custom-designed U-Net for motion deblurring, trained on the GoPro dataset, with an ablation comparing NAF blocks to GELU activations.">
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#15181c" media="(prefers-color-scheme: dark)">
     <link rel="stylesheet" href="../stylesheet.css">
     <link rel="icon" type="image/png" href="/images/favicon.png">
+    <link rel="apple-touch-icon" href="/images/favicon.png">
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         .references-list {
@@ -30,27 +34,28 @@
                 <a href="../index.html#about">Matthew Lam</a>
             </div>
             
-            <div class="hamburger" onclick="toggleMenu()">
+            <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
               <span class="bar"></span>
               <span class="bar"></span>
               <span class="bar"></span>
-            </div>
+            </button>
 
-            <div class="nav-links">
+            <div class="nav-links" id="nav-links">
                 <a href="../index.html#about" onclick="toggleMenu()">About</a>
                 <!-- <a href="../index.html#featured-projects" onclick="toggleMenu()">Featured Projects</a> -->
                 <a href="../index.html#projects" onclick="toggleMenu()">Projects</a>
             </div>
         </div>
     </nav>
-    
+
     <script>
       function toggleMenu() {
         const navLinks = document.querySelector('.nav-links');
         const hamburger = document.querySelector('.hamburger');
         if (window.innerWidth <= 768) {
-          navLinks.classList.toggle('active');
+          const isActive = navLinks.classList.toggle('active');
           hamburger.classList.toggle('active');
+          hamburger.setAttribute('aria-expanded', isActive);
         }
       }
     </script>
@@ -63,7 +68,7 @@
 
             <h1>Deblurring U-Net and Ablation Study</h1>
             <p>
-                <a href="https://github.com/ml-matthew-lam/deblurring_ablation.git" target="_blank">Code on GitHub</a>
+                <a href="https://github.com/ml-matthew-lam/deblurring_ablation.git" target="_blank" rel="noopener noreferrer">Code on GitHub</a>
             </p>
 
             <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin: 32px 0;">
@@ -80,7 +85,7 @@
 
             <p>
                 In this project, I built a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. I then implemented a combined L1 and SSIM loss function 
-                and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank">GOPRO_Large</a> dataset from Nah et al. <a href="#ref1">[1]</a>, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
+                and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank" rel="noopener noreferrer">GOPRO_Large</a> dataset from Nah et al. <a href="#ref1">[1]</a>, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
                 the effect of replacing the SimpleGate operations with GELU over shorter training durations. The NAF model outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), which is consistent with literature.
             </p>
@@ -260,13 +265,13 @@
         <section>
             <h2>References</h2>
             <ol class="references-list">
-                <li id="ref1">[1] S. Nah, T. H. Kim, and K. M. Lee, "Deep multi-scale convolutional neural network for dynamic scene deblurring," in <i>CVPR</i>, 2017. [Online]. Available: <a href="https://arxiv.org/abs/1612.02177" target="_blank">https://arxiv.org/abs/1612.02177</a></li>
-                <li id="ref2">[2] L. Chen, X. Chu, X. Zhang, and J. Sun, "Simple Baselines for Image Restoration," in <i>ECCV</i>, 2022. [Online]. Available: <a href="https://arxiv.org/abs/2204.04676" target="_blank">https://arxiv.org/abs/2204.04676</a></li>
-                <li id="ref3">[3] V. Esaulov and A. Esfahani, "A Comparative Study of NAFNet Baselines for Image Restoration," arXiv preprint arXiv:2506.19845. [Online]. Available: <a href="https://arxiv.org/abs/2506.19845" target="_blank">https://arxiv.org/abs/2506.19845</a></li>
-                <li id="ref4">[4] O. Ronneberger, P. Fischer, and T. Brox, "U-Net: Convolutional Networks for Biomedical Image Segmentation," in <i>MICCAI</i>, 2015. [Online]. Available: <a href="https://arxiv.org/abs/1505.04597" target="_blank">https://arxiv.org/abs/1505.04597</a></li>
-                <li id="ref5">[5] A. Odena, V. Dumoulin, and C. Olah, "Deconvolution and Checkerboard Artifacts," <i>Distill</i>, 2016. [Online]. Available: <a href="https://distill.pub/2016/deconv-checkerboard/" target="_blank">https://distill.pub/2016/deconv-checkerboard/</a></li>
-                <li id="ref6">[6] H. Zhao, O. Gallo, I. Frosio, and J. Kautz, "Loss Functions for Image Restoration with Neural Networks," <i>IEEE Transactions on Computational Imaging</i>, 2016. [Online]. Available: <a href="https://ieeexplore.ieee.org/document/7797130" target="_blank">https://ieeexplore.ieee.org/document/7797130</a></li>
-                <li id="ref7">[7] S. Chen et al., Enhancing Motion Deblurring in High-Speed Scenes with Spike Streams. [Online]. Available: <a href="https://openreview.net/forum?id=cAyLnMxiTl" target="_blank">https://openreview.net/forum?id=cAyLnMxiTl</a></li>
+                <li id="ref1">[1] S. Nah, T. H. Kim, and K. M. Lee, "Deep multi-scale convolutional neural network for dynamic scene deblurring," in <i>CVPR</i>, 2017. [Online]. Available: <a href="https://arxiv.org/abs/1612.02177" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/1612.02177</a></li>
+                <li id="ref2">[2] L. Chen, X. Chu, X. Zhang, and J. Sun, "Simple Baselines for Image Restoration," in <i>ECCV</i>, 2022. [Online]. Available: <a href="https://arxiv.org/abs/2204.04676" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2204.04676</a></li>
+                <li id="ref3">[3] V. Esaulov and A. Esfahani, "A Comparative Study of NAFNet Baselines for Image Restoration," arXiv preprint arXiv:2506.19845. [Online]. Available: <a href="https://arxiv.org/abs/2506.19845" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/2506.19845</a></li>
+                <li id="ref4">[4] O. Ronneberger, P. Fischer, and T. Brox, "U-Net: Convolutional Networks for Biomedical Image Segmentation," in <i>MICCAI</i>, 2015. [Online]. Available: <a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/1505.04597</a></li>
+                <li id="ref5">[5] A. Odena, V. Dumoulin, and C. Olah, "Deconvolution and Checkerboard Artifacts," <i>Distill</i>, 2016. [Online]. Available: <a href="https://distill.pub/2016/deconv-checkerboard/" target="_blank" rel="noopener noreferrer">https://distill.pub/2016/deconv-checkerboard/</a></li>
+                <li id="ref6">[6] H. Zhao, O. Gallo, I. Frosio, and J. Kautz, "Loss Functions for Image Restoration with Neural Networks," <i>IEEE Transactions on Computational Imaging</i>, 2016. [Online]. Available: <a href="https://ieeexplore.ieee.org/document/7797130" target="_blank" rel="noopener noreferrer">https://ieeexplore.ieee.org/document/7797130</a></li>
+                <li id="ref7">[7] S. Chen et al., Enhancing Motion Deblurring in High-Speed Scenes with Spike Streams. [Online]. Available: <a href="https://openreview.net/forum?id=cAyLnMxiTl" target="_blank" rel="noopener noreferrer">https://openreview.net/forum?id=cAyLnMxiTl</a></li>
             </ol>
         </section>
 

@@ -4,19 +4,39 @@
 /* @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Public+Sans:wght@300;400;600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,600;1,8..60,700&display=swap');
 
-/* Lato Font Faces */
-@font-face { font-family: 'Lato'; font-style: italic; font-weight: 400; src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAUi-qNiXg7eU0.woff2) format('woff2'); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Lato'; font-style: italic; font-weight: 400; src: local('Lato Italic'), local('Lato-Italic'), url(https://fonts.gstatic.com/s/lato/v15/S6u8w4BMUTPHjxsAXC-qNiXg7Q.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Lato'; font-style: italic; font-weight: 700; src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_FQftx9897sxZ.woff2) format('woff2'); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Lato'; font-style: italic; font-weight: 700; src: local('Lato Bold Italic'), local('Lato-BoldItalic'), url(https://fonts.gstatic.com/s/lato/v15/S6u_w4BMUTPHjxsI5wq_Gwftx9897g.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Lato'; font-style: normal; font-weight: 400; src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjxAwXiWtFCfQ7A.woff2) format('woff2'); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Lato'; font-style: normal; font-weight: 400; src: local('Lato Regular'), local('Lato-Regular'), url(https://fonts.gstatic.com/s/lato/v15/S6uyw4BMUTPHjx4wXiWtFCc.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Lato'; font-style: normal; font-weight: 700; src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwaPGQ3q5d0N7w.woff2) format('woff2'); unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Lato'; font-style: normal; font-weight: 700; src: local('Lato Bold'), local('Lato-Bold'), url(https://fonts.gstatic.com/s/lato/v15/S6u9w4BMUTPHh6UVSwiPGQ3q5d0.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-
 /* ==========================================================================
    Global Typography & Colors
    ========================================================================== */
+:root {
+  --color-bg: #ffffff;
+  --color-text: #222222;
+  --color-text-muted: #555555;
+  --color-text-faint: #777777;
+  --color-border: #e0e0e0;
+  --color-border-strong: #222222;
+  --color-link: #1772d0;
+  --color-link-hover: #f09228;
+  --color-nav-bg: rgba(255, 255, 255, 0.95);
+  --color-nav-bg-mobile: rgba(255, 255, 255, 0.98);
+  --color-surface: #f5f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #15181c;
+    --color-text: #e8e8e8;
+    --color-text-muted: #a8a8a8;
+    --color-text-faint: #888888;
+    --color-border: #33383e;
+    --color-border-strong: #e8e8e8;
+    --color-link: #5fa8f0;
+    --color-link-hover: #f5a94e;
+    --color-nav-bg: rgba(21, 24, 28, 0.9);
+    --color-nav-bg-mobile: rgba(21, 24, 28, 0.97);
+    --color-surface: #1f2328;
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -24,7 +44,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  color: #222;
+  background-color: var(--color-bg);
+  color: var(--color-text);
 }
 
 body, td, th, tr, p, a, strong, h1, h2, h3,
@@ -33,7 +54,7 @@ body, td, th, tr, p, a, strong, h1, h2, h3,
 }
 
 body, p, a, .col-project-text, .col-profile-text {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
 }
 
@@ -46,14 +67,14 @@ p:last-child {
 }
 
 a {
-  color: #1772d0;
+  color: var(--color-link);
   text-decoration: none;
   transition: color 0.15s ease-in-out;
 }
 
 a:focus,
 a:hover {
-  color: #f09228;
+  color: var(--color-link-hover);
 }
 
 /* ==========================================================================
@@ -64,11 +85,11 @@ a:hover {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--color-nav-bg);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
   box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
@@ -82,14 +103,14 @@ a:hover {
 }
 
 .nav-logo a {
-  color: #222;
+  color: var(--color-text);
   font-weight: 700;
   font-size: 18px;
   letter-spacing: 0.5px;
 }
 
 .nav-logo a:hover {
-  color: #1772d0;
+  color: var(--color-link);
 }
 
 .nav-links {
@@ -98,7 +119,7 @@ a:hover {
 }
 
 .nav-links a {
-  color: #555;
+  color: var(--color-text-muted);
   font-weight: 600;
   font-size: 14px;
   text-transform: uppercase;
@@ -106,13 +127,17 @@ a:hover {
 }
 
 .nav-links a:hover {
-  color: #1772d0;
+  color: var(--color-link);
 }
 
 /* Hamburger Icon (Hidden on Desktop) */
 .hamburger {
   display: none;
   cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+  margin: 0;
 }
 
 .bar {
@@ -120,7 +145,7 @@ a:hover {
   width: 25px;
   height: 3px;
   margin: 5px auto;
-  background-color: #222;
+  background-color: var(--color-text);
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -129,12 +154,11 @@ a:hover {
    Headings & Specific Text Styling
    ========================================================================== */
 h1.name {
-  margin: 0 0 16px 0;
-  padding-bottom: 8px;
+  margin: 0 0 8px 0;
   font-weight: 700;
   font-size: 42px;
   line-height: 1.1;
-  border-bottom: 2px solid #222;
+  color: var(--color-text);
 }
 
 h1 {
@@ -147,8 +171,9 @@ h2 {
   margin: 48px 0 24px 0;
   padding-bottom: 8px;
   font-weight: 700;
-  font-size: 28px;
-  border-bottom: 2px solid #222;
+  font-size: 24px;
+  letter-spacing: 0.3px;
+  border-bottom: 2px solid var(--color-border-strong);
 }
 
 .papertitle {
@@ -160,7 +185,7 @@ h2 {
 
 .project-meta {
   font-size: 0.9em;
-  color: #555;
+  color: var(--color-text-muted);
   margin-bottom: 4px;
 }
 
@@ -203,7 +228,7 @@ h2 {
   align-items: flex-start;
   gap: 32px;
   padding: 32px 0;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .project-row:last-of-type {
@@ -264,35 +289,26 @@ h2 {
 .project-media {
   position: relative;
   width: 100%;
+  aspect-ratio: 4 / 3;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background-color: var(--color-surface);
 }
 
-.project-media img,
-.project-media video {
+.project-media img {
   width: 100%;
+  height: 100%;
   display: block;
+  object-fit: cover;
   border-radius: 10px;
-}
-
-.project-media video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-}
-
-.project-media:hover video {
-  opacity: 1;
 }
 
 /* Footer styling */
 .footer {
   text-align: center;
   font-size: 0.85em;
-  color: #777;
+  color: var(--color-text-faint);
   margin-top: 64px;
   padding-top: 24px;
 }
@@ -304,14 +320,14 @@ table.custom-table {
     width: 80%; /* adjust this percentage depending on how wide you want it */
 }
 
-table.custom-table th, 
+table.custom-table th,
 table.custom-table td {
     padding: 10px 15px;
-    border: 1px solid #ddd; /* light grey border to match the clean aesthetic */
+    border: 1px solid var(--color-border); /* light grey border to match the clean aesthetic */
 }
 
 table.custom-table th {
-    background-color: #f5f5f5; /* slight background highlight for the header */
+    background-color: var(--color-surface); /* slight background highlight for the header */
     font-weight: bold;
     text-align: center;
 }
@@ -330,25 +346,25 @@ table.custom-table th {
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: var(--color-nav-bg-mobile);
     flex-direction: column;
     text-align: center;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    
+
     /* Smooth sliding animation */
     overflow: hidden;
     max-height: 0;
     transition: max-height 0.3s ease-out;
     gap: 0;
   }
-  
+
   .nav-links.active {
     max-height: 250px; /* Opens the menu */
   }
 
   .nav-links a {
     padding: 16px;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--color-border);
   }
 
   /* Animate hamburger to an 'X' */

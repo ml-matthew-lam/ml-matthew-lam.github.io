@@ -4,8 +4,25 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>Matthew Lam</title>
   <meta name="author" content="Matthew Lam">
+  <meta name="description" content="Matthew Lam is an Engineering Science student at the University of Toronto interested in hardware/software co-design for computer vision, imaging and communication systems.">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#15181c" media="(prefers-color-scheme: dark)">
   <link rel="shortcut icon" href="images/favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="images/favicon.png">
+  <link rel="canonical" href="https://matthewlam.me/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Matthew Lam">
+  <meta property="og:description" content="Engineering Science student at the University of Toronto interested in hardware/software co-design for computer vision, imaging and communication systems.">
+  <meta property="og:url" content="https://matthewlam.me/">
+  <meta property="og:image" content="https://matthewlam.me/matthew_lam.jpg">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Matthew Lam">
+  <meta name="twitter:description" content="Engineering Science student at the University of Toronto interested in hardware/software co-design for computer vision, imaging and communication systems.">
+  <meta name="twitter:image" content="https://matthewlam.me/matthew_lam.jpg">
+
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 
@@ -16,13 +33,13 @@
         <a href="#about">Matthew Lam</a>
       </div>
       
-      <div class="hamburger" onclick="toggleMenu()">
+      <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
         <span class="bar"></span>
         <span class="bar"></span>
         <span class="bar"></span>
-      </div>
+      </button>
 
-      <div class="nav-links">
+      <div class="nav-links" id="nav-links">
         <a href="#about" onclick="toggleMenu()">About</a>
         <!-- <a href="#featured-projects" onclick="toggleMenu()">Featured Projects</a> -->
         <a href="#projects" onclick="toggleMenu()">Projects</a>
@@ -35,8 +52,9 @@
       const navLinks = document.querySelector('.nav-links');
       const hamburger = document.querySelector('.hamburger');
       if (window.innerWidth <= 768) {
-        navLinks.classList.toggle('active');
+        const isActive = navLinks.classList.toggle('active');
         hamburger.classList.toggle('active');
+        hamburger.setAttribute('aria-expanded', isActive);
       }
     }
   </script>
@@ -59,9 +77,9 @@
         </p>
         <p>
           <a href="mailto:ma.lam@mail.utoronto.ca">Email</a> &nbsp;/&nbsp;
-          <a href="https://drive.google.com/file/d/1SXAs52rXhSYmBC0NqRWkNdx8EkJWNu3U/view?usp=sharing">CV</a> &nbsp;/&nbsp;
-          <a href="https://www.linkedin.com/in/ml-matthew-lam">LinkedIn</a> &nbsp;/&nbsp;
-          <a href="https://github.com/ml-matthew-lam/">GitHub</a>
+          <a href="https://drive.google.com/file/d/1SXAs52rXhSYmBC0NqRWkNdx8EkJWNu3U/view?usp=sharing" target="_blank" rel="noopener noreferrer">CV</a> &nbsp;/&nbsp;
+          <a href="https://www.linkedin.com/in/ml-matthew-lam" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;/&nbsp;
+          <a href="https://github.com/ml-matthew-lam/" target="_blank" rel="noopener noreferrer">GitHub</a>
         </p>
       </div>
     </div>
@@ -115,10 +133,7 @@
       <div class="col-project-img">
         <a href="deblurring">
           <div class="project-media">
-            <img src="images/deblurring.png" 
-              alt="Motion Deblurring preview" 
-              onmouseover="this.src='images/deblurring_animation.webp'"
-              onmouseout="this.src='images/deblurring.png'">
+            <img src="images/deblurring_animation.webp" alt="Motion Deblurring preview, animated">
           </div>
         </a>
       </div>
@@ -128,7 +143,7 @@
         </a>
         <p class="project-meta">Jun. 2026 - Jul. 2026 / Personal project</p>
         <p class="project-links">
-          <a href="deblurring">Project Page</a> &nbsp;/&nbsp; <a href="https://github.com/ml-matthew-lam/deblurring_ablation.git" target="_blank">GitHub</a>
+          <a href="deblurring">Project Page</a> &nbsp;/&nbsp; <a href="https://github.com/ml-matthew-lam/deblurring_ablation.git" target="_blank" rel="noopener noreferrer">GitHub</a>
         </p>
         <p>Custom-designed U-Net for motion deblurring, trained on the GoPro dataset. I also ran an ablation comparing NAF blocks with SimpleGate activations to modified blocks with GELU activations.</p>
       </div>
@@ -136,22 +151,19 @@
 
     <div class="project-row">
       <div class="col-project-img">
-        <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md">
+        <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md" target="_blank" rel="noopener noreferrer">
           <div class="project-media">
             <img src="images/fashion.png" alt="Fashion MNIST dataset preview">
-            <video muted autoplay loop playsinline>
-              <source src="images/fashion.mp4" type="video/mp4">
-            </video>
           </div>
         </a>
       </div>
       <div class="col-project-text">
-        <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md">
+        <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md" target="_blank" rel="noopener noreferrer">
           <span class="papertitle">Classifying Images with a Convolutional Neural Network</span>
         </a>
         <p class="project-meta">Jun. 2026 / Personal project</p>
         <p class="project-links">
-          <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md">GitHub</a>
+          <a href="https://github.com/ml-matthew-lam/fashion_classification/blob/1d58ed7e6c16237c2463414c47ffa2deabd6b827/README.md" target="_blank" rel="noopener noreferrer">GitHub</a>
         </p>
         <p>This was my first computer vision project as well as my first ML project. It consists of a convolutional neural network that classifies images of clothing items. It is trained on the Fashion-MNIST dataset.</p>
       </div>
@@ -159,22 +171,19 @@
 
     <div class="project-row">
       <div class="col-project-img">
-        <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">
+        <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager" target="_blank" rel="noopener noreferrer">
           <div class="project-media">
             <img src="images/bridge.png" alt="Matboard Bridge preview">
-            <video muted autoplay loop playsinline>
-              <source src="images/bridge.mp4" type="video/mp4">
-            </video>
           </div>
         </a>
       </div>
       <div class="col-project-text">
-        <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">
+        <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager" target="_blank" rel="noopener noreferrer">
           <span class="papertitle">Matboard Beam Bridge Design</span>
         </a>
         <p class="project-meta">Nov. 2025 / Team project with Jeffrey Zhu and Riley Ellison / CIV102 Project</p>
         <p class="project-links">
-          <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager">Project overview</a> / <a href="https://github.com/jeffrey500/CivBridge.git">GitHub</a>
+          <a href="https://sites.google.com/view/matthew-lam/civ102-project/project-one-pager" target="_blank" rel="noopener noreferrer">Project overview</a> / <a href="https://github.com/jeffrey500/CivBridge.git" target="_blank" rel="noopener noreferrer">GitHub</a>
         </p>
         <p>Matboard beam bridge spanning 1200 mm and withstanding a 580 N load from a rolling toy train. We wrote a Python script to calculate factors of safety of our design, and predict how well our bridge would perform during testing.</p>
       </div>
@@ -182,22 +191,19 @@
 
     <div class="project-row">
       <div class="col-project-img">
-        <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing">
+        <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing" target="_blank" rel="noopener noreferrer">
           <div class="project-media">
             <img src="images/electrolysis.png" alt="Electrolysis experiment preview">
-            <video muted autoplay loop playsinline>
-              <source src="images/electrolysis.mp4" type="video/mp4">
-            </video>
           </div>
         </a>
       </div>
       <div class="col-project-text">
-        <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing">
+        <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing" target="_blank" rel="noopener noreferrer">
           <span class="papertitle">Rate of Water Electrolysis vs Ionic Concentration Experiment</span>
         </a>
         <p class="project-meta">Nov. 2024 - Feb. 2025 / Personal project / IB Chemistry Exploration</p>
         <p class="project-links">
-          <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing">Full project report</a>
+          <a href="https://drive.google.com/file/d/1WyeA0MIyju-8koWQCLyzxL1ujLJym6oD/view?usp=sharing" target="_blank" rel="noopener noreferrer">Full project report</a>
         </p>
         <p>I designed and ran a water electrolysis experiment to determine the effect of varying NaOH concentration on rate of water electrolysis. I measured rate using electrical current and rate of H<sub>2</sub> production.</p>
       </div>
@@ -205,22 +211,19 @@
 
     <div class="project-row">
       <div class="col-project-img">
-        <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">
+        <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing" target="_blank" rel="noopener noreferrer">
           <div class="project-media">
             <img src="images/interpolation.png" alt="Interpolation comparison preview">
-            <video muted autoplay loop playsinline>
-              <source src="images/interpolation.mp4" type="video/mp4">
-            </video>
           </div>
         </a>
       </div>
       <div class="col-project-text">
-        <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">
+        <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing" target="_blank" rel="noopener noreferrer">
           <span class="papertitle">Interpolation Methods for Image Resizing</span>
         </a>
         <p class="project-meta">Sep. 2024 - Jan. 2025 / Personal project / IB Mathematics Exploration</p>
         <p class="project-links">
-          <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing">Full project report</a>
+          <a href="https://drive.google.com/file/d/1UKRGi0dYWuPmeJVhRiaG6SW1TPp93U_r/view?usp=sharing" target="_blank" rel="noopener noreferrer">Full project report</a>
         </p>
         <p>Comparison of nearest-neighbor, bilinear, bicubic and bicubic spline interpolation for image resizing. I applied these methods to an image in MATLAB, then compared results visually and with mean squared error.</p>
       </div>
@@ -228,24 +231,21 @@
 
     <div class="project-row">
       <div class="col-project-img">
-        <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing">
+        <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing" target="_blank" rel="noopener noreferrer">
           <div class="project-media">
             <img src="images/dissonance.png" alt="Sensory dissonance model preview">
-            <video muted autoplay loop playsinline>
-              <source src="images/dissonance.mp4" type="video/mp4">
-            </video>
           </div>
         </a>
       </div>
       <div class="col-project-text">
-        <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing">
+        <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing" target="_blank" rel="noopener noreferrer">
           <span class="papertitle">Modeling Dissonance of Musical Intervals</span>
         </a>
         <p class="project-meta">Feb. 2024 - Sep. 2024 / Personal project / IB Extended Essay</p>
         <p class="project-links">
-          <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing">Detailed project overview</a>
+          <a href="https://drive.google.com/file/d/1uoOL9-pZSil_ORBoT9yRyeARLBWoJjNb/view?usp=sharing" target="_blank" rel="noopener noreferrer">Detailed project overview</a>
         </p>
-        <p>Exploration of models of musical consonance based on frequency ratio, beating and roughness, including <a href="https://link.springer.com/book/10.1007/b138848">William Sethares's model (1999)</a>. Illustration of the model using FFT in MATLAB to compute frequency spectra.</p>
+        <p>Exploration of models of musical consonance based on frequency ratio, beating and roughness, including <a href="https://link.springer.com/book/10.1007/b138848" target="_blank" rel="noopener noreferrer">William Sethares's model (1999)</a>. Illustration of the model using FFT in MATLAB to compute frequency spectra.</p>
       </div>
     </div>
 
