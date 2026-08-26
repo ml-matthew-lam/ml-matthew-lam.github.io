@@ -85,7 +85,7 @@
             <p>
                 In this project, I modified a 3D Gaussian Splatting (3DGS) pipeline to infer albedo and normals, thus allowing for rendering views under novel lighting conditions by applying a Lambertian reflectance model.
                 I also created a custom dataset (<a href="https://drive.google.com/file/d/1PFs0D2AOdhcZ-qM9OGh8_mko_RXkTnm3/view?usp=sharing" target="_blank" rel="noopener noreferrer">checkered_suzanne</a>) consisting of 400 training images and 30 test images, 
-                which I used to test and validate pipeline.
+                which I used to test and validate the pipeline. In this project, I use the standard rasterization and strategy.DefaultStrategy from gsplat (from the Nerfstudio team), used as an unmodified dependency.
             </p>
         </header>
 
@@ -104,7 +104,7 @@
             <p>
                 Here is the equation of a 3D Gaussian, which gives the opacity at position \( \mathbf x \in \mathbb R^3\):
             </p>
-            $$ G(\mathbf{x}) = \alpha \exp\left(-\frac{1}{2} (\mathbf{x} - {\mu})^T \Sigma^{-1} (\mathbf{x} - {\mu})\right), $$
+            $$ G(\mathbf{x}) = \alpha \exp\left(-\frac{1}{2} (\mathbf{x} - {\mu})^T \Sigma^{-1} (\mathbf{x} - {\mu})\right) $$
             <p>
                where \(\alpha \in \mathbb R\) is the overall opacity parameter, \(\mu \in \mathbb R^3\) is the "mean" (most opaque part of the Gaussian) and \(\Sigma \in \mathbb R^{3\times 3}\) is the covariance matrix (describing the stretch and rotation of the shape). 
                \(\Sigma\) can be factored into a scaling matrix \(S = \text{diag}(s_x, s_y, s_z)\) and a rotation matrix \(R\) (parametrized by a quaternion \(q = q_w + q_x i + q_y j + q_z k\) which encodes the same rotation information as \(R\)).
@@ -125,26 +125,49 @@
         
         <section>
             <h2>Reflectance Model and Relighting</h2>
-            For standard 3DGS, 
+            <p>
+                Standard 3DGS allows for rendering novel views, but not under novel lighting conditions. 
+                My contribution in this project was to add this capability, allowing images of views under lighting conditions never encountered 
+                in the training images. For the sake of simplicity, I restricted the scope of the project to only use a point light source, so different lighting conditions
+                just consist of different positions of the point source.
+            </p>
+            <p>
+                For standard 3DGS, colour is a parameter of each Gaussian. However, the colour of a surface dependends on the lighting. So in order to allow for relighting,
+                we need to replace the colour parameter with an albedo parameter (which never changes regardless of lighting). Then, when rendering a view with a specified light position,
+                we use the albedo along with information from the light position and the surface normals to compute the colour.
+            </p>
+            <p>
+                To compute the colour in this project, I used a Lambertian model, which assumes a perfectly diffuse (matte) surface. According to this model, the final colour of a given point (or Gaussian) in the scene depends (in part) 
+                on the unit surface normal vector \(\vec n\) and the unit vector \(\vec \ell\) pointing from the given point to the light source. The relevant vectors are shown below.
+            </p>
             <img src="reflectance.png" alt="Reflectance model diagram" style="max-width: 40%; border-radius: 8px; display: block; margin: 16px auto;" />
-            $$ I_C = \frac {k \rho_C} {d^2} \max(0, \mathbf n \cdot \mathbf l) $$
-
-
-            $$q = q_w + q_x i + q_y j + q_z k$$
-            $$ R = \begin{bmatrix}
-                1-2(q_y^2+q_z^2) & 2(q_xq_y-q_wq_z) & 2(q_xq_z+q_wq_y)\\
-                2(q_xq_y+q_wq_z) & 1-2(q_x^2+q_z^2) & 2(q_yq_z-q_wq_x)\\
-                2(q_xq_z-q_wq_y) & 2(q_yq_z+q_wq_x) & 1-2(q_x^2+q_y^2)
-            \end{bmatrix} $$
-
-            
-
-            
+            <p>
+                Then for each colour channel (r, g, b), the image intensity is
+            </p>
+            $$ I = \frac {k \rho} {d^2} \max(0, \vec n \cdot \vec \ell) $$
+            <p>
+                where \(k\) is a scalar reflecting the brightness/intensity of the light, \(\rho\) is the albedo for the corresponding colour channel and
+                \(d\) is the distance from the point to the light source. The colour \(C = (I_\text{r}, I_\text{g}, I_\text{b})\) can then be determined for each point in the scene.
+            </p>
+            <p>
+                In terms of finding the surface normals, we deduce them from the parameters of the Gaussians. We use the idea that the direction in which a Gaussian is the narrowest/flattest
+                corresponds to the direction normal to the material surface. Thus, the surface normals are determined based on \(S = \text{diag}(s_x, s_y, s_z)\) and \(q = q_w + q_x i + q_y j + q_z k\).
+            </p>            
         </section>
 
         <section>
             <h2>Dataset and Training</h2>
-
+            <p>
+                To be able to infer the albedo of each Gaussian independently of light position, we need to have training images from a number of different lighting conditions.
+                In order to obtain this, I created a custom dataset (which I call checkered_suzanne) for this project using Blender. Here is the <a href="https://drive.google.com/file/d/1PFs0D2AOdhcZ-qM9OGh8_mko_RXkTnm3/view?usp=sharing" target="_blank" rel="noopener noreferrer">Google Drive link</a> to the dataset. 
+                I created it using Suzanne, a 3D model of a chimpanzee head, which is provided in Blender. My dataset contains 400 training images, as well as 30 test images. The training set contains images of the model captured with 4 distinct light positions. The test set contains images captured with yet another novel light position.
+            </p>
+            <p>
+                When training Gaussian splatting model, I also held out 15 views as a validation set (along with the actual novel light test set) to track the progress of the model as training progressed.
+            </p>
+            <p>
+                I used the following loss function:
+            </p>
             $$ \mathcal L = \beta \mathcal L^1 + (1-\beta) \mathcal L_\mathrm{SSIM}$$ 
             <p>
                 where \( \mathcal L_\mathrm{SSIM}=1-\mathrm{SSIM} \) and \(\beta = 0.8\).
@@ -154,9 +177,11 @@
 
         <section>
             <h2>Results</h2>
+            Below are comparisons between the ground truths and predicted/inferred images/properties for views in the test set (under a novel light position).
+            The first row is the beauty render (the actual final rendered image). The second and third rows are color maps of albedo and normals respectively.
             <img src="comparisons.png" alt="Comparison of rendered results" style="max-width: 70%; border-radius: 8px; display: block; margin: 16px auto;" />
 
-            <p>Average metrics over 30 views:</p>
+            <p>The following table shows metrics indicating the accuracy of the reconstruction, calculated as average values on the test set.</p>
             <table class="custom-table">
                 <thead>
                     <tr>
@@ -181,8 +206,16 @@
             </table>
         </section>
 
+        Overall, the accuracy of the reconstruction is fairly good. Beauty: overall shape good + high PSNR. Correctly dim in shaded areas, but not completely (due to surface normal error?); incorrectly dark spot (due to albedo being incorrect, perhaps due to training light sources all having a common shaded area? --
+        this reveals a limitation of the approach --remedy this with just more training light positions). Albedo: systematically globally brighter than gt, perhaps due to unconstrained intensity factor. This probably also contributed a lot to the large albedo L1 error.
+        Normals: appearance-wise on the renders, it looks pretty accurate, with some small inaccuracies and some noise, which likely explain the 20° average error. This is still pretty significant error, so this may be a relevant aspect to investigate and try to improve in the future.
+
         <section>
             <h2>Main Takeaways</h2>
+
+            <p>
+                Write next steps, i.e. retraining with corrected instensity parametrization; testing it on other datasets and ensuring it's compatible.
+            </p>
             
         </section>
 
