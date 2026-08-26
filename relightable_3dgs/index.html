@@ -78,7 +78,7 @@
                     <img src="reflectance.png" alt="U-Net Architecture" style="height: 220px; max-width: 100%; object-fit: contain; border-radius: 8px; display: block;" />
                 </div>
                 <div style="flex: 1; display: flex; justify-content: flex-end;">
-                    <img src="comparisons.png" alt="Visual Results" style="height: 220px; max-width: 100%; object-fit: contain; border-radius: 8px; display: block;" />
+                    <img src="comparisons_square.png" alt="Visual Results" style="height: 220px; max-width: 100%; object-fit: contain; border-radius: 8px; display: block;" />
                 </div>
             </div>
 
@@ -97,6 +97,15 @@
         
         <section>
             <h2>Reflectance Model and Reparametrization</h2>
+            $$ C = \frac {k \rho} {d^2} \max(0, \mathbf n \cdot \mathbf l) $$
+
+            $$q = (q_w, q_x, q_y, q_z)$$
+            $$ R = \begin{bmatrix}
+                1-2(q_y^2+q_z^2) & 2(q_xq_y-q_wq_z) & 2(q_xq_z+q_wq_y)\\
+                2(q_xq_y+q_wq_z) & 1-2(q_x^2+q_z^2) & 2(q_yq_z-q_wq_x)\\
+                2(q_xq_z-q_wq_y) & 2(q_yq_z+q_wq_x) & 1-2(q_x^2+q_y^2)
+            \end{bmatrix} $$
+
             
         </section>
 
@@ -117,9 +126,7 @@
 
         <section>
             <h2>References</h2>
-            <ol class="references-list">
-                <li id="ref1">[1] S. Nah, T. H. Kim, and K. M. Lee, "Deep multi-scale convolutional neural network for dynamic scene deblurring," in <i>CVPR</i>, 2017. [Online]. Available: <a href="https://arxiv.org/abs/1612.02177" target="_blank" rel="noopener noreferrer">https://arxiv.org/abs/1612.02177</a></li>
-            </ol>
+
         </section>
 
         <div class="footer">
