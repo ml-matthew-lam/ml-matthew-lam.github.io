@@ -83,7 +83,7 @@
             </div>
 
             <p>
-                In this project, I modified a 3D Gaussian splatting pipeline to infer albedo and normals, thus allowing for rendering views under novel lighting conditions by applying a Lambertian reflectance model.
+                In this project, I modified a 3D Gaussian Splatting (3DGS) pipeline to infer albedo and normals, thus allowing for rendering views under novel lighting conditions by applying a Lambertian reflectance model.
                 I also created a custom dataset (<a href="https://drive.google.com/file/d/1PFs0D2AOdhcZ-qM9OGh8_mko_RXkTnm3/view?usp=sharing" target="_blank" rel="noopener noreferrer">checkered_suzanne</a>) consisting of 400 training images and 30 test images, 
                 which I used to test and validate pipeline.
             </p>
@@ -94,7 +94,7 @@
             <h2>Background on Inverse Rendering and 3D Gaussian Splatting</h2>
             <p>
                 The goal of inverse rendering is to recover properties (structure, geometry, colour, materia properties, etc.) from a scene/object based on
-                images of the scene. While rendering may produce a set of images based on a 3D model, inverse rendering may produce a 3D model based on images.
+                images of the scene. Forward rendering may produces a set of 2D images based on a 3D model, whereas inverse rendering produces a 3D model based on 2D images.
                 Once we have a 3D model, it then allows us to use forward rendering to obtain images of novel views of the scene (views that weren't initially given).
             </p>
             <p>
@@ -115,7 +115,7 @@
             </p>
             <p> In order to recover a 3D Gaussian model of a scene based on a set of images from different views, the following approach is used:</p>
             <ol>
-                <li>Initialize the trainable parameters for a certain number of Gaussian: \(\alpha, \mu, (q_w, q_x, q_y, q_z), (s_x, s_y, s_z).</li>
+                <li>Initialize the trainable parameters for a certain number of Gaussians: \(\alpha, \mu, (q_w, q_x, q_y, q_z), (s_x, s_y, s_z) \).</li>
                 <li>Use the current model to render a prediction of a view from the training set. </li>
                 <li>Calculate the loss based on the prediction render versus ground truth image. Then backpropagate and update the parameters.</li>
                 <li>Repeat steps 2 and 3 as many times as necessary to obtain a satisfactory 3D Gaussian model.</li>
@@ -124,8 +124,11 @@
         </section>
         
         <section>
-            <h2>Reflectance Model and Reparametrization</h2>
+            <h2>Reflectance Model and Relighting</h2>
+            For standard 3DGS, 
+            <img src="reflectance.png" alt="Reflectance model diagram" style="max-width: 40%; border-radius: 8px; display: block; margin: 16px auto;" />
             $$ I_C = \frac {k \rho_C} {d^2} \max(0, \mathbf n \cdot \mathbf l) $$
+
 
             $$q = q_w + q_x i + q_y j + q_z k$$
             $$ R = \begin{bmatrix}
@@ -134,7 +137,7 @@
                 2(q_xq_z-q_wq_y) & 2(q_yq_z+q_wq_x) & 1-2(q_x^2+q_y^2)
             \end{bmatrix} $$
 
-            The parameters are \({rho, \mu, q, k}\).
+            
 
             
         </section>
@@ -142,13 +145,40 @@
         <section>
             <h2>Dataset and Training</h2>
 
-            $$ \mathcal L = 
+            $$ \mathcal L = \beta \mathcal L^1 + (1-\beta) \mathcal L_\mathrm{SSIM}$$ 
+            <p>
+                where \( \mathcal L_\mathrm{SSIM}=1-\mathrm{SSIM} \) and \(\beta = 0.8\).
+            </p>
            
         </section>
 
         <section>
             <h2>Results</h2>
             <img src="comparisons.png" alt="Comparison of rendered results" style="max-width: 70%; border-radius: 8px; display: block; margin: 16px auto;" />
+
+            <p>Average metrics over 30 views:</p>
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Avg. beauty PSNR (full frame)</td>
+                        <td>32.53 dB</td>
+                    </tr>
+                    <tr>
+                        <td>Avg. albedo L1 error (background masked)</td>
+                        <td>0.6821</td>
+                    </tr>
+                    <tr>
+                        <td>Avg. normal angular error (background masked)</td>
+                        <td>21.74&deg;</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
 
         <section>
