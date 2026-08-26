@@ -93,11 +93,11 @@
         <section>
             <h2>Background on Inverse Rendering and 3D Gaussian Splatting</h2>
             <p>
-                Here is the equation of a 3D Gaussian, which gives the :
+                Here is the equation of a 3D Gaussian, which gives the opacity at position \( \mathbf x \):
             </p>
-            $$ G(\mathbf{x}) = \exp\left(-\frac{1}{2} (\mathbf{x} - \mathbf{\mu})^T \Sigma^{-1} (\mathbf{x} - \mathbf{\mu})\right) $$
+            $$ G_i(\mathbf{x}) = \alpha_i \exp\left(-\frac{1}{2} (\mathbf{x} - \mathbf{\mu_i})^T \Sigma_i^{-1} (\mathbf{x} - \mathbf{\mu_i})\right) $$
             <p>
-                To keep \(\Sigma\) positive semi-definite during optimization, it is factored into a scaling matrix \(S = \text{diag}(s_x, s_y, s_z)\) and a rotation matrix \(R\) (parametrized by a quaternion \(q\), which encodes the same rotation information as \(R\)).
+                \(\Sigma_i\) can be factored into a scaling matrix \(S = \text{diag}(s_x, s_y, s_z)\) and a rotation matrix \(R\) (parametrized by a quaternion \(q\), which encodes the same rotation information as \(R\)).
             </p>
         </section>
         
