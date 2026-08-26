@@ -93,12 +93,34 @@
         <section>
             <h2>Background on Inverse Rendering and 3D Gaussian Splatting</h2>
             <p>
-                Here is the equation of a 3D Gaussian, which gives the opacity at position \( \mathbf x \):
+                The goal of inverse rendering is to recover properties (structure, geometry, colour, materia properties, etc.) from a scene/object based on
+                images of the scene. While rendering may produce a set of images based on a 3D model, inverse rendering may produce a 3D model based on images.
+                Once we have a 3D model, it then allows us to use forward rendering to obtain images of novel views of the scene (views that weren't initially given).
             </p>
-            $$ G_i(\mathbf{x}) = \alpha_i \exp\left(-\frac{1}{2} (\mathbf{x} - \mathbf{\mu_i})^T \Sigma_i^{-1} (\mathbf{x} - \mathbf{\mu_i})\right) $$
             <p>
-                \(\Sigma_i\) can be factored into a scaling matrix \(S = \text{diag}(s_x, s_y, s_z)\) and a rotation matrix \(R\) (parametrized by a quaternion \(q\), which encodes the same rotation information as \(R\)).
+                One way of representing 3D scenes/objects is 3D Gaussian Splatting, which uses a collection of different coloured Gaussians to approximate the structure and colour
+                of the scene/object.
             </p>
+            <p>
+                Here is the equation of a 3D Gaussian, which gives the opacity at position \( \mathbf x \in \mathbb R^3\):
+            </p>
+            $$ G(\mathbf{x}) = \alpha \exp\left(-\frac{1}{2} (\mathbf{x} - {\mu})^T \Sigma^{-1} (\mathbf{x} - {\mu})\right), $$
+            <p>
+               where \(\alpha \in \mathbb R\) is the overall opacity parameter, \(\mu \in \mathbb R^3\) is the "mean" (most opaque part of the Gaussian) and \(\Sigma \in \mathbb R^{3\times 3}\) is the covariance matrix (describing the stretch and rotation of the shape). 
+               \(\Sigma\) can be factored into a scaling matrix \(S = \text{diag}(s_x, s_y, s_z)\) and a rotation matrix \(R\) (parametrized by a quaternion \(q = q_w + q_x i + q_y j + q_z k\) which encodes the same rotation information as \(R\)).
+                In addition, each Gaussian is assigned a colour \(c = (r, g, b)\).
+            </p>
+            <p>
+                A collection of many of such Gaussians are combined to create a 3D model of an object or scene. An alpha-blending formula can then be used to render a view of the scene, based on the parameters of all the Gaussians in the scene.
+            </p>
+            <p> In order to recover a 3D Gaussian model of a scene based on a set of images from different views, the following approach is used:</p>
+            <ol>
+                <li>Initialize the trainable parameters for a certain number of Gaussian: \(\alpha, \mu, (q_w, q_x, q_y, q_z), (s_x, s_y, s_z).</li>
+                <li>Use the current model to render a prediction of a view from the training set. </li>
+                <li>Calculate the loss based on the prediction render versus ground truth image. Then backpropagate and update the parameters.</li>
+                <li>Repeat steps 2 and 3 as many times as necessary to obtain a satisfactory 3D Gaussian model.</li>
+            </ol>
+
         </section>
         
         <section>
