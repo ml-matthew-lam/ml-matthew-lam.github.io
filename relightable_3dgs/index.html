@@ -178,8 +178,10 @@
 
         <section>
             <h2>Results</h2>
-            Below are comparisons between the ground truths and predicted/inferred images/properties for views in the test set (under a novel light position).
+            <p>
+                Below are comparisons between the ground truths and predicted/inferred images/properties for views in the test set (under a novel light position).
             The first row is the beauty render (the actual final rendered image). The second and third rows are color maps of albedo and normals respectively.
+            </p>
             <img src="comparisons.png" alt="Comparison of rendered results" style="max-width: 70%; border-radius: 8px; display: block; margin: 16px auto;" />
 
             <p>The following table shows metrics indicating the accuracy of the reconstruction, calculated as average values on the test set.</p>
@@ -207,10 +209,19 @@
             </table>
         </section>
 
-        Overall, the accuracy of the reconstruction is fairly good. For the beauty render, the overall shape is good, resulting in a high PSNR. The prediction correctly appears dim in shaded areas, but not completely, which may be a result of error on the surface normals. These is a also a dark spot around the base of the left ear, which should not be there. This is likely due to albedo being incorrectly dark in that area, as can be seen in the albedo comparison. 
-        Perhaps this is due to training light sources all having a common shaded area, making it impossible for the model to differentiate between a genuinely dark albedo, or just a part of the object that is currently in the shade. This reveals a limitation of the approach, in that many different training light positions are required to achieve an accurate reconstruction.  We can account for this by using more light positions within the training set. 
-        The predicted albedo appears structurally similar to, but systematically brighter than the ground truth. This is perhaps due to the unconstrained intensity factor \(k\), which likely compensated for the lower albedo, allowing the beauty to have the correct final brightness. This therefore has minimal impact on the final beauty render, despite contributing a lot to a large albedo L1 error.
-        In terms of surface normals, the color map renders seem pretty accurate, though with some small inaccuracies and some noise, which likely explain the 20° average error. This is still a pretty significant error, so this may be a relevant aspect to investigate and try to improve in the future.
+        <p>
+            Overall, the accuracy of the reconstruction is fairly good. For the beauty render, the overall shape is good, resulting in a high PSNR. The prediction correctly appears dim in shaded areas, but not completely, which may be a result of error on the surface normals. 
+        </p>
+        <p>
+            In addition, there is a dark spot on the left of the beauty render around the base of the ear, which should not be there. This is likely due to albedo being incorrectly dark in that area, as can be seen in the albedo comparison. 
+            Perhaps this is due to training light sources all having a common shaded area, making it impossible for the model to differentiate between a genuinely dark albedo, or just a part of the object that is currently in the shade. This reveals a limitation of the approach, in that many different training light positions are required to achieve an accurate reconstruction.  We can account for this by using more light positions within the training set. 
+        </p>
+        <p>
+             The predicted albedo appears structurally similar to, but systematically brighter than the ground truth. This is perhaps due to the unconstrained intensity factor \(k\), which likely compensated for the lower albedo, allowing the beauty to have the correct final brightness. This therefore has minimal impact on the final beauty render, despite contributing a lot to a large albedo L1 error.
+        </p>
+        <p>
+            In terms of surface normals, the color map renders seem pretty accurate, though with some small inaccuracies and some noise, which likely explain the 20° average error. This is still a pretty significant error, so this may be a relevant aspect to investigate and try to improve in the future.
+        </p>
 
         <section>
             <h2>Main Takeaways</h2>
