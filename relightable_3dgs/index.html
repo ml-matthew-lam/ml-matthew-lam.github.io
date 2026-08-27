@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Relightable 3DGS - Matthew Lam</title>
-    <meta name="description" content="          Modified 3D Gaussian Splatting pipeline to infer albedo and normals, allowing for rendering views under novel lighting conditions by applying a Lambertian reflectance model. Plus a custom dataset.">
+    <meta name="description" content="          Modified 3D Gaussian Splatting pipeline to infer albedo and surface normals, allowing for rendering views under novel lighting conditions by applying a Lambertian reflectance model. Plus a custom dataset.">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="../stylesheet.css">
     <link rel="icon" type="image/png" href="/images/favicon.png">
@@ -83,7 +83,7 @@
             </div>
 
             <p>
-                In this project, I modified a 3D Gaussian Splatting (3DGS) pipeline to infer albedo and normals, thus allowing for rendering views under novel lighting conditions by applying a Lambertian reflectance model.
+                In this project, I modified a 3D Gaussian Splatting (3DGS) pipeline to infer albedo and surface normals, thus allowing for rendering views under novel lighting conditions by applying a Lambertian reflectance model.
                 I also created a custom dataset (<a href="https://drive.google.com/file/d/1PFs0D2AOdhcZ-qM9OGh8_mko_RXkTnm3/view?usp=sharing" target="_blank" rel="noopener noreferrer">checkered_suzanne</a>) consisting of 400 training images and 30 test images, 
                 which I used to test and validate the pipeline. In this project, I use the standard <code>rasterization</code> and <code>strategy.DefaultStrategy</code> from gsplat (from the Nerfstudio team), used as an unmodified dependency.
             </p>
