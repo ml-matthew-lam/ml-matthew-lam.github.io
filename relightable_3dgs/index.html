@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deblurring Project - Matthew Lam</title>
     <meta name="description" content="Custom-designed U-Net for motion deblurring, trained on the GoPro dataset, with an ablation comparing NAF blocks to GELU activations.">
-    <meta name="theme-color" content="#fafaf8">
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="../stylesheet.css">
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="apple-touch-icon" href="/images/favicon.png">
@@ -115,7 +115,7 @@
             </p>
             <p> In order to recover a 3D Gaussian model of a scene based on a set of images from different views, the following approach is used:</p>
             <ol>
-                <li>Initialize the trainable parameters for a certain number of Gaussians: \(\alpha, \mu, (q_w, q_x, q_y, q_z), (s_x, s_y, s_z) \).</li>
+                <li>Initialize trainable parameters for a certain number of Gaussians: \(\alpha, \mu, (q_w, q_x, q_y, q_z), (s_x, s_y, s_z), c\).</li>
                 <li>Use the current model to render a prediction of a view from the training set. </li>
                 <li>Calculate the loss based on the prediction render versus ground truth image. Then backpropagate and update the parameters.</li>
                 <li>Repeat steps 2 and 3 as many times as necessary to obtain a satisfactory 3D Gaussian model.</li>
@@ -221,7 +221,9 @@
 
         <section>
             <h2>References</h2>
-
+            <ol class="references-list">
+                <li id="ref1">[1] B. Kerbl, G. Kopanas, T. Leimkühler, and G. Drettakis, "3D Gaussian Splatting for Real-Time Radiance Field Rendering," <i>ACM Transactions on Graphics</i>, vol. 42, no. 4, 2023. [Online]. Available: <a href="https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/" target="_blank" rel="noopener noreferrer">https://repo-sam.inria.fr/fungraph/3d-gaussian-splatting/</a></li>
+            </ol>
         </section>
 
         <div class="footer">
