@@ -99,7 +99,7 @@
             </p>
             <p>
                 One way of representing 3D scenes/objects is 3D Gaussian Splatting, which uses a collection of different coloured Gaussians to approximate the structure and colour
-                of the scene/object.
+                of the scene/object. This method was originally developed by Kerbl et al <a href="#ref1">[1]</a>.
             </p>
             <p>
                 Here is the equation of a 3D Gaussian, which gives the opacity at position \( \mathbf x \in \mathbb R^3\):
@@ -147,7 +147,7 @@
             $$ I = \frac {k \rho} {d^2} \max(0, \vec n \cdot \vec \ell) $$
             <p>
                 where \(k\) is a scalar reflecting the brightness/intensity of the light, \(\rho\) is the albedo for the corresponding colour channel and
-                \(d\) is the distance from the point to the light source. The colour \(C = (I_\text{r}, I_\text{g}, I_\text{b})\) can then be determined for each point in the scene.
+                \(d\) is the distance from the point to the light source. The colour \(C = (I_r, I_g, I_{b})\) can then be determined for each point in the scene.
             </p>
             <p>
                 In terms of finding the surface normals, we deduce them from the parameters of the Gaussians. We use the idea that the direction in which a Gaussian is the narrowest/flattest
@@ -168,9 +168,10 @@
             <p>
                 I used the following loss function:
             </p>
-            $$ \mathcal L = \beta \mathcal L^1 + (1-\beta) \mathcal L_\mathrm{SSIM}$$ 
+            $$ \mathcal L = (1-\lambda) \mathcal L^1 + \lambda \mathcal L_\mathrm{SSIM}$$ 
             <p>
-                where \( \mathcal L_\mathrm{SSIM}=1-\mathrm{SSIM} \) and \(\beta = 0.8\).
+                where \( \mathcal L_\mathrm{SSIM}=1-\mathrm{SSIM} \) and \(\beta = 0.8\). This is a similar loss function and \(\beta\) value
+                to what was used by Kerbl et al <a href="#ref1">[1]</a>.
             </p>
            
         </section>
@@ -206,15 +207,17 @@
             </table>
         </section>
 
-        Overall, the accuracy of the reconstruction is fairly good. Beauty: overall shape good + high PSNR. Correctly dim in shaded areas, but not completely (due to surface normal error?); incorrectly dark spot (due to albedo being incorrect, perhaps due to training light sources all having a common shaded area? --
-        this reveals a limitation of the approach --remedy this with just more training light positions). Albedo: systematically globally brighter than gt, perhaps due to unconstrained intensity factor. This probably also contributed a lot to the large albedo L1 error.
-        Normals: appearance-wise on the renders, it looks pretty accurate, with some small inaccuracies and some noise, which likely explain the 20° average error. This is still pretty significant error, so this may be a relevant aspect to investigate and try to improve in the future.
+        Overall, the accuracy of the reconstruction is fairly good. For the beauty render, the overall shape is good, resulting in a high PSNR. The prediction correctly appears dim in shaded areas, but not completely, which may be a result of error on the surface normals. These is a also a dark spot around the base of the left ear, which should not be there. This is likely due to albedo being incorrectly dark in that area, as can be seen in the albedo comparison. 
+        Perhaps this is due to training light sources all having a common shaded area, making it impossible for the model to differentiate between a genuinely dark albedo, or just a part of the object that is currently in the shade. This reveals a limitation of the approach, in that many different training light positions are required to achieve an accurate reconstruction.  We can account for this by using more light positions within the training set. 
+        The predicted albedo appears structurally similar to, but systematically brighter than the ground truth. This is perhaps due to the unconstrained intensity factor \(k\), which likely compensated for the lower albedo, allowing the beauty to have the correct final brightness. This therefore has minimal impact on the final beauty render, despite contributing a lot to a large albedo L1 error.
+        In terms of surface normals, the color map renders seem pretty accurate, though with some small inaccuracies and some noise, which likely explain the 20° average error. This is still a pretty significant error, so this may be a relevant aspect to investigate and try to improve in the future.
 
         <section>
             <h2>Main Takeaways</h2>
 
             <p>
-                Write next steps, i.e. retraining with corrected instensity parametrization; testing it on other datasets and ensuring it's compatible.
+                This method of inverse rendering with relighting capabilities was effective overall, and also revealed certain areas for improvement. First of all, the albedo predictions are systematically shifted (up in this case) due to the unconstrained intensity factor \(k\). To correct this, we need to add a constraint to the \(k\) factor (e.g. set it to a fixed value based on the specific intensity of the light). Then we can retrain to enable more accurate albedo predictions. 
+                Another point is that we only tested the pipeline on one dataset (checkered_suzanne), and that dataset was synthesized in Blender. We should therefore try to test the pipeline on other datasets (including real-world photos) to further evaluate the performance of reconstructions obtained using this pipeline.
             </p>
             
         </section>
