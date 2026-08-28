@@ -147,7 +147,7 @@
             </p>
             $$ I = \frac {k \rho} {d^2} \max(0, \vec n \cdot \vec \ell) $$
             <p>
-                where \(k\) is a scalar reflecting the brightness/intensity of the light, \(\rho\) is the albedo for the corresponding colour channel and
+                where \(k\) is a scalar related to the brightness/intensity of the light, \(\rho\) is the albedo for the corresponding colour channel and
                 \(d\) is the distance from the point to the light source. The colour \(C = (I_r, I_g, I_{b})\) can then be determined for each point in the scene.
             </p>
             <p>
@@ -169,7 +169,7 @@
             <p>
                 I used the following loss function:
             </p>
-            $$ \mathcal L = (1-\lambda) \mathcal L^1 + \lambda \mathcal L_\mathrm{SSIM}$$ 
+            $$ \mathcal L = (1-\lambda) \mathcal L_1 + \lambda \mathcal L_\mathrm{SSIM}$$ 
             <p>
                 where \( \mathcal L_\mathrm{SSIM}=1-\mathrm{SSIM} \) and \(\beta = 0.8\). This is a similar loss function and \(\beta\) value
                 to what was used by Kerbl et al <a href="#ref1">[1]</a>.

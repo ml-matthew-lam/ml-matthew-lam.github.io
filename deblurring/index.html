@@ -79,13 +79,13 @@
                     <img src="u_net_architecture.png" alt="U-Net Architecture" style="height: 220px; max-width: 100%; object-fit: contain; border-radius: 8px; display: block;" />
                 </div>
                 <div style="flex: 1; display: flex; justify-content: flex-end;">
-                    <img src="visual_results.svg" alt="Visual Results" style="height: 220px; max-width: 100%; object-fit: contain; border-radius: 8px; display: block;" />
+                    <img src="visual_results_square.png" alt="Visual Results" style="height: 220px; max-width: 100%; object-fit: contain; border-radius: 8px; display: block;" />
                 </div>
             </div>
 
             <p>
                 In this project, I built a nonlinear-activation-free (NAF) U-Net architecture for motion deblurring. I then implemented a combined L1 and SSIM loss function 
-                and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank" rel="noopener noreferrer">GOPRO_Large</a> dataset from Nah et al. <a href="#ref1">[1]</a>, achieving an average 27.2 PSNR and 0.832 SSIM on the test set. I also tested 
+                and trained the model on the <a href="https://seungjunnah.github.io/Datasets/gopro" target="_blank" rel="noopener noreferrer">GOPRO_Large</a> dataset from Nah et al. <a href="#ref1">[1]</a>, achieving an average 28.5 PSNR and 0.865 SSIM on the test set. I also tested 
                 the effect of replacing the SimpleGate operations with GELU over shorter training durations. The NAF model outperformed 
                 the architecture with GELU activations (+0.75 PSNR, +0.023 SSIM), which is consistent with literature.
             </p>
@@ -93,11 +93,6 @@
 
 
         <section>
-            <p>
-                
-            </p>
-            <span style="background-color: yellow; font-size: 1.3em;">The following sections are not done being written (work in progress) and contain some mistakes!</span>
-
             <h2>About Deblurring, U-Nets, NAFNet and my Project</h2>
             <p>
                 The goal of a deblurring model is to take in a blurred image as input, and output a sharp version. Convolutional neural networks (CNNs), such as U-Net architectures, are often used 
@@ -120,9 +115,9 @@
                 Thus, I built two versions of U-Net architectures, and trained them as described below :
             </p>
             <ol>
-                <li>One of my models has a non-linear-activation-free architecture, and is trained over 500 epochs. I'll call this my <strong>500-epoch NAF model</strong>.</li>
-                <li>I also trained a model with the same architecture as the 500-epoch NAF model, but over only 200 epochs instead. I'll call this my <strong>200-epoch NAF model</strong>.</li>
-                <li>My final model, which I'll call my <strong>200-epoch GELU model</strong>, is identical to the others, except that all SimpleGate are replaced with GELU activation functions. 
+                <li>One of my models has a non-linear-activation-free architecture, and is trained over 600 epochs. I'll call this my <strong>600-epoch NAF model</strong>.</li>
+                <li>I also trained a model with the same architecture as the 600-epoch NAF model, but over only 200 epochs instead. I'll call this my <strong>200-epoch NAF model</strong>.</li>
+                <li>My final model, which I'll call my <strong>200-epoch GELU model</strong>, is identical to the others, except that all SimpleGate are replaced with GELU activations. 
                     I trained this model over 200 epochs so it could be compared to the 200-epoch NAF model.</li>
             </ol>
         </section>
@@ -146,7 +141,7 @@
             </p>
             <ul>
                 <li>\(C=32\) in order to keep the model lightweight (faster training, less expensive compute-wise)</li>
-                <li>I cropped images to \(H=W=256\) so that the memory capacity of the hardware would not be exceeded while also allowing a reasonable number of items per batch. 
+                <li>I cropped images to \(256\times 256\), i.e. \(H=W=256\), so that the memory capacity of the hardware would not be exceeded while also allowing a reasonable number of items per batch. 
                     Moreover, I set \(H=W\) so I could randomly flip crops of images during training as to increase diversity of training data.</li>
             </ul>
             <p>
@@ -176,8 +171,9 @@
                 where \(\alpha = 0.16\). This value follows a suggestion by Zhao et al. <a href="#ref6">[6]</a> for a similar form of loss function, which is why I decided to use it in the loss function for my project.
             </p>
             <p>
-                I tested a few combinations of different batch sizes and learning rates. After some short trial runs, I chose a batch size of 64. For the 500-epoch NAF model, I used the following learning rate schedule: 
-                a linearly increasing "warm-up" for the first 10 epochs, peaking at learning rate 0.0002, then a slow linear decrease, then a cosine annealing for the last 100 epochs. For the 200-epoch NAF model and the 200-epoch GELU model, 
+                I tested a few combinations of different batch sizes and learning rates. After some short trial runs, I chose a batch size of 64. For the 600-epoch NAF model, I used the following learning rate schedule: 
+                a linearly increasing "warm-up" for the first 10 epochs, peaking at learning rate 0.0002, then a slow linear decrease to 0.0001, then cosine annealing for the last 100 epochs. Note that I made an error in the scheduling code for that run,
+                which made the final cosine annealing start back up at 0.0002 instead of continuing smoothly from 0.0001. Despite this, I was will able to complete the training on this (unintentional) schedule. For the 200-epoch NAF model and the 200-epoch GELU model, 
                 I used the following schedule: the same 10-epoch increasing linear "warm-up" peaking at learning rate 0.0002, immediately followed by cosine annealing over the remaining 190 epochs.
             </p>
         </section>
@@ -186,7 +182,7 @@
             <h2>Results</h2>
             <p>
                 I tested the trained models on the test split of GOPRO_Large, and measured average SSIM and PSNR of the outputs. PSNR is calculated as \(\mathrm{PSNR} = -10 \log_{10}(\mathrm{MSE})\), 
-                since the expected range for the values in the image tensors is \([0,1]\). The table below shows the final metrics achieved by each of the models. As you can see, the 500-epoch NAF model performed the best, 
+                since the expected range for the values in the image tensors is \([0,1]\). The table below shows the final metrics achieved by each of the models. As you can see, the 600-epoch NAF model performed the best, 
                 followed by the 200-epoch NAF model, then the 200-epoch GELU model.
             </p>
             <table class="custom-table">
@@ -198,8 +194,8 @@
                 
                 <tr>
                     <td>NAF model (500 epochs)</td>
-                    <td>???</td>
-                    <td>???</td>
+                    <td>0.8652</td>
+                    <td>28.46</td>
                 </tr>
                 <tr>
                     <td>NAF model (200 epochs)</td>
@@ -219,7 +215,9 @@
             </table>
             <p>
                 I also logged the SSIM and PSNR achieved on the validation set at the end of each epoch. As shown by the graphs below, the 200-epoch NAF model was generally able to learn faster than the 200-epoch GELU model throughout training. 
-                (Note: both models experienced a very large increase SSIM and PSNR in the first epoch, so the first epoch is omitted in the graphs to make the comparison between models easier.)
+                We also see how the additional training allowed the 600-epoch NAF model to significantly surpass the 200-epoch models. On a sidenote, the small dip at epoch 400 is the result of an unintentional jump in learning rate at this point, due to an error in my
+                learning rate scheduling code.
+                (Note: all models experienced a very large increase SSIM and PSNR in the first epoch, so the first epoch is omitted in the graphs to make the comparison between models easier.)
             </p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="validation_ssim.png" alt="validation ssim graph " style="max-width: 80%; height: auto; border-radius: 8px;" />
@@ -232,12 +230,13 @@
                 Samples B and C are zoomed in and cropped patches of test images.
             </p>
             <div style="text-align: center; margin: 20px 0;">
-                <img src="visual_results.svg" alt="visual results " style="max-width: 100%; height: auto; border-radius: 8px;" />
+                <img src="visual_results_full.png" alt="visual results " style="max-width: 100%; height: auto; border-radius: 8px;" />
             </div>
              <p>
-                Overall, the improvement in image quality compared to the inputs is definitely visible for all models, but is the most pronounced for the 500-epoch NAF model.
+                Overall, the improvement in image quality compared to the inputs is definitely visible for all models, but is the most pronounced for the NAF models.
                 For some images, such as image B above, the improvement is less visually obvious. 
-                The difference between the 200-epoch NAF model and the 200-epoch GELU model also does not seem very obvious visually.
+                The differences between the outputs of the three models does not seem very obvious visually, but upon closer inspection, some differences are noticeable. Based on these differences,
+                the 600-epoch NAF model appears the most accurate, followed by the 200-epoch NAF model, then the 200-epoch GELU model.
                 Despite noticeable improvement, the quality of outputs is still not the best, as outputs still appear noticeably blurred/distorted compared to the ground truth images. 
             </p>
 
@@ -246,11 +245,11 @@
         <section>
             <h2>Main Takeaways</h2>
             <p>
-                My 500-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by the +0.0585 increase in SSIM and +1.57 increase in PSNR, compared to the unprocessed inputs. 
+                My 600-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by a +0.0919 increase in SSIM and +2.85 increase in PSNR, compared to the unprocessed inputs. 
                 However, other models presented in literature achieve much better performance. For example, the state-of-the-art NAFNet achieved 0.967 SSIM and 33.69 PSNR on GOPRO_Large <a href="#ref2">[2]</a>,
                 better than any of my models. This is likely because these models involve many times more parameters and compute (often measured in MACs - multiply-accumulate operations). For reference, the official original NAFNet has 67.8 M parameters <a href="#ref7">[7]</a> 
                 and 65 G MACs <a href="#ref2">[2]</a>,
-                compared to only 1.73 M parameters and 3.99 G MACs for my 500-epoch NAF model. Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels \(C\)
+                compared to only 1.73 M parameters and 3.99 G MACs for my 600-epoch NAF model. Thus, to improve the performance of my model, I could increase the number of parameters by increasing the initial number of channels \(C\)
                 or adding more NAF blocks at each level. This would require more computation to train, however.
             </p>
             <p>
@@ -258,7 +257,7 @@
                 However, it's important to note that my NAF model also involves more parameters and more compute compared to my GELU model. Namely, my NAF model has 1.73 M parameters and 3.99 G MACs
                 compared to 1.41 M parameters and 3.23 G MACs for my GELU model. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
                 This would be an important consideration for models used in edge devices, for example, where memory, compute, and/or energy are limited. Thus, an interesting experiment in the future would be to adjust my two architectures
-                so that they either have the same number of parameters, or the same number of MACs, then train them and test their performance.
+                so that they either have the same number of parameters, or the same number of MACs, then train them and compare their performance.
             </p>
         </section>
 
