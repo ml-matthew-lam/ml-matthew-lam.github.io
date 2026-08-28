@@ -1,7 +1,6 @@
 /* ==========================================================================
    Fonts & External Assets
    ========================================================================== */
-/* @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Public+Sans:wght@300;400;600;700&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,300;1,8..60,400;1,8..60,600;1,8..60,700&display=swap');
 
 /* ==========================================================================
@@ -32,9 +31,13 @@ body {
   color: var(--color-text);
 }
 
-body, td, th, tr, p, a, strong, h1, h2, h3,
-.col-project-text, .col-profile-text, .papertitle, .name {
+body, td, th, tr, p, a, strong,
+.col-project-text, .col-profile-text {
   font-family: 'Source Serif 4', Georgia, serif;
+}
+
+h1, h2, h3, .name, .papertitle, .top-nav a {
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 body, p, a, .col-project-text, .col-profile-text {
@@ -179,7 +182,6 @@ h2 {
 }
 
 .project-meta {
-  font-size: 0.9em;
   color: var(--color-text-muted);
   margin-bottom: 4px;
 }
@@ -193,10 +195,9 @@ h2 {
   display: inline-block;
   font-weight: 600;
   margin-bottom: 24px;
-  font-size: 14px;
 }
 
-#about, #featured-projects, #projects, .project-row {
+#about, #featured-projects, #projects, #misc, .project-row {
   scroll-margin-top: 100px;
 }
 
