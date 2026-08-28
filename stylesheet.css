@@ -143,8 +143,6 @@ a:not(:has(img)):focus {
   height: 3px;
   margin: 5px auto;
   background-color: var(--color-text);
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
 }
 
 /* ==========================================================================
