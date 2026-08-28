@@ -218,7 +218,7 @@
             Perhaps this is due to training light sources all having a common shaded area, making it impossible for the model to differentiate between a genuinely dark albedo, or just a part of the object that is currently in the shade. This reveals a limitation of the approach, in that many different training light positions are required to achieve an accurate reconstruction.  We can account for this by using more light positions within the training set. 
         </p>
         <p>
-             The predicted albedo appears structurally similar to, but systematically brighter than the ground truth. This is perhaps due to the unconstrained intensity factor \(k\), which likely compensated for the lower albedo, allowing the beauty to have the correct final brightness. This therefore has minimal impact on the final beauty render, despite contributing a lot to a large albedo L1 error.
+             The predicted albedo appears structurally similar to, but systematically brighter than the ground truth. This is perhaps due to the unconstrained intensity factor \(k\), which likely compensated for the higher albedo, allowing the beauty to have the correct final brightness. This therefore has minimal impact on the final beauty render, despite contributing a lot to a large albedo L1 error.
         </p>
         <p>
             In terms of surface normals, the color map renders seem pretty accurate, though with some small inaccuracies and some noise, which likely explain the 20° average error. This is still a pretty significant error, so this may be a relevant aspect to investigate and try to improve in the future.
