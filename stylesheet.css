@@ -196,7 +196,7 @@ h2 {
   font-size: 14px;
 }
 
-#about, #featured-projects, #projects {
+#about, #featured-projects, #projects, .project-row {
   scroll-margin-top: 100px;
 }
 
