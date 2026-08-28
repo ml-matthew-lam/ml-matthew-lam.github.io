@@ -94,12 +94,12 @@
         <section>
             <h2>Background on Inverse Rendering and 3D Gaussian Splatting</h2>
             <p>
-                The goal of inverse rendering is to recover properties (structure, geometry, colour, materia properties, etc.) from a scene/object based on
-                images of the scene. Forward rendering may produces a set of 2D images based on a 3D model, whereas inverse rendering produces a 3D model based on 2D images.
+                The goal of inverse rendering is to recover properties (structure, geometry, color, material properties, etc.) from a scene/object based on
+                images of the scene. Forward rendering may produce a set of 2D images based on a 3D model, whereas inverse rendering produces a 3D model based on 2D images.
                 Once we have a 3D model, it then allows us to use forward rendering to obtain images of novel views of the scene (views that weren't initially given).
             </p>
             <p>
-                One way of representing 3D scenes/objects is 3D Gaussian Splatting, which uses a collection of different coloured Gaussians to approximate the structure and colour
+                One way of representing 3D scenes/objects is 3D Gaussian Splatting, which uses a collection of different colored Gaussians to approximate the structure and color
                 of the scene/object. This method was originally developed by Kerbl et al. <a href="#ref1">[1]</a>.
             </p>
             <p>
@@ -109,10 +109,10 @@
             <p>
                where \(\alpha \in \mathbb R\) is the overall opacity parameter, \(\mu \in \mathbb R^3\) is the "mean" (most opaque part of the Gaussian) and \(\Sigma \in \mathbb R^{3\times 3}\) is the covariance matrix (describing the stretch and rotation of the shape). 
                \(\Sigma\) can be factored into a scaling matrix \(S = \text{diag}(s_x, s_y, s_z)\) and a rotation matrix \(R\) (parametrized by a quaternion \(q = q_w + q_x i + q_y j + q_z k\) which encodes the same rotation information as \(R\)).
-                In addition, each Gaussian is assigned a colour \(c = (r, g, b)\).
+                In addition, each Gaussian is assigned a color \(c = (r, g, b)\).
             </p>
             <p>
-                A collection of many of such Gaussians are combined to create a 3D model of an object or scene. An alpha-blending formula can then be used to render a view of the scene, based on the parameters of all the Gaussians in the scene.
+                A collection of many such Gaussians is combined to create a 3D model of an object or scene. An alpha-blending formula can then be used to render a view of the scene, based on the parameters of all the Gaussians in the scene.
             </p>
             <p> In order to recover a 3D Gaussian model of a scene based on a set of images from different views, the following approach is used:</p>
             <ol>
@@ -133,22 +133,22 @@
                 just consist of different positions of the point source.
             </p>
             <p>
-                For standard 3DGS, colour is a parameter of each Gaussian. However, the colour of a surface dependends on the lighting. So in order to allow for relighting,
-                we need to replace the colour parameter with an albedo parameter (which never changes regardless of lighting). Then, when rendering a view with a specified light position,
-                we use the albedo along with information from the light position and the surface normals to compute the colour.
+                For standard 3DGS, color is a parameter of each Gaussian. However, the color of a surface depends on the lighting. So in order to allow for relighting,
+                we need to replace the color parameter with an albedo parameter (which never changes regardless of lighting). Then, when rendering a view with a specified light position,
+                we use the albedo along with information from the light position and the surface normals to compute the color.
             </p>
             <p>
-                To compute the colour in this project, I used a Lambertian model, which assumes a perfectly diffuse (matte) surface. According to this model, the final colour of a given point (or Gaussian) in the scene depends (in part) 
+                To compute the color in this project, I used a Lambertian model, which assumes a perfectly diffuse (matte) surface. According to this model, the final color of a given point (or Gaussian) in the scene depends (in part) 
                 on the unit surface normal vector \(\vec n\) and the unit vector \(\vec \ell\) pointing from the given point to the light source. The relevant vectors are shown below.
             </p>
             <img src="reflectance.png" alt="Reflectance model diagram" style="max-width: 40%; border-radius: 8px; display: block; margin: 16px auto;" />
             <p>
-                Then for each colour channel (r, g, b), the image intensity is
+                Then for each color channel (r, g, b), the image intensity is
             </p>
             $$ I = \frac {k \rho} {d^2} \max(0, \vec n \cdot \vec \ell) $$
             <p>
-                where \(k\) is a scalar related to the brightness/intensity of the light, \(\rho\) is the albedo for the corresponding colour channel and
-                \(d\) is the distance from the point to the light source. The colour \(C = (I_r, I_g, I_{b})\) can then be determined for each point in the scene.
+                where \(k\) is a scalar related to the brightness/intensity of the light, \(\rho\) is the albedo for the corresponding color channel and
+                \(d\) is the distance from the point to the light source. The color \(C = (I_r, I_g, I_{b})\) can then be determined for each point in the scene.
             </p>
             <p>
                 In terms of finding the surface normals, we deduce them from the parameters of the Gaussians. We use the idea that the direction in which a Gaussian is the narrowest/flattest
@@ -164,7 +164,7 @@
                 I created it using Suzanne, a 3D model of a chimpanzee head, which is provided in Blender. My dataset contains 400 training images, as well as 30 test images. The training set contains images of the model captured with 4 distinct light positions. The test set contains images captured with yet another novel light position.
             </p>
             <p>
-                When training Gaussian splatting model, I also held out 15 views as a validation set (along with the actual novel light test set) to track the progress of the model as training progressed.
+                When training the Gaussian splatting model, I also held out 15 views as a validation set (along with the actual novel light test set) to track the progress of the model as training progressed.
             </p>
             <p>
                 I used the following loss function:
@@ -215,13 +215,13 @@
         </p>
         <p>
             In addition, there is a dark spot on the left of the beauty render around the base of the ear, which should not be there. This is likely due to albedo being incorrectly dark in that area, as can be seen in the albedo comparison. 
-            Perhaps this is due to training light sources all having a common shaded area, making it impossible for the model to differentiate between a genuinely dark albedo, or just a part of the object that is currently in the shade. This reveals a limitation of the approach, in that many different training light positions are required to achieve an accurate reconstruction.  We can account for this by using more light positions within the training set. 
+            Perhaps this is due to training light sources all having a common shaded area, making it impossible for the model to differentiate between a genuinely dark albedo and just a part of the object that is currently in the shade. This reveals a limitation of the approach, in that many different training light positions are required to achieve an accurate reconstruction.  We can account for this by using more light positions within the training set. 
         </p>
         <p>
              The predicted albedo appears structurally similar to, but systematically brighter than the ground truth. This is perhaps due to the unconstrained intensity factor \(k\), which likely compensated for the higher albedo, allowing the beauty to have the correct final brightness. This therefore has minimal impact on the final beauty render, despite contributing a lot to a large albedo L1 error.
         </p>
         <p>
-            In terms of surface normals, the color map renders seem pretty accurate, though with some small inaccuracies and some noise, which likely explain the 20° average error. This is still a pretty significant error, so this may be a relevant aspect to investigate and try to improve in the future.
+            In terms of surface normals, the color map renders seem pretty accurate, though with some small inaccuracies and some noise, which likely explain the 21.74&deg; average error. This is still a pretty significant error, so this may be a relevant aspect to investigate and try to improve in the future.
         </p>
 
         <section>

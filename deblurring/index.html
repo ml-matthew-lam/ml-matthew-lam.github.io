@@ -112,10 +112,10 @@
                 Esaulov and Esfahani <a href="#ref3">[3]</a>, who found that the NAFNet outperformed the model with GELU, but I was curious to run a similar experiment myself.
             </p>
             <p>
-                Thus, I built two versions of U-Net architectures, and trained them as described below :
+                Thus, I trained 3 different models as described below:
             </p>
             <ol>
-                <li>One of my models has a non-linear-activation-free architecture, and is trained over 600 epochs. I'll call this my <strong>600-epoch NAF model</strong>.</li>
+                <li>One of my models has a nonlinear-activation-free architecture, and is trained over 600 epochs. I'll call this my <strong>600-epoch NAF model</strong>.</li>
                 <li>I also trained a model with the same architecture as the 600-epoch NAF model, but over only 200 epochs instead. I'll call this my <strong>200-epoch NAF model</strong>.</li>
                 <li>My final model, which I'll call my <strong>200-epoch GELU model</strong>, is identical to the others, except that all SimpleGate are replaced with GELU activations. 
                     I trained this model over 200 epochs so it could be compared to the 200-epoch NAF model.</li>
@@ -124,7 +124,7 @@
 
         <section>
             <h2>Architecture Design</h2>
-            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-net architectures from L. Chen et al. <a href="#ref2">[2]</a> 
+            <p>Below is the U-Net architecture that I designed and implemented with PyTorch. It is based on the U-Net architectures from L. Chen et al. <a href="#ref2">[2]</a> 
                 and Ronneberger et al. <a href="#ref4">[4]</a>.</p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="u_net_architecture.png" alt="U-Net Architecture Diagram" style="max-width: 100%; height: auto; border-radius: 8px;" />
@@ -173,7 +173,7 @@
             <p>
                 I tested a few combinations of different batch sizes and learning rates. After some short trial runs, I chose a batch size of 64. For the 600-epoch NAF model, I used the following learning rate schedule: 
                 a linearly increasing "warm-up" for the first 10 epochs, peaking at learning rate 0.0002, then a slow linear decrease to 0.0001, then cosine annealing for the last 100 epochs. Note that I made an error in the scheduling code for that run,
-                which made the final cosine annealing start back up at 0.0002 instead of continuing smoothly from 0.0001. Despite this, I was will able to complete the training on this (unintentional) schedule. For the 200-epoch NAF model and the 200-epoch GELU model, 
+                which made the final cosine annealing start back up at 0.0002 instead of continuing smoothly from 0.0001. Despite this, I was still able to complete the training on this (unintentional) schedule. For the 200-epoch NAF model and the 200-epoch GELU model, 
                 I used the following schedule: the same 10-epoch increasing linear "warm-up" peaking at learning rate 0.0002, immediately followed by cosine annealing over the remaining 190 epochs.
             </p>
         </section>
@@ -193,7 +193,7 @@
                 </tr>
                 
                 <tr>
-                    <td>NAF model (500 epochs)</td>
+                    <td>NAF model (600 epochs)</td>
                     <td>0.8652</td>
                     <td>28.46</td>
                 </tr>
@@ -202,22 +202,22 @@
                     <td>0.8318</td>
                     <td>27.18</td>
                 </tr>
-                               <tr>
+                <tr>
                     <td>GELU model (200 epochs)</td>
                     <td>0.8088</td>
                     <td>26.43</td>
+                </tr>
                 <tr>
                     <td>Unprocessed inputs</td>
                     <td>0.7733</td>
                     <td>25.61</td>
                 </tr>
-                </tr>
             </table>
             <p>
                 I also logged the SSIM and PSNR achieved on the validation set at the end of each epoch. As shown by the graphs below, the 200-epoch NAF model was generally able to learn faster than the 200-epoch GELU model throughout training. 
-                We also see how the additional training allowed the 600-epoch NAF model to significantly surpass the 200-epoch models. On a sidenote, the small dip at epoch 400 is the result of an unintentional jump in learning rate at this point, due to an error in my
+                We also see how the additional training allowed the 600-epoch NAF model to significantly surpass the 200-epoch models. On a side note, the small dip at epoch 400 is the result of an unintentional jump in learning rate at this point, due to an error in my
                 learning rate scheduling code.
-                (Note: all models experienced a very large increase SSIM and PSNR in the first epoch, so the first epoch is omitted in the graphs to make the comparison between models easier.)
+                (Note: all models experienced a very large increase in SSIM and PSNR in the first epoch, so the first epoch is omitted in the graphs to make the comparison between models easier.)
             </p>
             <div style="text-align: center; margin: 20px 0;">
                 <img src="validation_ssim.png" alt="validation ssim graph " style="max-width: 80%; height: auto; border-radius: 8px;" />
@@ -235,7 +235,7 @@
              <p>
                 Overall, the improvement in image quality compared to the inputs is definitely visible for all models, but is the most pronounced for the NAF models.
                 For some images, such as image B above, the improvement is less visually obvious. 
-                The differences between the outputs of the three models does not seem very obvious visually, but upon closer inspection, some differences are noticeable. Based on these differences,
+                The differences between the outputs of the three models do not seem very obvious visually, but upon closer inspection, some differences are noticeable. Based on these differences,
                 the 600-epoch NAF model appears the most accurate, followed by the 200-epoch NAF model, then the 200-epoch GELU model.
                 Despite noticeable improvement, the quality of outputs is still not the best, as outputs still appear noticeably blurred/distorted compared to the ground truth images. 
             </p>
@@ -245,7 +245,7 @@
         <section>
             <h2>Main Takeaways</h2>
             <p>
-                My 600-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by a +0.0919 increase in SSIM and +2.85 increase in PSNR, compared to the unprocessed inputs. 
+                My 600-epoch NAF model was still quite effective at deblurring images given its relatively small size, as demonstrated by a +0.0919 increase in SSIM and a +2.85 increase in PSNR, compared to the unprocessed inputs. 
                 However, other models presented in literature achieve much better performance. For example, the state-of-the-art NAFNet achieved 0.967 SSIM and 33.69 PSNR on GOPRO_Large <a href="#ref2">[2]</a>,
                 better than any of my models. This is likely because these models involve many times more parameters and compute (often measured in MACs - multiply-accumulate operations). For reference, the official original NAFNet has 67.8 M parameters <a href="#ref7">[7]</a> 
                 and 65 G MACs <a href="#ref2">[2]</a>,
@@ -255,7 +255,7 @@
             <p>
                 My results suggest that NAFNet-like models can be more effective at image restoration than architectures that replace SimpleGate with GELU. This is in agreement with the experiment done by Esaulov and Esfahani <a href="#ref3">[3]</a>.
                 However, it's important to note that my NAF model also involves more parameters and more compute compared to my GELU model. Namely, my NAF model has 1.73 M parameters and 3.99 G MACs
-                compared to 1.41 M parameters and 3.23 G MACs for my GELU model. Thus, it is still unclear architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
+                compared to 1.41 M parameters and 3.23 G MACs for my GELU model. Thus, it is still unclear which architecture is more effective <em>per parameter</em>, or <em>per unit of compute</em>.
                 This would be an important consideration for models used in edge devices, for example, where memory, compute, and/or energy are limited. Thus, an interesting experiment in the future would be to adjust my two architectures
                 so that they either have the same number of parameters, or the same number of MACs, then train them and compare their performance.
             </p>
