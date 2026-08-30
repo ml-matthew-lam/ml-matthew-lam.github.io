@@ -27,6 +27,39 @@
 </head>
 
 <body>
+  <div class="loading-screen" id="loading-screen">
+    <div class="loading-tilde">~</div>
+    <div class="loading-text">LOADING...</div>
+    <div class="loading-tilde">~</div>
+  </div>
+  <script>
+    (function () {
+      function hideLoadingScreen() {
+        var loader = document.getElementById('loading-screen');
+        if (loader) loader.classList.add('loaded');
+      }
+      function pageLoaded() {
+        return new Promise(function (resolve) {
+          if (document.readyState === 'complete') resolve();
+          else window.addEventListener('load', resolve);
+        });
+      }
+      function mathJaxReady() {
+        return new Promise(function (resolve) {
+          (function check() {
+            if (window.MathJax && MathJax.startup && MathJax.startup.promise) {
+              MathJax.startup.promise.then(resolve);
+            } else {
+              setTimeout(check, 50);
+            }
+          })();
+        });
+      }
+      Promise.all([pageLoaded(), mathJaxReady()]).then(hideLoadingScreen);
+      setTimeout(hideLoadingScreen, 5000);
+    })();
+  </script>
+
   <nav class="top-nav">
     <div class="nav-container">
       <div class="nav-logo">

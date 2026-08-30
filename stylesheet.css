@@ -412,3 +412,50 @@ table.custom-table th {
     margin: 0 auto;
   }
 }
+
+/* ==========================================================================
+   Loading Screen
+   ========================================================================== */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--color-bg);
+  font-family: 'Source Serif 4', Georgia, serif;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease-out, visibility 0.3s ease-out;
+}
+
+.loading-screen.loaded {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-screen .loading-tilde {
+  font-size: 28px;
+  color: var(--color-text);
+}
+
+.loading-screen .loading-text {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  background-image: linear-gradient(90deg, var(--color-link) 0%, var(--color-link-hover) 50%, var(--color-link) 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: loading-sweep 1.6s linear infinite;
+}
+
+@keyframes loading-sweep {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
