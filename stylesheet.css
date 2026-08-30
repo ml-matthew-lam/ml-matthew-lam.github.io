@@ -437,15 +437,14 @@ table.custom-table th {
   visibility: hidden;
 }
 
-.loading-screen .loading-tilde {
-  font-size: 28px;
+.loading-screen .loading-line {
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: 2px;
   color: var(--color-text);
 }
 
 .loading-screen .loading-text {
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: 2px;
   background-image: linear-gradient(90deg, var(--color-link) 0%, var(--color-link-hover) 50%, var(--color-link) 100%);
   background-size: 200% 100%;
   -webkit-background-clip: text;
